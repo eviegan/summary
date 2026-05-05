@@ -3,187 +3,146 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Spin Engagement Evolution</title>
+<title>Rewards Performance Dashboard</title>
 <style>
 :root{
-  --bg:#f4f7fb;
-  --ink:#111827;
-  --muted:#6b7280;
-  --card:#ffffff;
-  --line:#e5e7eb;
-  --green:#16a34a;
-  --green2:#22c55e;
-  --blue:#2563eb;
-  --orange:#f97316;
-  --purple:#7c3aed;
-  --red:#ef4444;
-  --shadow:0 24px 60px rgba(15,23,42,.14);
+  --bg:#f4f7fb;--ink:#111827;--muted:#6b7280;--card:#fff;--line:#e5e7eb;
+  --green:#16a34a;--green2:#22c55e;--blue:#2563eb;--orange:#f97316;--purple:#7c3aed;--red:#ef4444;
+  --shadow:0 22px 55px rgba(15,23,42,.13)
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  padding:34px;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 8% 6%,rgba(34,197,94,.18),transparent 28%),
-    radial-gradient(circle at 92% 10%,rgba(37,99,235,.16),transparent 30%),
-    radial-gradient(circle at 60% 94%,rgba(249,115,22,.15),transparent 34%),
-    linear-gradient(135deg,#f8fafc,#edf2f7);
-}
-.page{max-width:1280px;margin:0 auto}
-.hero{
-  display:grid;
-  grid-template-columns:1.25fr .75fr;
-  gap:22px;
-  margin-bottom:24px;
-}
-.panel,.country-card,.insight,.trend-panel{
-  background:rgba(255,255,255,.9);
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:32px;
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(16px);
-}
-.hero-main{padding:36px;position:relative;overflow:hidden}
-.hero-main:after{
-  content:"";
-  position:absolute;
-  width:280px;height:280px;border-radius:50%;
-  right:-100px;top:-100px;
-  background:linear-gradient(135deg,var(--blue),var(--green2));
-  opacity:.15;
-}
-.kicker{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 13px;border-radius:999px;background:#eff6ff;color:var(--blue);
-  font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;
-}
-.kicker:before{content:"";width:9px;height:9px;border-radius:99px;background:var(--blue)}
-h1{font-size:56px;line-height:.95;letter-spacing:-.065em;margin:18px 0 14px;max-width:820px;position:relative;z-index:2}
-.lead{font-size:16px;line-height:1.6;color:var(--muted);max-width:780px;margin:0;position:relative;z-index:2}
-.hero-side{padding:24px;display:grid;gap:14px}
-.side-stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px}
-.side-stat span{display:block;color:var(--muted);font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.06em}
-.side-stat b{display:block;font-size:34px;letter-spacing:-.05em;margin:5px 0 2px}.side-stat small{color:var(--muted);font-weight:700}
-.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}.country-card{padding:26px;position:relative;overflow:hidden}.country-card:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-86px;top:-86px;opacity:.15}.mx:after{background:var(--blue)}.br:after{background:var(--green)}
-.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px;position:relative;z-index:2}.country-title{font-size:30px;font-weight:950;letter-spacing:-.05em;margin:0}.country-sub{color:var(--muted);font-size:13px;font-weight:750;margin-top:4px}.tag{font-size:12px;font-weight:950;padding:8px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}.mx .tag{background:#eff6ff;color:var(--blue)}.br .tag{background:#ecfdf5;color:var(--green)}
-.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-bottom:24px;position:relative;z-index:2}.stage{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;min-height:132px}.stage-label{font-size:11px;font-weight:950;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.stage-value{font-size:38px;font-weight:950;letter-spacing:-.06em;margin:10px 0 4px}.stage small{color:var(--muted);font-weight:750}.arrow{font-weight:950;color:#94a3b8;font-size:22px}.launch .stage-value{color:var(--orange)}.optimized .stage-value{color:var(--green)}
-.delta-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;position:relative;z-index:2}.delta-box{border-radius:20px;padding:15px;background:#f8fafc;border:1px solid var(--line)}.delta-box span{font-size:11px;color:var(--muted);font-weight:950;text-transform:uppercase;letter-spacing:.06em}.delta-box b{display:block;font-size:25px;letter-spacing:-.04em;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}
-.progress-list{display:grid;gap:12px;position:relative;z-index:2}.progress-row{display:grid;grid-template-columns:120px 1fr 64px;gap:12px;align-items:center;font-size:13px;font-weight:850}.track{height:12px;background:#edf2f7;border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#93c5fd,var(--blue))}.br .fill{background:linear-gradient(90deg,#86efac,var(--green))}.launch-fill{background:linear-gradient(90deg,#fdba74,var(--orange))!important}.reward-fill{background:linear-gradient(90deg,#cbd5e1,#64748b)!important}
-.trend-panel{padding:26px;margin-bottom:22px}.section-title{font-size:25px;font-weight:950;letter-spacing:-.04em;margin:0 0 6px}.section-sub{color:var(--muted);font-size:14px;margin:0 0 22px}.trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.chart-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px}.chart-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}.chart-head b{font-size:18px}.chart-head span{font-size:12px;font-weight:950;color:var(--green);background:#ecfdf5;padding:6px 9px;border-radius:999px}.columns{display:grid;grid-template-columns:repeat(9,1fr);gap:9px;align-items:end;height:220px;border-bottom:1px solid var(--line);padding-top:14px}.col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px}.bar{width:100%;min-width:18px;border-radius:10px 10px 0 0;background:linear-gradient(180deg,#93c5fd,var(--blue));position:relative}.br-chart .bar{background:linear-gradient(180deg,#86efac,var(--green))}.reward .bar{background:linear-gradient(180deg,#cbd5e1,#64748b)}.launchbar .bar{background:linear-gradient(180deg,#fdba74,var(--orange))}.bar span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:950}.month{font-size:10px;color:var(--muted);font-weight:950;text-align:center}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.insight{padding:22px}.icon{width:44px;height:44px;border-radius:16px;background:#eff6ff;color:var(--blue);display:grid;place-items:center;font-size:20px;font-weight:950;margin-bottom:14px}.insight h3{font-size:18px;margin:0 0 8px;letter-spacing:-.03em}.insight p{font-size:14px;color:var(--muted);line-height:1.55;margin:0}.summary{margin-top:22px;background:#111827;color:#fff;border-radius:26px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:20px}.summary b{font-size:22px;letter-spacing:-.04em}.summary span{display:block;color:#cbd5e1;font-size:14px;line-height:1.55;margin-top:4px}.pill{background:#22c55e;color:#052e16;font-weight:950;border-radius:999px;padding:11px 15px;white-space:nowrap}
-@media(max-width:1120px){.hero,.country-grid,.trend-grid{grid-template-columns:1fr}.insights{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{text-align:center;transform:rotate(90deg)}.summary{display:block}.pill{display:inline-block;margin-top:16px}}
-@media(max-width:640px){body{padding:18px}h1{font-size:38px}.delta-row{grid-template-columns:1fr}.progress-row{grid-template-columns:90px 1fr 56px}.columns{gap:5px}.stage-value{font-size:32px}}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 6%,rgba(34,197,94,.18),transparent 28%),radial-gradient(circle at 92% 10%,rgba(37,99,235,.16),transparent 30%),linear-gradient(135deg,#f8fafc,#edf2f7)}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.sidebar{padding:26px 18px;background:rgba(255,255,255,.72);border-right:1px solid rgba(255,255,255,.9);backdrop-filter:blur(18px);position:sticky;top:0;height:100vh}.brand{font-weight:950;font-size:22px;letter-spacing:-.05em;margin:0 0 22px}.tab{width:100%;border:0;background:#fff;color:#475569;text-align:left;padding:15px 16px;border-radius:18px;font-weight:900;margin-bottom:10px;cursor:pointer;box-shadow:0 8px 20px rgba(15,23,42,.06)}.tab.active{background:#111827;color:#fff}.content{padding:34px}.page{max-width:1260px;margin:0 auto}.section{display:none}.section.active{display:block}.panel,.card,.insight,.trend-panel,.country-card{background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.9);border-radius:30px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-bottom:24px}.hero-main{padding:36px;position:relative;overflow:hidden}.kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:#eff6ff;color:var(--blue);font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}.kicker:before{content:"";width:9px;height:9px;border-radius:99px;background:var(--blue)}h1{font-size:52px;line-height:.95;letter-spacing:-.065em;margin:18px 0 14px}.lead{font-size:16px;line-height:1.6;color:var(--muted);max-width:780px;margin:0}.hero-side{padding:24px;display:grid;gap:14px}.side-stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px}.side-stat span{display:block;color:var(--muted);font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.06em}.side-stat b{display:block;font-size:32px;letter-spacing:-.05em;margin:5px 0 2px}.side-stat small{color:var(--muted);font-weight:700}.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}.country-card{padding:26px;position:relative;overflow:hidden}.country-card:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-86px;top:-86px;opacity:.15}.mx:after{background:var(--blue)}.br:after{background:var(--green)}.card-head{display:flex;justify-content:space-between;gap:16px;margin-bottom:22px;position:relative;z-index:2}.country-title{font-size:30px;font-weight:950;letter-spacing:-.05em;margin:0}.country-sub{color:var(--muted);font-size:13px;font-weight:750;margin-top:4px}.tag{font-size:12px;font-weight:950;padding:8px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}.mx .tag{background:#eff6ff;color:var(--blue)}.br .tag{background:#ecfdf5;color:var(--green)}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-bottom:24px;position:relative;z-index:2}.stage{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;min-height:132px}.stage-label{font-size:11px;font-weight:950;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.stage-value{font-size:36px;font-weight:950;letter-spacing:-.06em;margin:10px 0 4px}.stage small{color:var(--muted);font-weight:750}.arrow{font-weight:950;color:#94a3b8;font-size:22px}.launch .stage-value{color:var(--orange)}.optimized .stage-value{color:var(--green)}.delta-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;position:relative;z-index:2}.delta-box{border-radius:20px;padding:15px;background:#f8fafc;border:1px solid var(--line)}.delta-box span{font-size:11px;color:var(--muted);font-weight:950;text-transform:uppercase;letter-spacing:.06em}.delta-box b{display:block;font-size:25px;letter-spacing:-.04em;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.progress-list{display:grid;gap:12px;position:relative;z-index:2}.progress-row{display:grid;grid-template-columns:120px 1fr 64px;gap:12px;align-items:center;font-size:13px;font-weight:850}.track{height:12px;background:#edf2f7;border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#93c5fd,var(--blue))}.br .fill{background:linear-gradient(90deg,#86efac,var(--green))}.launch-fill{background:linear-gradient(90deg,#fdba74,var(--orange))!important}.reward-fill{background:linear-gradient(90deg,#cbd5e1,#64748b)!important}.trend-panel{padding:26px;margin-bottom:22px}.section-title{font-size:25px;font-weight:950;letter-spacing:-.04em;margin:0 0 6px}.section-sub{color:var(--muted);font-size:14px;margin:0 0 22px}.trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.chart-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px}.chart-head{display:flex;justify-content:space-between;margin-bottom:14px}.chart-head b{font-size:18px}.chart-head span{font-size:12px;font-weight:950;color:var(--green);background:#ecfdf5;padding:6px 9px;border-radius:999px}.columns{display:grid;grid-template-columns:repeat(9,1fr);gap:9px;align-items:end;height:220px;border-bottom:1px solid var(--line);padding-top:14px}.col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px}.bar{width:100%;min-width:18px;border-radius:10px 10px 0 0;background:linear-gradient(180deg,#93c5fd,var(--blue));position:relative}.br-chart .bar{background:linear-gradient(180deg,#86efac,var(--green))}.reward .bar{background:linear-gradient(180deg,#cbd5e1,#64748b)}.launchbar .bar{background:linear-gradient(180deg,#fdba74,var(--orange))}.bar span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:950}.month{font-size:10px;color:var(--muted);font-weight:950;text-align:center}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.insight{padding:22px}.icon{width:44px;height:44px;border-radius:16px;background:#eff6ff;color:var(--blue);display:grid;place-items:center;font-size:20px;font-weight:950;margin-bottom:14px}.insight h3{font-size:18px;margin:0 0 8px;letter-spacing:-.03em}.insight p{font-size:14px;color:var(--muted);line-height:1.55;margin:0}.summary{margin-top:22px;background:#111827;color:#fff;border-radius:26px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:20px}.summary b{font-size:22px;letter-spacing:-.04em}.summary span{display:block;color:#cbd5e1;font-size:14px;line-height:1.55;margin-top:4px}.pill{background:#22c55e;color:#052e16;font-weight:950;border-radius:999px;padding:11px 15px;white-space:nowrap}
+.funnel-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}.funnel-card{padding:26px}.funnel{display:grid;gap:14px;margin-top:20px}.funnel-step{position:relative;border-radius:22px;padding:16px 18px;color:#fff;box-shadow:0 12px 28px rgba(15,23,42,.12)}.funnel-step:nth-child(1){width:100%;background:#334155}.funnel-step:nth-child(2){width:82%;background:var(--blue)}.br-funnel .funnel-step:nth-child(2){background:var(--green)}.funnel-step:nth-child(3){width:64%;background:var(--orange)}.funnel-step:nth-child(4){width:48%;background:var(--purple)}.funnel-step b{display:block;font-size:28px;letter-spacing:-.04em}.funnel-step span{font-size:12px;font-weight:950;text-transform:uppercase;opacity:.82}.rate-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.rate{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.rate span{font-size:11px;font-weight:950;color:var(--muted);text-transform:uppercase}.rate b{display:block;font-size:22px;letter-spacing:-.04em;margin-top:4px}.daily{display:grid;grid-template-columns:1fr 1fr;gap:22px}.daily-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px}.daily-bars{display:grid;gap:10px;margin-top:14px}.daily-row{display:grid;grid-template-columns:72px 1fr 58px;gap:10px;align-items:center;font-size:12px;font-weight:850}.small-note{color:var(--muted);font-size:13px;line-height:1.5;margin-top:10px}
+@media(max-width:1120px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;display:flex;gap:10px;overflow:auto}.brand{display:none}.tab{min-width:170px}.hero,.country-grid,.trend-grid,.funnel-grid,.daily{grid-template-columns:1fr}.insights{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{text-align:center;transform:rotate(90deg)}.summary{display:block}.pill{display:inline-block;margin-top:16px}.rate-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.content{padding:18px}h1{font-size:38px}.delta-row,.rate-grid{grid-template-columns:1fr}.progress-row{grid-template-columns:90px 1fr 56px}.columns{gap:5px}.stage-value{font-size:32px}}
 </style>
 </head>
 <body>
-<div class="page">
-  <section class="hero">
-    <div class="panel hero-main">
-      <div class="kicker">Rewards → Sweet Spin evolution</div>
-      <h1>Spin engagement improved after Sweet Spin optimization</h1>
-      <p class="lead">This meeting summary compares the current Rewards Spin Rate with Sweet Spin launch performance in 2025 and optimized performance in 2026. The main story: Mexico shows a strong uplift, while Brazil recovered but needs consistency work.</p>
-    </div>
-    <aside class="panel hero-side">
-      <div class="side-stat"><span>Mexico 2026 vs 2025 launch</span><b>+16.44 pts</b><small>77.31% → 93.75%</small></div>
-      <div class="side-stat"><span>Brazil 2026 vs 2025 launch</span><b>+10.38 pts</b><small>56.85% → 67.23%</small></div>
-      <div class="side-stat"><span>Current Rewards benchmark</span><b>MX 84.29%</b><small>BR current Rewards: 68.54%</small></div>
-    </aside>
-  </section>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Rewards Summary</div>
+    <button class="tab active" onclick="showTab('ticket',this)">🎟️ Ticket / Sweet Spin</button>
+    <button class="tab" onclick="showTab('stack',this)">🏆 Stack-Your-Gold</button>
+  </aside>
 
-  <section class="country-grid">
-    <article class="country-card mx">
-      <div class="card-head">
-        <div><h2 class="country-title">Mexico</h2><div class="country-sub">Strongest Sweet Spin optimization result</div></div>
-        <span class="tag">MX</span>
-      </div>
-      <div class="flow">
-        <div class="stage reward"><div class="stage-label">Rewards current</div><div class="stage-value">84.29%</div><small>29 Apr–03 May</small></div>
-        <div class="arrow">→</div>
-        <div class="stage launch"><div class="stage-label">Sweet Spin launch 2025</div><div class="stage-value">77.31%</div><small>Jun–Sep 2025</small></div>
-        <div class="arrow">→</div>
-        <div class="stage optimized"><div class="stage-label">Sweet Spin 2026</div><div class="stage-value">93.75%</div><small>Jan–Apr 2026</small></div>
-      </div>
-      <div class="delta-row">
-        <div class="delta-box"><span>Launch dip vs Rewards</span><b class="negative">-6.98 pts</b></div>
-        <div class="delta-box"><span>2026 lift vs launch</span><b class="positive">+16.44 pts</b></div>
-      </div>
-      <div class="progress-list">
-        <div class="progress-row"><span>Rewards</span><div class="track"><div class="fill reward-fill" style="width:84%"></div></div><span>84.29%</span></div>
-        <div class="progress-row"><span>Launch 2025</span><div class="track"><div class="fill launch-fill" style="width:77%"></div></div><span>77.31%</span></div>
-        <div class="progress-row"><span>2026</span><div class="track"><div class="fill" style="width:94%"></div></div><span>93.75%</span></div>
-      </div>
-    </article>
-
-    <article class="country-card br">
-      <div class="card-head">
-        <div><h2 class="country-title">Brazil</h2><div class="country-sub">Recovered after launch, but still volatile</div></div>
-        <span class="tag">BR</span>
-      </div>
-      <div class="flow">
-        <div class="stage reward"><div class="stage-label">Rewards current</div><div class="stage-value">68.54%</div><small>29 Apr–03 May</small></div>
-        <div class="arrow">→</div>
-        <div class="stage launch"><div class="stage-label">Sweet Spin launch 2025</div><div class="stage-value">56.85%</div><small>Jun–Sep 2025</small></div>
-        <div class="arrow">→</div>
-        <div class="stage optimized"><div class="stage-label">Sweet Spin 2026</div><div class="stage-value">67.23%</div><small>Jan–Apr 2026</small></div>
-      </div>
-      <div class="delta-row">
-        <div class="delta-box"><span>Launch dip vs Rewards</span><b class="negative">-11.69 pts</b></div>
-        <div class="delta-box"><span>2026 lift vs launch</span><b class="positive">+10.38 pts</b></div>
-      </div>
-      <div class="progress-list">
-        <div class="progress-row"><span>Rewards</span><div class="track"><div class="fill reward-fill" style="width:69%"></div></div><span>68.54%</span></div>
-        <div class="progress-row"><span>Launch 2025</span><div class="track"><div class="fill launch-fill" style="width:57%"></div></div><span>56.85%</span></div>
-        <div class="progress-row"><span>2026</span><div class="track"><div class="fill" style="width:67%"></div></div><span>67.23%</span></div>
-      </div>
-    </article>
-  </section>
-
-  <section class="trend-panel">
-    <h2 class="section-title">Monthly Spin Rate trend</h2>
-    <p class="section-sub">Grey = current Rewards benchmark, orange = Sweet Spin launch 2025, solid color = Sweet Spin 2026.</p>
-    <div class="trend-grid">
-      <div class="chart-card">
-        <div class="chart-head"><b>Mexico</b><span>2026 above both benchmarks</span></div>
-        <div class="columns">
-          <div class="col reward"><div class="bar" style="height:84%"><span>84%</span></div><div class="month">Rewards</div></div>
-          <div class="col launchbar"><div class="bar" style="height:66%"><span>66%</span></div><div class="month">Jun25</div></div>
-          <div class="col launchbar"><div class="bar" style="height:59%"><span>59%</span></div><div class="month">Jul25</div></div>
-          <div class="col launchbar"><div class="bar" style="height:90%"><span>90%</span></div><div class="month">Aug25</div></div>
-          <div class="col launchbar"><div class="bar" style="height:94%"><span>94%</span></div><div class="month">Sep25</div></div>
-          <div class="col"><div class="bar" style="height:96%"><span>96%</span></div><div class="month">Jan26</div></div>
-          <div class="col"><div class="bar" style="height:97%"><span>97%</span></div><div class="month">Feb26</div></div>
-          <div class="col"><div class="bar" style="height:92%"><span>92%</span></div><div class="month">Mar26</div></div>
-          <div class="col"><div class="bar" style="height:90%"><span>90%</span></div><div class="month">Apr26</div></div>
+  <main class="content">
+    <section id="ticket" class="section active page">
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="kicker">Rewards → Sweet Spin evolution</div>
+          <h1>Spin engagement improved after Sweet Spin optimization</h1>
+          <p class="lead">Comparison of current Rewards Spin Rate with Sweet Spin launch performance in 2025 and optimized performance in 2026.</p>
         </div>
-      </div>
-      <div class="chart-card br-chart">
-        <div class="chart-head"><b>Brazil</b><span>Recovered, but not ahead of Rewards</span></div>
-        <div class="columns">
-          <div class="col reward"><div class="bar" style="height:69%"><span>69%</span></div><div class="month">Rewards</div></div>
-          <div class="col launchbar"><div class="bar" style="height:62%"><span>62%</span></div><div class="month">Jun25</div></div>
-          <div class="col launchbar"><div class="bar" style="height:21%"><span>21%</span></div><div class="month">Jul25</div></div>
-          <div class="col launchbar"><div class="bar" style="height:74%"><span>74%</span></div><div class="month">Aug25</div></div>
-          <div class="col launchbar"><div class="bar" style="height:71%"><span>71%</span></div><div class="month">Sep25</div></div>
-          <div class="col"><div class="bar" style="height:67%"><span>67%</span></div><div class="month">Jan26</div></div>
-          <div class="col"><div class="bar" style="height:78%"><span>78%</span></div><div class="month">Feb26</div></div>
-          <div class="col"><div class="bar" style="height:66%"><span>66%</span></div><div class="month">Mar26</div></div>
-          <div class="col"><div class="bar" style="height:57%"><span>57%</span></div><div class="month">Apr26</div></div>
+        <aside class="panel hero-side">
+          <div class="side-stat"><span>Mexico 2026 vs 2025 launch</span><b>+16.44 pts</b><small>77.31% → 93.75%</small></div>
+          <div class="side-stat"><span>Brazil 2026 vs 2025 launch</span><b>+10.38 pts</b><small>56.85% → 67.23%</small></div>
+          <div class="side-stat"><span>Current Rewards benchmark</span><b>MX 84.29%</b><small>BR current Rewards: 68.54%</small></div>
+        </aside>
+      </section>
+
+      <section class="country-grid">
+        <article class="country-card mx">
+          <div class="card-head"><div><h2 class="country-title">Mexico</h2><div class="country-sub">Strongest Sweet Spin optimization result</div></div><span class="tag">MX</span></div>
+          <div class="flow"><div class="stage reward"><div class="stage-label">Rewards current</div><div class="stage-value">84.29%</div><small>29 Apr–03 May</small></div><div class="arrow">→</div><div class="stage launch"><div class="stage-label">Sweet Spin launch 2025</div><div class="stage-value">77.31%</div><small>Jun–Sep 2025</small></div><div class="arrow">→</div><div class="stage optimized"><div class="stage-label">Sweet Spin 2026</div><div class="stage-value">93.75%</div><small>Jan–Apr 2026</small></div></div>
+          <div class="delta-row"><div class="delta-box"><span>Launch dip vs Rewards</span><b class="negative">-6.98 pts</b></div><div class="delta-box"><span>2026 lift vs launch</span><b class="positive">+16.44 pts</b></div></div>
+        </article>
+        <article class="country-card br">
+          <div class="card-head"><div><h2 class="country-title">Brazil</h2><div class="country-sub">Recovered after launch, but still volatile</div></div><span class="tag">BR</span></div>
+          <div class="flow"><div class="stage reward"><div class="stage-label">Rewards current</div><div class="stage-value">68.54%</div><small>29 Apr–03 May</small></div><div class="arrow">→</div><div class="stage launch"><div class="stage-label">Sweet Spin launch 2025</div><div class="stage-value">56.85%</div><small>Jun–Sep 2025</small></div><div class="arrow">→</div><div class="stage optimized"><div class="stage-label">Sweet Spin 2026</div><div class="stage-value">67.23%</div><small>Jan–Apr 2026</small></div></div>
+          <div class="delta-row"><div class="delta-box"><span>Launch dip vs Rewards</span><b class="negative">-11.69 pts</b></div><div class="delta-box"><span>2026 lift vs launch</span><b class="positive">+10.38 pts</b></div></div>
+        </article>
+      </section>
+
+      <section class="summary"><div><b>Ticket / Sweet Spin summary</b><span>Sweet Spin had launch friction in 2025, but 2026 optimization shows clear improvement, especially in Mexico. Brazil recovered but requires tuning to consistently beat Rewards.</span></div><div class="pill">Positive optimized impact</div></section>
+    </section>
+
+    <section id="stack" class="section page">
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="kicker">Stack-Your-Gold · Daily Challenge</div>
+          <h1>Brazil completes deeper; Mexico drops early</h1>
+          <p class="lead">The best way to evaluate Stack-Your-Gold is as a funnel: Total Unique Deposit → Tier 1 → Tier 2 → Tier 3. Tier 3 completion alone is useful, but the funnel shows exactly where users drop.</p>
         </div>
-      </div>
-    </div>
-  </section>
+        <aside class="panel hero-side">
+          <div class="side-stat"><span>BR final completion</span><b>10.66%</b><small>39 Tier 3 / 366 deposits</small></div>
+          <div class="side-stat"><span>MX final completion</span><b>2.09%</b><small>8 Tier 3 / 382 deposits</small></div>
+          <div class="side-stat"><span>Gap</span><b>+8.57 pts</b><small>Brazil vs Mexico Tier 3 completion</small></div>
+        </aside>
+      </section>
 
-  <section class="insights">
-    <div class="insight"><div class="icon">1</div><h3>Mexico is the clear success case</h3><p>Mexico moved from 77.31% during launch to 93.75% in 2026, outperforming the current Rewards benchmark of 84.29%.</p></div>
-    <div class="insight"><div class="icon">2</div><h3>Brazil recovered but needs consistency</h3><p>Brazil improved from 56.85% to 67.23%, but this is still slightly below the current Rewards benchmark of 68.54%.</p></div>
-    <div class="insight"><div class="icon">3</div><h3>Recommended meeting message</h3><p>Sweet Spin can drive stronger engagement, but market execution matters. Use Mexico as the playbook and investigate Brazil’s April softness.</p></div>
-  </section>
+      <section class="funnel-grid">
+        <article class="panel funnel-card br-funnel">
+          <div class="card-head"><div><h2 class="country-title">Brazil Funnel</h2><div class="country-sub">29 Apr–03 May · Stack-Your-Gold</div></div><span class="tag" style="background:#ecfdf5;color:#16a34a">BR</span></div>
+          <div class="funnel">
+            <div class="funnel-step"><span>Total Unique Deposit</span><b>366</b></div>
+            <div class="funnel-step"><span>Tier 1 completed</span><b>145</b></div>
+            <div class="funnel-step"><span>Tier 2 completed</span><b>79</b></div>
+            <div class="funnel-step"><span>Tier 3 completed</span><b>39</b></div>
+          </div>
+          <div class="rate-grid">
+            <div class="rate"><span>Entry rate</span><b>39.62%</b></div>
+            <div class="rate"><span>T1 → T2</span><b>54.48%</b></div>
+            <div class="rate"><span>T2 → T3</span><b>49.37%</b></div>
+            <div class="rate"><span>Final</span><b>10.66%</b></div>
+          </div>
+        </article>
 
-  <section class="summary">
-    <div><b>Executive summary</b><span>Sweet Spin had launch friction in 2025, but 2026 optimization shows strong improvement, especially in Mexico. Brazil shows recovery but requires further tuning to consistently beat the Rewards benchmark.</span></div>
-    <div class="pill">Sweet Spin optimized impact</div>
-  </section>
+        <article class="panel funnel-card mx">
+          <div class="card-head"><div><h2 class="country-title">Mexico Funnel</h2><div class="country-sub">29 Apr–03 May · Stack-Your-Gold</div></div><span class="tag">MX</span></div>
+          <div class="funnel">
+            <div class="funnel-step"><span>Total Unique Deposit</span><b>382</b></div>
+            <div class="funnel-step"><span>Tier 1 completed</span><b>105</b></div>
+            <div class="funnel-step"><span>Tier 2 completed</span><b>29</b></div>
+            <div class="funnel-step"><span>Tier 3 completed</span><b>8</b></div>
+          </div>
+          <div class="rate-grid">
+            <div class="rate"><span>Entry rate</span><b>27.49%</b></div>
+            <div class="rate"><span>T1 → T2</span><b>27.62%</b></div>
+            <div class="rate"><span>T2 → T3</span><b>27.59%</b></div>
+            <div class="rate"><span>Final</span><b>2.09%</b></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="trend-panel">
+        <h2 class="section-title">Daily Tier 3 completion rate</h2>
+        <p class="section-sub">This is Tier 3 completed users divided by Total Unique Deposit per day.</p>
+        <div class="daily">
+          <div class="daily-card br-chart"><div class="chart-head"><b>Brazil</b><span>Improving trend</span></div><div class="daily-bars">
+            <div class="daily-row"><span>29 Apr</span><div class="track"><div class="fill" style="width:30%"></div></div><span>5.19%</span></div>
+            <div class="daily-row"><span>30 Apr</span><div class="track"><div class="fill" style="width:67%"></div></div><span>11.76%</span></div>
+            <div class="daily-row"><span>01 May</span><div class="track"><div class="fill" style="width:53%"></div></div><span>9.21%</span></div>
+            <div class="daily-row"><span>02 May</span><div class="track"><div class="fill" style="width:62%"></div></div><span>10.77%</span></div>
+            <div class="daily-row"><span>03 May</span><div class="track"><div class="fill" style="width:100%"></div></div><span>17.46%</span></div>
+          </div></div>
+          <div class="daily-card"><div class="chart-head"><b>Mexico</b><span>Low conversion</span></div><div class="daily-bars">
+            <div class="daily-row"><span>29 Apr</span><div class="track"><div class="fill" style="width:26%"></div></div><span>1.25%</span></div>
+            <div class="daily-row"><span>30 Apr</span><div class="track"><div class="fill" style="width:20%"></div></div><span>0.97%</span></div>
+            <div class="daily-row"><span>01 May</span><div class="track"><div class="fill" style="width:30%"></div></div><span>1.43%</span></div>
+            <div class="daily-row"><span>02 May</span><div class="track"><div class="fill" style="width:62%"></div></div><span>2.99%</span></div>
+            <div class="daily-row"><span>03 May</span><div class="track"><div class="fill" style="width:100%"></div></div><span>4.84%</span></div>
+          </div></div>
+        </div>
+      </section>
+
+      <section class="insights">
+        <div class="insight"><div class="icon">1</div><h3>Brazil has stronger challenge depth</h3><p>Brazil converts 39.62% of depositors into Tier 1 and 10.66% into Tier 3, showing healthier progression through the challenge.</p></div>
+        <div class="insight"><div class="icon">2</div><h3>Mexico problem starts at Tier 1</h3><p>Mexico entry rate is only 27.49%, and progression from Tier 1 to Tier 2 is also low at 27.62%, suggesting the challenge may feel too difficult or not attractive enough.</p></div>
+        <div class="insight"><div class="icon">3</div><h3>Most suitable comparison</h3><p>Compare the full funnel, not only Tier 3: Entry Rate, Tier 1→2 progression, Tier 2→3 progression, and Final Tier 3 Completion.</p></div>
+      </section>
+
+      <section class="summary"><div><b>Stack-Your-Gold executive summary</b><span>Brazil is outperforming Mexico across every funnel stage. Mexico needs improvement at the first step and mid-funnel, while Brazil should focus on maintaining the strong 03 May completion spike.</span></div><div class="pill">BR stronger funnel</div></section>
+    </section>
+  </main>
 </div>
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
 </body>
 </html>
