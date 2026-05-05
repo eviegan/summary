@@ -24,6 +24,8 @@
     <div class="brand">Rewards Summary</div>
     <button class="tab active" onclick="showTab('ticket',this)">🎟️ Ticket / Sweet Spin</button>
     <button class="tab" onclick="showTab('stack',this)">🏆 Stack-Your-Gold</button>
+    <button class="tab" onclick="showTab('strike',this)">⚡ Strike Challenge</button>
+    <button class="tab" onclick="showTab('marathon',this)">🏁 Golden Marathon</button>
   </aside>
 
   <main class="content">
@@ -61,19 +63,19 @@
       <section class="hero">
         <div class="panel hero-main">
           <div class="kicker">Stack-Your-Gold · Daily Challenge</div>
-          <h1>Brazil completes deeper; Mexico drops early</h1>
-          <p class="lead">The best way to evaluate Stack-Your-Gold is as a funnel: Total Unique Deposit → Tier 1 → Tier 2 → Tier 3. Tier 3 completion alone is useful, but the funnel shows exactly where users drop.</p>
+          <h1>Brazil shows stronger daily participation depth</h1>
+          <p class="lead">Stack-Your-Gold is measured as a daily participation funnel: Total Unique Deposit → Tier 1 → Tier 2 → Tier 3. Important: players can participate again on another day, so this is activity-based, not a true unique-user journey.</p>
         </div>
         <aside class="panel hero-side">
-          <div class="side-stat"><span>BR final completion</span><b>10.66%</b><small>39 Tier 3 / 366 deposits</small></div>
-          <div class="side-stat"><span>MX final completion</span><b>2.09%</b><small>8 Tier 3 / 382 deposits</small></div>
-          <div class="side-stat"><span>Gap</span><b>+8.57 pts</b><small>Brazil vs Mexico Tier 3 completion</small></div>
+          <div class="side-stat"><span>BR activity completion</span><b>10.66%</b><small>39 Tier 3 completions / 366 daily deposits</small></div>
+          <div class="side-stat"><span>MX activity completion</span><b>2.09%</b><small>8 Tier 3 completions / 382 daily deposits</small></div>
+          <div class="side-stat"><span>Important note</span><b>Daily-based</b><small>Players may appear again on following days</small></div>
         </aside>
       </section>
 
       <section class="funnel-grid">
         <article class="panel funnel-card br-funnel">
-          <div class="card-head"><div><h2 class="country-title">Brazil Funnel</h2><div class="country-sub">29 Apr–03 May · Stack-Your-Gold</div></div><span class="tag" style="background:#ecfdf5;color:#16a34a">BR</span></div>
+          <div class="card-head"><div><h2 class="country-title">Brazil Daily Participation Funnel</h2><div class="country-sub">29 Apr–03 May · Stack-Your-Gold</div></div><span class="tag" style="background:#ecfdf5;color:#16a34a">BR</span></div>
           <div class="funnel">
             <div class="funnel-step"><span>Total Unique Deposit</span><b>366</b></div>
             <div class="funnel-step"><span>Tier 1 completed</span><b>145</b></div>
@@ -89,7 +91,7 @@
         </article>
 
         <article class="panel funnel-card mx">
-          <div class="card-head"><div><h2 class="country-title">Mexico Funnel</h2><div class="country-sub">29 Apr–03 May · Stack-Your-Gold</div></div><span class="tag">MX</span></div>
+          <div class="card-head"><div><h2 class="country-title">Mexico Daily Participation Funnel</h2><div class="country-sub">29 Apr–03 May · Stack-Your-Gold</div></div><span class="tag">MX</span></div>
           <div class="funnel">
             <div class="funnel-step"><span>Total Unique Deposit</span><b>382</b></div>
             <div class="funnel-step"><span>Tier 1 completed</span><b>105</b></div>
@@ -127,12 +129,151 @@
       </section>
 
       <section class="insights">
-        <div class="insight"><div class="icon">1</div><h3>Brazil has stronger challenge depth</h3><p>Brazil converts 39.62% of depositors into Tier 1 and 10.66% into Tier 3, showing healthier progression through the challenge.</p></div>
-        <div class="insight"><div class="icon">2</div><h3>Mexico problem starts at Tier 1</h3><p>Mexico entry rate is only 27.49%, and progression from Tier 1 to Tier 2 is also low at 27.62%, suggesting the challenge may feel too difficult or not attractive enough.</p></div>
-        <div class="insight"><div class="icon">3</div><h3>Most suitable comparison</h3><p>Compare the full funnel, not only Tier 3: Entry Rate, Tier 1→2 progression, Tier 2→3 progression, and Final Tier 3 Completion.</p></div>
+        <div class="insight"><div class="icon">1</div><h3>Brazil has stronger activity depth</h3><p>Brazil shows higher daily participation from Tier 1 to Tier 3. Because players can repeat across days, describe this as activity depth, not unique-user conversion.</p></div>
+        <div class="insight"><div class="icon">2</div><h3>Mexico drops earlier</h3><p>Mexico has lower entry rate and weaker Tier 1 → Tier 2 movement, suggesting the challenge may need clearer visibility, easier early requirement, or stronger reward communication.</p></div>
+        <div class="insight"><div class="icon">3</div><h3>Most suitable comparison</h3><p>Use four metrics: Entry Rate, Tier 1→2 progression, Tier 2→3 progression, and Final Completion Rate. Avoid summing as unique users unless player IDs are deduplicated.</p></div>
       </section>
 
-      <section class="summary"><div><b>Stack-Your-Gold executive summary</b><span>Brazil is outperforming Mexico across every funnel stage. Mexico needs improvement at the first step and mid-funnel, while Brazil should focus on maintaining the strong 03 May completion spike.</span></div><div class="pill">BR stronger funnel</div></section>
+      <section class="summary"><div><b>Stack-Your-Gold executive summary</b><span>Brazil is outperforming Mexico across every daily activity stage. Since users can participate repeatedly, this should be presented as a daily participation funnel rather than a true unique-player funnel.</span></div><div class="pill">BR stronger activity depth</div></section>
+    </section>
+
+    <section id="strike" class="section page">
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="kicker">Strike Challenge · 7-day deposit mission</div>
+          <h1>Early completion is stronger in Brazil</h1>
+          <p class="lead">Strike Challenge started on 29/04. Players need to deposit on any 5 days within the 7-day window to receive rewards. This metric is true unique-player completion, so it is cleaner than Stack-Your-Gold daily activity data.</p>
+        </div>
+        <aside class="panel hero-side">
+          <div class="side-stat"><span>Brazil completed players</span><b>20</b><small>16 on 03/05 + 4 on 04/05</small></div>
+          <div class="side-stat"><span>Mexico completed players</span><b>14</b><small>5 on 03/05 + 9 on 04/05</small></div>
+          <div class="side-stat"><span>Completion gap</span><b>BR +6</b><small>Brazil has more completed unique players so far</small></div>
+        </aside>
+      </section>
+
+      <section class="country-grid">
+        <article class="country-card br">
+          <div class="card-head"><div><h2 class="country-title">Brazil</h2><div class="country-sub">Unique players who completed 5 deposit days</div></div><span class="tag">BR</span></div>
+          <div class="rate-grid">
+            <div class="rate"><span>03 May</span><b>16</b></div>
+            <div class="rate"><span>04 May</span><b>4</b></div>
+            <div class="rate"><span>Total so far</span><b>20</b></div>
+            <div class="rate"><span>Share of total</span><b>58.8%</b></div>
+          </div>
+          <div class="daily-bars" style="margin-top:22px">
+            <div class="daily-row"><span>03 May</span><div class="track"><div class="fill" style="width:100%"></div></div><span>16</span></div>
+            <div class="daily-row"><span>04 May</span><div class="track"><div class="fill" style="width:25%"></div></div><span>4</span></div>
+          </div>
+          <p class="small-note">Brazil had a strong first completion wave on 03/05, meaning more players reached the 5-deposit requirement as soon as they became eligible.</p>
+        </article>
+
+        <article class="country-card mx">
+          <div class="card-head"><div><h2 class="country-title">Mexico</h2><div class="country-sub">Unique players who completed 5 deposit days</div></div><span class="tag">MX</span></div>
+          <div class="rate-grid">
+            <div class="rate"><span>03 May</span><b>5</b></div>
+            <div class="rate"><span>04 May</span><b>9</b></div>
+            <div class="rate"><span>Total so far</span><b>14</b></div>
+            <div class="rate"><span>Share of total</span><b>41.2%</b></div>
+          </div>
+          <div class="daily-bars" style="margin-top:22px">
+            <div class="daily-row"><span>03 May</span><div class="track"><div class="fill" style="width:56%"></div></div><span>5</span></div>
+            <div class="daily-row"><span>04 May</span><div class="track"><div class="fill" style="width:100%"></div></div><span>9</span></div>
+          </div>
+          <p class="small-note">Mexico completed later than Brazil, with higher completion on 04/05. This may suggest slower progression rather than no interest.</p>
+        </article>
+      </section>
+
+      <section class="insights">
+        <div class="insight"><div class="icon">1</div><h3>What to compare</h3><p>Compare unique completed players by eligible day, cumulative completions, and completion rate once you have the eligible base.</p></div>
+        <div class="insight"><div class="icon">2</div><h3>Missing denominator</h3><p>To make this stronger, add how many players attempted or were eligible for Strike Challenge. Then calculate completion rate, not only completion count.</p></div>
+        <div class="insight"><div class="icon">3</div><h3>Current meeting message</h3><p>Brazil has more unique completions so far, while Mexico appears to complete later. Keep monitoring until the full 7-day window closes.</p></div>
+      </section>
+
+      <section class="summary"><div><b>Strike Challenge executive summary</b><span>Brazil leads current unique completions, but the analysis should remain provisional because the 7-day challenge window is still ongoing and the eligible-player base is not yet included.</span></div><div class="pill">Track until full 7 days</div></section>
+    </section>
+
+    <section id="marathon" class="section page">
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="kicker">Golden Marathon · 20K wagering mission</div>
+          <h1>Brazil drives more 20K achievers; Mexico is lower but active</h1>
+          <p class="lead">Golden Marathon measures players who achieved at least 20,000 wagering within the campaign window. This is a cleaner completion signal than daily activity funnels because it directly shows how many players reached the high-value target.</p>
+        </div>
+        <aside class="panel hero-side">
+          <div class="side-stat"><span>BR total 20K achievers</span><b>42</b><small>01 Apr–03 May</small></div>
+          <div class="side-stat"><span>MX total 20K achievers</span><b>30</b><small>01 Apr–03 May</small></div>
+          <div class="side-stat"><span>BR advantage</span><b>+12 players</b><small>40% more completions than MX</small></div>
+        </aside>
+      </section>
+
+      <section class="funnel-grid">
+        <article class="panel funnel-card br-funnel">
+          <div class="card-head"><div><h2 class="country-title">Brazil 20K Wagering</h2><div class="country-sub">Daily achievers · 01 Apr–03 May</div></div><span class="tag" style="background:#ecfdf5;color:#16a34a">BR</span></div>
+          <div class="rate-grid">
+            <div class="rate"><span>Total achievers</span><b>42</b></div>
+            <div class="rate"><span>Avg per day</span><b>1.27</b></div>
+            <div class="rate"><span>Active days</span><b>23 / 33</b></div>
+            <div class="rate"><span>Peak day</span><b>3</b></div>
+          </div>
+          <p class="small-note">Brazil has the stronger volume of high-value completion. The campaign repeatedly reaches 2–3 achievers per day, which indicates more stable high-wager participation.</p>
+        </article>
+
+        <article class="panel funnel-card mx">
+          <div class="card-head"><div><h2 class="country-title">Mexico 20K Wagering</h2><div class="country-sub">Daily achievers · 01 Apr–03 May</div></div><span class="tag">MX</span></div>
+          <div class="rate-grid">
+            <div class="rate"><span>Total achievers</span><b>30</b></div>
+            <div class="rate"><span>Avg per day</span><b>0.91</b></div>
+            <div class="rate"><span>Active days</span><b>23 / 33</b></div>
+            <div class="rate"><span>Peak day</span><b>3</b></div>
+          </div>
+          <p class="small-note">Mexico has similar active-day coverage, but lower achievers per day. This suggests users are participating, but fewer are reaching the 20K wagering threshold.</p>
+        </article>
+      </section>
+
+      <section class="trend-panel">
+        <h2 class="section-title">Daily 20K achievers trend</h2>
+        <p class="section-sub">Each bar shows how many players reached 20,000 wagering on that date.</p>
+        <div class="daily">
+          <div class="daily-card br-chart"><div class="chart-head"><b>Brazil</b><span>Higher volume</span></div><div class="daily-bars">
+            <div class="daily-row"><span>04/01</span><div class="track"><div class="fill" style="width:100%"></div></div><span>3</span></div>
+            <div class="daily-row"><span>04/02</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+            <div class="daily-row"><span>04/03</span><div class="track"><div class="fill" style="width:100%"></div></div><span>3</span></div>
+            <div class="daily-row"><span>04/06</span><div class="track"><div class="fill" style="width:100%"></div></div><span>3</span></div>
+            <div class="daily-row"><span>04/17</span><div class="track"><div class="fill" style="width:100%"></div></div><span>3</span></div>
+            <div class="daily-row"><span>05/01</span><div class="track"><div class="fill" style="width:100%"></div></div><span>3</span></div>
+            <div class="daily-row"><span>05/02</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+          </div><p class="small-note">Showing key active days only. Brazil’s peak of 3 achievers happens multiple times.</p></div>
+          <div class="daily-card"><div class="chart-head"><b>Mexico</b><span>Lower volume</span></div><div class="daily-bars">
+            <div class="daily-row"><span>04/01</span><div class="track"><div class="fill" style="width:33%"></div></div><span>1</span></div>
+            <div class="daily-row"><span>04/10</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+            <div class="daily-row"><span>04/15</span><div class="track"><div class="fill" style="width:100%"></div></div><span>3</span></div>
+            <div class="daily-row"><span>04/16</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+            <div class="daily-row"><span>04/17</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+            <div class="daily-row"><span>04/22</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+            <div class="daily-row"><span>04/26</span><div class="track"><div class="fill" style="width:67%"></div></div><span>2</span></div>
+          </div><p class="small-note">Mexico also reaches a peak of 3, but fewer total completions versus Brazil.</p></div>
+        </div>
+      </section>
+
+      <section class="trend-panel">
+        <h2 class="section-title">Golden Marathon interpretation</h2>
+        <p class="section-sub">Best comparison metrics for this campaign.</p>
+        <div class="rate-grid">
+          <div class="rate"><span>Volume KPI</span><b>Total 20K achievers</b></div>
+          <div class="rate"><span>Consistency KPI</span><b>Active days %</b></div>
+          <div class="rate"><span>Efficiency KPI</span><b>Completion rate</b></div>
+          <div class="rate"><span>Value KPI</span><b>Avg turnover / player</b></div>
+        </div>
+        <p class="small-note">For the strongest final summary, add eligible players or participants for each country. Then calculate: 20K completion rate = 20K achievers / eligible players.</p>
+      </section>
+
+      <section class="insights">
+        <div class="insight"><div class="icon">1</div><h3>Brazil wins on completion volume</h3><p>Brazil generated 42 players reaching 20K wagering, compared with Mexico’s 30. This is the clearest headline result for Golden Marathon.</p></div>
+        <div class="insight"><div class="icon">2</div><h3>Mexico has activity but lower depth</h3><p>Both markets have 23 active days with at least one achiever, but Mexico averages fewer achievers per day. This points to lower wagering depth rather than no activity.</p></div>
+        <div class="insight"><div class="icon">3</div><h3>Next metric to add</h3><p>Add eligible players or joined players to calculate a true completion rate. Without that base, compare completion volume and daily consistency.</p></div>
+      </section>
+
+      <section class="summary"><div><b>Golden Marathon executive summary</b><span>Brazil is currently stronger for high-value wagering completion, with 42 total 20K achievers versus Mexico’s 30. Mexico remains active but needs stronger push mechanics to move more players past the 20K threshold.</span></div><div class="pill">BR stronger 20K depth</div></section>
     </section>
   </main>
 </div>
