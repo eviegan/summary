@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rewards Lobby Performance Summary</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f6fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: auto;
+      padding: 28px 18px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #06122f, #1d4ed8);
+      color: #fff;
+      border-radius: 28px;
+      padding: 46px 32px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(15,23,42,.25);
+      margin-bottom: 26px;
+    }
+
+    .hero .tag {
+      display: inline-block;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.28);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 900px;
+      margin: auto;
+      font-size: 18px;
+      opacity: .95;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 28px rgba(15,23,42,.08);
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 20px;
+      color: #1d4ed8;
+      margin-bottom: 10px;
+    }
+
+    .note {
+      background: #fffbeb;
+      border-left: 7px solid #f59e0b;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 18px;
+      color: #78350f;
+    }
+
+    .blue-note {
+      background: #eff6ff;
+      border-left: 7px solid #2563eb;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 18px;
+      color: #1e3a8a;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    .before { border-top: 7px solid #64748b; }
+    .after { border-top: 7px solid #22c55e; }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .pill-before {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .pill-after {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .metric {
+      text-align: center;
+      background: linear-gradient(180deg, #fff, #f8fafc);
+      border: 1px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 24px 16px;
+    }
+
+    .metric .icon {
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+
+    .metric .num {
+      font-size: 36px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .metric .label {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .tab-label {
+      cursor: pointer;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 900;
+      background: #e5e7eb;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    input[type="radio"] { display: none; }
+
+    #tab-br:checked ~ .tabs label[for="tab-br"],
+    #tab-mx:checked ~ .tabs label[for="tab-mx"] {
+      background: #1d4ed8;
+      color: #fff;
+      border-color: #1d4ed8;
+    }
+
+    .tab-content { display: none; }
+
+    #tab-br:checked ~ .br-content,
+    #tab-mx:checked ~ .mx-content {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 14px;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    th {
+      background: #0f172a;
+      color: #fff;
+      padding: 12px;
+      text-align: center;
+    }
+
+    td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    .launch-row td { background: #f0fdf4 !important; }
+
+    .best {
+      background: #dcfce7 !important;
+      color: #15803d;
+      font-weight: 900;
+    }
+
+    .weak {
+      background: #fee2e2 !important;
+      color: #991b1b;
+      font-weight: 900;
+    }
+
+    .neutral {
+      background: #eff6ff !important;
+      color: #1d4ed8;
+      font-weight: 900;
+    }
+
+    .chart {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 65px;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-label {
+      font-weight: 900;
+      color: #334155;
+    }
+
+    .bar-bg {
+      height: 28px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #60a5fa, #2563eb);
+    }
+
+    .bar.after-bar {
+      background: linear-gradient(90deg, #86efac, #22c55e);
+    }
+
+    .bar-value {
+      font-weight: 900;
+      text-align: right;
+    }
+
+    .insight {
+      display: flex;
+      gap: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .insight .emoji {
+      font-size: 30px;
+    }
+
+    .conclusion {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: #fff;
+      border-radius: 28px;
+      padding: 42px 30px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(15,23,42,.22);
+    }
+
+    .conclusion h2 { color: #fff; }
+
+    .conclusion .big {
+      font-size: 44px;
+      font-weight: 900;
+      color: #86efac;
+      margin: 12px 0;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 { font-size: 32px; }
+
+      table { font-size: 12px; }
+
+      th, td { padding: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <section class="hero">
+    <div class="tag">BR & MX • Weekly Cashback + Daily Rakeback • Rewards Lobby</div>
+    <h1>Rewards Lobby Performance Summary</h1>
+    <p>
+      Summary of player login behaviour, Weekly Cashback claim performance, and Daily Rakeback redemption
+      after moving rewards into the Rewards Lobby.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Executive Summary</h2>
+    <p>
+      Before the Rewards Lobby launch, Weekly Cashback was automatically credited into player wallets at
+      <strong>8:00 PM local time</strong>. Since players did not need to manually claim the reward,
+      there was no meaningful claim-rate data before launch.
+    </p>
+
+    <p style="margin-top:12px;">
+      After the Rewards Lobby launch, Weekly Cashback became available at
+      <strong>10:00 AM local time</strong>. Players now need to manually claim the reward before expiry.
+      This created a measurable claim journey.
+    </p>
+
+    <p style="margin-top:12px;">
+      Daily Rakeback was also included in Rewards Lobby starting from <strong>29/04/2026</strong>.
+      Players receive rakeback based on same-day gameplay at <strong>23:59 local time</strong>,
+      and must redeem it within <strong>3 days</strong>.
+    </p>
+
+    <div class="note">
+      <strong>Important comparison rule:</strong>
+      Before Rewards Lobby, use login data only because cashback was auto-credited.
+      After Rewards Lobby, we can review both login data and claim/redemption behaviour.
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Reward Journey Change</h2>
+
+    <div class="grid-2">
+      <div class="card before">
+        <span class="pill pill-before">Before Rewards Lobby</span>
+        <h3>Auto Credit Model</h3>
+        <p><strong>Weekly Cashback time:</strong> 8:00 PM</p>
+        <p><strong>Player action:</strong> No action required</p>
+        <p><strong>Reward delivery:</strong> Auto-credited to wallet</p>
+        <p><strong>Claim %:</strong> Not available</p>
+        <p><strong>Measurement:</strong> Login activity only</p>
+      </div>
+
+      <div class="card after">
+        <span class="pill pill-after">After Rewards Lobby</span>
+        <h3>Manual Claim Model</h3>
+        <p><strong>Weekly Cashback time:</strong> 10:00 AM</p>
+        <p><strong>Daily Rakeback time:</strong> 23:59</p>
+        <p><strong>Player action:</strong> Must claim manually</p>
+        <p><strong>Reward delivery:</strong> Rewards Lobby claim</p>
+        <p><strong>Measurement:</strong> Login + claim behaviour</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Market View</h2>
+    <p>Select BR or MX to view each market summary.</p>
+
+    <input type="radio" name="tabs" id="tab-br" checked>
+    <input type="radio" name="tabs" id="tab-mx">
+
+    <div class="tabs">
+      <label class="tab-label" for="tab-br">🇧🇷 BR Summary</label>
+      <label class="tab-label" for="tab-mx">🇲🇽 MX Summary</label>
+    </div>
+
+    <!-- BR TAB -->
+    <div class="tab-content br-content">
+      <h2>BR Weekly Cashback Summary</h2>
+
+      <div class="grid-3">
+        <div class="metric">
+          <div class="icon">🌙</div>
+          <div class="num">41.3</div>
+          <div class="label">Avg 8PM logins before launch</div>
+        </div>
+        <div class="metric">
+          <div class="icon">🕙</div>
+          <div class="num">22.0</div>
+          <div class="label">Avg 10AM logins after launch</div>
+        </div>
+        <div class="metric">
+          <div class="icon">🎯</div>
+          <div class="num">39</div>
+          <div class="label">Highest 8PM login after launch</div>
+        </div>
+      </div>
+
+      <div class="blue-note">
+        BR continued to show strong 8PM login activity even after cashback availability moved to 10AM.
+        This suggests players still returned later in the day, while 10AM became the new reward claim starting point.
+      </div>
+
+      <h3 style="margin-top:28px;">BR Login Players</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Phase</th>
+            <th>10AM Login</th>
+            <th>8PM Login</th>
+            <th>Cashback Mechanism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>13/04</td>
+            <td><span class="pill pill-before">Before</span></td>
+            <td>30</td>
+            <td class="neutral">44</td>
+            <td>Auto credit at 8PM</td>
+          </tr>
+          <tr>
+            <td>20/04</td>
+            <td><span class="pill pill-before">Before</span></td>
+            <td>15</td>
+            <td class="best">47</td>
+            <td>Auto credit at 8PM</td>
+          </tr>
+          <tr>
+            <td>27/04</td>
+            <td><span class="pill pill-before">Before</span></td>
+            <td>16</td>
+            <td>33</td>
+            <td>Auto credit at 8PM</td>
+          </tr>
+          <tr class="launch-row">
+            <td>04/05</td>
+            <td><span class="pill pill-after">After</span></td>
+            <td class="neutral">25</td>
+            <td>38</td>
+            <td>Manual claim from 10AM</td>
+          </tr>
+          <tr class="launch-row">
+            <td>11/05</td>
+            <td><span class="pill pill-after">After</span></td>
+            <td>19</td>
+            <td class="neutral">39</td>
+            <td>Manual claim from 10AM</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:28px;">BR Weekly Cashback Claim Rate</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Metric</th>
+            <th>3%</th>
+            <th>4%</th>
+            <th>5%</th>
+            <th>6%</th>
+            <th>7%</th>
+            <th>8%</th>
+            <th>9%</th>
+            <th>10%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">1st Week</td>
+            <td>Entitled</td>
+            <td>38</td><td>14</td><td>9</td><td>5</td><td>4</td><td>10</td><td>-</td><td>1</td>
+          </tr>
+          <tr>
+            <td>Claim</td>
+            <td>11</td><td>12</td><td>9</td><td>3</td><td>4</td><td>7</td><td>-</td><td>1</td>
+          </tr>
+          <tr>
+            <td>Claim %</td>
+            <td>28.95%</td><td class="best">85.71%</td><td class="best">100%</td><td>60%</td><td class="best">100%</td><td>70%</td><td>0%</td><td class="best">100%</td>
+          </tr>
+          <tr>
+            <td rowspan="3">2nd Week</td>
+            <td>Entitled</td>
+            <td>23</td><td>24</td><td>7</td><td>2</td><td>9</td><td>10</td><td>-</td><td>-</td>
+          </tr>
+          <tr>
+            <td>Claim</td>
+            <td>8</td><td>6</td><td>4</td><td>1</td><td>4</td><td>7</td><td>-</td><td>-</td>
+          </tr>
+          <tr>
+            <td>Claim %</td>
+            <td>34.78%</td><td class="weak">25%</td><td>57.14%</td><td>50%</td><td>44.44%</td><td>70%</td><td>0%</td><td>0%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="insight">
+        <div class="emoji">🔍</div>
+        <div>
+          <h3>BR Weekly Cashback Insight</h3>
+          <p>
+            BR showed stronger claim performance in the 1st week, especially at 4%, 5%, 7%, 8%, and 10%.
+            In the 2nd week, claim rate softened in several tiers, while 8% remained stable at 70%.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:28px;">BR 8PM Login Trend</h3>
+      <div class="chart">
+        <div class="bar-row"><div class="bar-label">13/04</div><div class="bar-bg"><div class="bar" style="width:94%;"></div></div><div class="bar-value">44</div></div>
+        <div class="bar-row"><div class="bar-label">20/04</div><div class="bar-bg"><div class="bar" style="width:100%;"></div></div><div class="bar-value">47</div></div>
+        <div class="bar-row"><div class="bar-label">27/04</div><div class="bar-bg"><div class="bar" style="width:70%;"></div></div><div class="bar-value">33</div></div>
+        <div class="bar-row"><div class="bar-label">04/05</div><div class="bar-bg"><div class="bar after-bar" style="width:81%;"></div></div><div class="bar-value">38</div></div>
+        <div class="bar-row"><div class="bar-label">11/05</div><div class="bar-bg"><div class="bar after-bar" style="width:83%;"></div></div><div class="bar-value">39</div></div>
+      </div>
+    </div>
+
+    <!-- MX TAB -->
+    <div class="tab-content mx-content">
+      <h2>MX Weekly Cashback Summary</h2>
+
+      <div class="grid-3">
+        <div class="metric">
+          <div class="icon">🌙</div>
+          <div class="num">26.0</div>
+          <div class="label">Avg 8PM logins before launch</div>
+        </div>
+        <div class="metric">
+          <div class="icon">🕙</div>
+          <div class="num">15.0</div>
+          <div class="label">Avg 10AM logins after launch</div>
+        </div>
+        <div class="metric">
+          <div class="icon">🎯</div>
+          <div class="num">27</div>
+          <div class="label">Highest 8PM login after launch</div>
+        </div>
+      </div>
+
+      <div class="blue-note">
+        MX showed a smaller movement compared with BR. The 8PM login level remained relatively stable before
+        and immediately after launch, while 10AM login improved in the second post-launch week.
+      </div>
+
+      <h3 style="margin-top:28px;">MX Login Players</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Phase</th>
+            <th>10AM Login</th>
+            <th>8PM Login</th>
+            <th>Cashback Mechanism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>13/04</td>
+            <td><span class="pill pill-before">Before</span></td>
+            <td>10</td>
+            <td>26</td>
+            <td>Auto credit at 8PM</td>
+          </tr>
+          <tr>
+            <td>20/04</td>
+            <td><span class="pill pill-before">Before</span></td>
+            <td>9</td>
+            <td>26</td>
+            <td>Auto credit at 8PM</td>
+          </tr>
+          <tr>
+            <td>27/04</td>
+            <td><span class="pill pill-before">Before</span></td>
+            <td>6</td>
+            <td>26</td>
+            <td>Auto credit at 8PM</td>
+          </tr>
+          <tr class="launch-row">
+            <td>04/05</td>
+            <td><span class="pill pill-after">After</span></td>
+            <td>12</td>
+            <td class="best">27</td>
+            <td>Manual claim from 10AM</td>
+          </tr>
+          <tr class="launch-row">
+            <td>11/05</td>
+            <td><span class="pill pill-after">After</span></td>
+            <td class="neutral">18</td>
+            <td>22</td>
+            <td>Manual claim from 10AM</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:28px;">MX Weekly Cashback Claim Rate</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Metric</th>
+            <th>3%</th>
+            <th>4%</th>
+            <th>5%</th>
+            <th>6%</th>
+            <th>7%</th>
+            <th>8%</th>
+            <th>9%</th>
+            <th>10%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">1st Week</td>
+            <td>Entitled</td>
+            <td>100</td><td>26</td><td>5</td><td>-</td><td>5</td><td>2</td><td>-</td><td>-</td>
+          </tr>
+          <tr>
+            <td>Claim</td>
+            <td>69</td><td>22</td><td>2</td><td>-</td><td>4</td><td>1</td><td>-</td><td>-</td>
+          </tr>
+          <tr>
+            <td>Claim %</td>
+            <td>69%</td><td class="best">84.62%</td><td>40%</td><td>0%</td><td>80%</td><td>50%</td><td>0%</td><td>0%</td>
+          </tr>
+          <tr>
+            <td rowspan="3">2nd Week</td>
+            <td>Entitled</td>
+            <td>79</td><td>32</td><td>2</td><td>1</td><td>2</td><td>1</td><td>-</td><td>-</td>
+          </tr>
+          <tr>
+            <td>Claim</td>
+            <td>20</td><td>12</td><td>2</td><td>1</td><td>2</td><td>1</td><td>-</td><td>-</td>
+          </tr>
+          <tr>
+            <td>Claim %</td>
+            <td class="weak">25.32%</td><td>37.50%</td><td class="best">100%</td><td class="best">100%</td><td class="best">100%</td><td class="best">100%</td><td>0%</td><td>0%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="insight">
+        <div class="emoji">🔍</div>
+        <div>
+          <h3>MX Weekly Cashback Insight</h3>
+          <p>
+            MX had a strong 1st week claim rate at 3%, 4%, and 7%.
+            In the 2nd week, 3% and 4% dropped, but smaller higher-tier groups achieved 100% claim rate.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:28px;">MX 8PM Login Trend</h3>
+      <div class="chart">
+        <div class="bar-row"><div class="bar-label">13/04</div><div class="bar-bg"><div class="bar" style="width:96%;"></div></div><div class="bar-value">26</div></div>
+        <div class="bar-row"><div class="bar-label">20/04</div><div class="bar-bg"><div class="bar" style="width:96%;"></div></div><div class="bar-value">26</div></div>
+        <div class="bar-row"><div class="bar-label">27/04</div><div class="bar-bg"><div class="bar" style="width:96%;"></div></div><div class="bar-value">26</div></div>
+        <div class="bar-row"><div class="bar-label">04/05</div><div class="bar-bg"><div class="bar after-bar" style="width:100%;"></div></div><div class="bar-value">27</div></div>
+        <div class="bar-row"><div class="bar-label">11/05</div><div class="bar-bg"><div class="bar after-bar" style="width:81%;"></div></div><div class="bar-value">22</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Daily Rakeback Summary</h2>
+    <p>
+      Daily Rakeback was included in the Rewards Lobby starting from <strong>29/04/2026</strong>.
+      Players who play on the day will receive rakeback at <strong>23:59 local time</strong>.
+      They must manually redeem it from the Rewards Lobby before expiry.
+    </p>
+
+    <div class="note">
+      <strong>Daily Rakeback Rule:</strong>
+      Players need to claim the rakeback manually in Rewards Lobby. The reward expires within
+      <strong>3 days</strong> if not redeemed.
+    </div>
+
+    <div class="grid-2" style="margin-top:20px;">
+      <div class="card after">
+        <span class="pill pill-after">BR Daily Rakeback</span>
+        <h3>29/04/2026 – 11/05/2026</h3>
+
+        <div class="grid-3" style="margin-top:16px;">
+          <div class="metric">
+            <div class="icon">👥</div>
+            <div class="num">1,124</div>
+            <div class="label">Total Entitlement</div>
+          </div>
+          <div class="metric">
+            <div class="icon">🎁</div>
+            <div class="num">730</div>
+            <div class="label">Total Claim</div>
+          </div>
+          <div class="metric">
+            <div class="icon">📊</div>
+            <div class="num">64.95%</div>
+            <div class="label">Claim Rate</div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Entitlement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>29/04/2026</td><td>84</td></tr>
+            <tr><td>30/04/2026</td><td>108</td></tr>
+            <tr><td>01/05/2026</td><td>91</td></tr>
+            <tr><td>02/05/2026</td><td>83</td></tr>
+            <tr><td>03/05/2026</td><td>88</td></tr>
+            <tr><td>04/05/2026</td><td>93</td></tr>
+            <tr><td>05/05/2026</td><td>71</td></tr>
+            <tr><td>06/05/2026</td><td>72</td></tr>
+            <tr><td>07/05/2026</td><td>71</td></tr>
+            <tr><td>08/05/2026</td><td>97</td></tr>
+            <tr><td>09/05/2026</td><td>89</td></tr>
+            <tr><td>10/05/2026</td><td>91</td></tr>
+            <tr><td>11/05/2026</td><td>86</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card after">
+        <span class="pill pill-after">MX Daily Rakeback</span>
+        <h3>29/04/2026 – 11/05/2026</h3>
+
+        <div class="grid-3" style="margin-top:16px;">
+          <div class="metric">
+            <div class="icon">👥</div>
+            <div class="num">1,264</div>
+            <div class="label">Total Entitlement</div>
+          </div>
+          <div class="metric">
+            <div class="icon">🎁</div>
+            <div class="num">798</div>
+            <div class="label">Total Claim</div>
+          </div>
+          <div class="metric">
+            <div class="icon">📊</div>
+            <div class="num">63.13%</div>
+            <div class="label">Claim Rate</div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Entitlement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>29/04/2026</td><td>96</td></tr>
+            <tr><td>30/04/2026</td><td>121</td></tr>
+            <tr><td>01/05/2026</td><td>105</td></tr>
+            <tr><td>02/05/2026</td><td>86</td></tr>
+            <tr><td>03/05/2026</td><td>76</td></tr>
+            <tr><td>04/05/2026</td><td>88</td></tr>
+            <tr><td>05/05/2026</td><td>53</td></tr>
+            <tr><td>06/05/2026</td><td>79</td></tr>
+            <tr><td>07/05/2026</td><td>63</td></tr>
+            <tr><td>08/05/2026</td><td>96</td></tr>
+            <tr><td>09/05/2026</td><td>140</td></tr>
+            <tr><td>10/05/2026</td><td>140</td></tr>
+            <tr><td>11/05/2026</td><td>123</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">🎮</div>
+      <div>
+        <h3>Daily Rakeback Mechanism</h3>
+        <p>
+          Daily Rakeback is generated based on players’ gameplay activity on the same day.
+          The reward is issued at <strong>23:59</strong> and becomes available in the Rewards Lobby
+          for manual redemption.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">⏳</div>
+      <div>
+        <h3>Expiry Creates Urgency</h3>
+        <p>
+          Since the reward expires within 3 days, players are encouraged to return frequently
+          to check and redeem their rakeback before it expires.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">📊</div>
+      <div>
+        <h3>BR vs MX Daily Rakeback Performance</h3>
+        <p>
+          BR achieved a claim rate of <strong>64.95%</strong>, while MX achieved
+          <strong>63.13%</strong>. Both markets showed similar redemption behaviour,
+          with BR slightly higher by <strong>1.82 percentage points</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div class="blue-note">
+      <strong>Summary:</strong>
+      Daily Rakeback adds another recurring reason for players to visit Rewards Lobby.
+      Unlike Weekly Cashback, which is tied to a weekly cycle, Daily Rakeback creates daily reward visibility
+      and encourages players to return more frequently.
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Overall Findings</h2>
+
+    <div class="insight">
+      <div class="emoji">⏰</div>
+      <div>
+        <h3>Weekly Cashback timing changed from 8PM to 10AM</h3>
+        <p>
+          Before launch, players received cashback automatically at 8PM.
+          After launch, rewards became available at 10AM and required manual claiming before expiry.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">📊</div>
+      <div>
+        <h3>Pre-launch claim rate cannot be compared</h3>
+        <p>
+          Since cashback was auto-credited before launch, there was no manual claim action.
+          Login activity is the correct pre-launch engagement indicator.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">🎁</div>
+      <div>
+        <h3>Rewards Lobby created measurable reward behaviour</h3>
+        <p>
+          Both Weekly Cashback and Daily Rakeback now require player action, giving clearer data on entitlement,
+          claim, and redemption performance.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">🇧🇷</div>
+      <div>
+        <h3>BR showed stronger post-launch login activity</h3>
+        <p>
+          BR maintained strong 8PM traffic after launch, with 38 and 39 logins,
+          while 10AM became the new Weekly Cashback claim-start window.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="emoji">🇲🇽</div>
+      <div>
+        <h3>MX remained more stable but less aggressive</h3>
+        <p>
+          MX 8PM login was stable before launch at 26 logins, reached 27 on launch week,
+          then reduced to 22 in the second week.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="conclusion">
+    <h2>Final Conclusion</h2>
+    <div class="big">Rewards Lobby created a stronger and measurable reward journey</div>
+    <p>
+      The main impact of Rewards Lobby is the shift from passive reward delivery to active player participation.
+      Weekly Cashback changed from auto-credit at 8PM into manual claim from 10AM, while Daily Rakeback creates
+      daily return motivation through 23:59 reward issuance and 3-day expiry.
+    </p>
+  </section>
+
+</div>
+</body>
+</html>
