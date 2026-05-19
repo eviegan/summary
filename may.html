@@ -154,19 +154,34 @@
 
     .funnel {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(8, minmax(120px, 1fr));
+      gap: 10px;
+      align-items: stretch;
+      overflow-x: auto;
+      padding-bottom: 6px;
     }
 
     .funnel-row {
-      display: grid;
-      grid-template-columns: 190px 1fr 94px 96px;
-      gap: 14px;
-      align-items: center;
-      padding: 14px;
+      min-width: 125px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 16px;
       border: 1px solid var(--line);
-      border-radius: 18px;
       background: #fff;
+      position: relative;
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%);
+    }
+
+    .funnel-row:first-child {
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+    }
+
+    .funnel-row:last-child {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 18px 50%);
     }
 
     .stage-name {
@@ -182,7 +197,8 @@
     }
 
     .bar-track {
-      height: 18px;
+      width: 100%;
+      height: 8px;
       background: #f0ece2;
       border-radius: 999px;
       overflow: hidden;
@@ -197,17 +213,18 @@
 
     .bar.deposit { background: linear-gradient(90deg, #91d8a7, #1f9d55); }
     .bar.low { background: linear-gradient(90deg, #fbbf8c, #c2410c); }
+    .bar.pipeline { background: linear-gradient(90deg, #bfdbfe, #2f6fed); }
 
     .stage-count {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 800;
-      text-align: right;
+      text-align: left;
     }
 
     .stage-rate {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
-      text-align: right;
+      text-align: left;
       color: #6f4f00;
     }
 
@@ -379,7 +396,8 @@
         </div>
       </div>
 
-      <div class="grid-4">
+      <!-- KPI cards removed as requested -->
+      <div class="grid-4" style="display:none;">
         <div class="card"><div class="kpi-label">Total Entitled</div><div class="kpi-value">785</div><div class="kpi-note">New registered players eligible for the journey.</div></div>
         <div class="card"><div class="kpi-label">1st Spin Rate</div><div class="kpi-value">67.01%</div><div class="kpi-note">526 players claimed the first ticket.</div></div>
         <div class="card"><div class="kpi-label">3rd Spin Reach</div><div class="kpi-value">50.70%</div><div class="kpi-note">398 players reached the third ticket.</div></div>
@@ -388,14 +406,16 @@
 
       <div class="section card">
         <h2>BR Funnel Performance</h2>
-        <p class="subtitle">All percentages are based on entitled players.</p>
+        <p class="subtitle">Left-to-right funnel based on total entitled players. This includes the main ticket journey plus players currently sitting at the 2nd deposit stage, 3rd deposit stage, and converted status.</p>
         <div class="funnel" style="margin-top:14px;">
-          <div class="funnel-row"><div><div class="stage-name">Entitled Players</div><div class="stage-desc">Eligible new registered players</div></div><div class="bar-track"><div class="bar" style="width:100%"></div></div><div class="stage-count">785</div><div class="stage-rate">100%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">1st Ticket</div><div class="stage-desc">Get 3 free spins</div></div><div class="bar-track"><div class="bar" style="width:67.01%"></div></div><div class="stage-count">526</div><div class="stage-rate">67.01%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">2nd Ticket</div><div class="stage-desc">Thank-you emotional ticket</div></div><div class="bar-track"><div class="bar" style="width:70.45%"></div></div><div class="stage-count">553</div><div class="stage-rate">70.45%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">3rd Ticket</div><div class="stage-desc">Deposit and get 100 FS message</div></div><div class="bar-track"><div class="bar" style="width:50.70%"></div></div><div class="stage-count">398</div><div class="stage-rate">50.70%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">Deposit Reward</div><div class="stage-desc">Deposited and got 100 FS</div></div><div class="bar-track"><div class="bar deposit" style="width:5.22%"></div></div><div class="stage-count">41</div><div class="stage-rate">5.22%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">Converted</div><div class="stage-desc">Final confirmed converted player</div></div><div class="bar-track"><div class="bar low" style="width:0.13%"></div></div><div class="stage-count">1</div><div class="stage-rate">0.13%</div></div>
+          <div class="funnel-row"><div><div class="stage-name">Entitled</div><div class="stage-desc">Eligible new registered players</div></div><div><div class="stage-count">785</div><div class="stage-rate">100%</div></div><div class="bar-track"><div class="bar" style="width:100%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">1st Ticket</div><div class="stage-desc">Get 3 free spins</div></div><div><div class="stage-count">526</div><div class="stage-rate">67.01%</div></div><div class="bar-track"><div class="bar" style="width:67.01%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">2nd Ticket</div><div class="stage-desc">Thank-you emotional ticket</div></div><div><div class="stage-count">553</div><div class="stage-rate">70.45%</div></div><div class="bar-track"><div class="bar" style="width:70.45%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">3rd Ticket</div><div class="stage-desc">Deposit and get 100 FS message</div></div><div><div class="stage-count">398</div><div class="stage-rate">50.70%</div></div><div class="bar-track"><div class="bar" style="width:50.70%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">Deposit 100 FS</div><div class="stage-desc">Deposited and received 100 FS</div></div><div><div class="stage-count">41</div><div class="stage-rate">5.22%</div></div><div class="bar-track"><div class="bar deposit" style="width:5.22%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">2nd Deposit</div><div class="stage-desc">Players currently at 2nd deposit stage</div></div><div><div class="stage-count">9</div><div class="stage-rate">1.15%</div></div><div class="bar-track"><div class="bar pipeline" style="width:1.15%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">3rd Deposit</div><div class="stage-desc">Players currently at 3rd deposit stage</div></div><div><div class="stage-count">1</div><div class="stage-rate">0.13%</div></div><div class="bar-track"><div class="bar pipeline" style="width:0.13%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">Converted</div><div class="stage-desc">Final confirmed converted player</div></div><div><div class="stage-count">1</div><div class="stage-rate">0.13%</div></div><div class="bar-track"><div class="bar low" style="width:0.13%"></div></div></div>
         </div>
       </div>
 
@@ -416,7 +436,8 @@
         </div>
       </div>
 
-      <div class="grid-4">
+      <!-- KPI cards removed as requested -->
+      <div class="grid-4" style="display:none;">
         <div class="card"><div class="kpi-label">Total Entitled</div><div class="kpi-value">1,681</div><div class="kpi-note">New registered players eligible for the journey.</div></div>
         <div class="card"><div class="kpi-label">1st Spin Rate</div><div class="kpi-value">81.20%</div><div class="kpi-note">1,365 players claimed the first ticket.</div></div>
         <div class="card"><div class="kpi-label">3rd Spin Reach</div><div class="kpi-value">65.02%</div><div class="kpi-note">1,093 players reached the third ticket.</div></div>
@@ -425,14 +446,16 @@
 
       <div class="section card">
         <h2>Mexico Funnel Performance</h2>
-        <p class="subtitle">All percentages are based on entitled players.</p>
+        <p class="subtitle">Left-to-right funnel based on total entitled players. This includes the main ticket journey plus players currently sitting at the 2nd deposit stage, 3rd deposit stage, and converted status.</p>
         <div class="funnel" style="margin-top:14px;">
-          <div class="funnel-row"><div><div class="stage-name">Entitled Players</div><div class="stage-desc">Eligible new registered players</div></div><div class="bar-track"><div class="bar" style="width:100%"></div></div><div class="stage-count">1,681</div><div class="stage-rate">100%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">1st Ticket</div><div class="stage-desc">Get 3 free spins</div></div><div class="bar-track"><div class="bar" style="width:81.20%"></div></div><div class="stage-count">1,365</div><div class="stage-rate">81.20%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">2nd Ticket</div><div class="stage-desc">Thank-you emotional ticket</div></div><div class="bar-track"><div class="bar" style="width:81.26%"></div></div><div class="stage-count">1,366</div><div class="stage-rate">81.26%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">3rd Ticket</div><div class="stage-desc">Deposit and get 100 FS message</div></div><div class="bar-track"><div class="bar" style="width:65.02%"></div></div><div class="stage-count">1,093</div><div class="stage-rate">65.02%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">Deposit Reward</div><div class="stage-desc">Deposited and got 100 FS</div></div><div class="bar-track"><div class="bar deposit" style="width:6.31%"></div></div><div class="stage-count">106</div><div class="stage-rate">6.31%</div></div>
-          <div class="funnel-row"><div><div class="stage-name">Converted</div><div class="stage-desc">Final confirmed converted players</div></div><div class="bar-track"><div class="bar low" style="width:0.30%"></div></div><div class="stage-count">5</div><div class="stage-rate">0.30%</div></div>
+          <div class="funnel-row"><div><div class="stage-name">Entitled</div><div class="stage-desc">Eligible new registered players</div></div><div><div class="stage-count">1,681</div><div class="stage-rate">100%</div></div><div class="bar-track"><div class="bar" style="width:100%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">1st Ticket</div><div class="stage-desc">Get 3 free spins</div></div><div><div class="stage-count">1,365</div><div class="stage-rate">81.20%</div></div><div class="bar-track"><div class="bar" style="width:81.20%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">2nd Ticket</div><div class="stage-desc">Thank-you emotional ticket</div></div><div><div class="stage-count">1,366</div><div class="stage-rate">81.26%</div></div><div class="bar-track"><div class="bar" style="width:81.26%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">3rd Ticket</div><div class="stage-desc">Deposit and get 100 FS message</div></div><div><div class="stage-count">1,093</div><div class="stage-rate">65.02%</div></div><div class="bar-track"><div class="bar" style="width:65.02%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">Deposit 100 FS</div><div class="stage-desc">Deposited and received 100 FS</div></div><div><div class="stage-count">106</div><div class="stage-rate">6.31%</div></div><div class="bar-track"><div class="bar deposit" style="width:6.31%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">2nd Deposit</div><div class="stage-desc">Players currently at 2nd deposit stage</div></div><div><div class="stage-count">11</div><div class="stage-rate">0.65%</div></div><div class="bar-track"><div class="bar pipeline" style="width:0.65%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">3rd Deposit</div><div class="stage-desc">Players currently at 3rd deposit stage</div></div><div><div class="stage-count">2</div><div class="stage-rate">0.12%</div></div><div class="bar-track"><div class="bar pipeline" style="width:0.12%"></div></div></div>
+          <div class="funnel-row"><div><div class="stage-name">Converted</div><div class="stage-desc">Final confirmed converted players</div></div><div><div class="stage-count">5</div><div class="stage-rate">0.30%</div></div><div class="bar-track"><div class="bar low" style="width:0.30%"></div></div></div>
         </div>
       </div>
 
@@ -450,11 +473,11 @@
       <div class="table-wrap" style="margin-top:14px;">
         <table>
           <thead>
-            <tr><th>Market</th><th>Entitled</th><th>1st Spin</th><th>2nd Spin</th><th>3rd Spin</th><th>Deposit 100 FS</th><th>Converted</th></tr>
+            <tr><th>Market</th><th>Entitled</th><th>1st Spin</th><th>2nd Spin</th><th>3rd Spin</th><th>Deposit 100 FS</th><th>2nd Deposit</th><th>3rd Deposit</th><th>Converted</th></tr>
           </thead>
           <tbody>
-            <tr><td>BR</td><td>785</td><td>526 / 67.01%</td><td>553 / 70.45%</td><td>398 / 50.70%</td><td>41 / 5.22%</td><td>1 / 0.13%</td></tr>
-            <tr><td>Mexico</td><td>1,681</td><td>1,365 / 81.20%</td><td>1,366 / 81.26%</td><td>1,093 / 65.02%</td><td>106 / 6.31%</td><td>5 / 0.30%</td></tr>
+            <tr><td>BR</td><td>785</td><td>526 / 67.01%</td><td>553 / 70.45%</td><td>398 / 50.70%</td><td>41 / 5.22%</td><td>9 / 1.15%</td><td>1 / 0.13%</td><td>1 / 0.13%</td></tr>
+            <tr><td>Mexico</td><td>1,681</td><td>1,365 / 81.20%</td><td>1,366 / 81.26%</td><td>1,093 / 65.02%</td><td>106 / 6.31%</td><td>11 / 0.65%</td><td>2 / 0.12%</td><td>5 / 0.30%</td></tr>
           </tbody>
         </table>
       </div>
