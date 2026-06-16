@@ -5,335 +5,102 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FIFA Rewards Performance Dashboard</title>
 <style>
-  :root{
-    --bg:#07111f;
-    --panel:#0d1b2f;
-    --panel2:#102540;
-    --card:#122846;
-    --line:rgba(255,255,255,.12);
-    --text:#f5f7fb;
-    --muted:#9fb0c8;
-    --gold:#ffd84d;
-    --green:#27e1a2;
-    --blue:#52a8ff;
-    --red:#ff5d73;
-    --orange:#ff9f43;
-    --purple:#b084ff;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:radial-gradient(circle at top left,#143865 0,#07111f 42%,#050913 100%);
-    color:var(--text);
-  }
-  .app{display:flex;min-height:100vh;width:100%}
-  .sidebar{
-    width:250px;
-    background:linear-gradient(180deg,#0e213a,#08101d);
-    border-right:1px solid var(--line);
-    padding:24px 16px;
-    position:fixed;
-    height:100vh;
-  }
-  .brand{
-    padding:14px 12px 24px;
-    border-bottom:1px solid var(--line);
-    margin-bottom:18px;
-  }
-  .brand h1{font-size:20px;line-height:1.2;margin:0;color:var(--gold)}
-  .brand p{font-size:12px;color:var(--muted);margin:8px 0 0}
-  .nav-btn{
-    width:100%;
-    border:1px solid transparent;
-    background:transparent;
-    color:var(--muted);
-    padding:14px 14px;
-    margin-bottom:10px;
-    border-radius:14px;
-    text-align:left;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.25s;
-  }
-  .nav-btn:hover{background:rgba(255,255,255,.06);color:#fff}
-  .nav-btn.active{
-    background:linear-gradient(135deg,rgba(255,216,77,.22),rgba(82,168,255,.12));
-    border-color:rgba(255,216,77,.45);
-    color:#fff;
-    box-shadow:0 0 18px rgba(255,216,77,.12);
-  }
-  .main{margin-left:250px;padding:28px;width:calc(100% - 250px)}
-  .hero{
-    background:linear-gradient(135deg,rgba(255,216,77,.16),rgba(82,168,255,.12));
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:28px;
-    margin-bottom:24px;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero:after{
-    content:"⚽";
-    position:absolute;
-    right:30px;
-    top:10px;
-    font-size:110px;
-    opacity:.08;
-  }
-  .hero h2{margin:0 0 8px;font-size:32px;color:#fff}
-  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:760px;line-height:1.6}
-  .section{display:none;animation:fade .25s ease}
-  .section.active{display:block}
-  @keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
-  .grid{display:grid;gap:18px}
-  .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .card{
-    background:linear-gradient(180deg,rgba(18,40,70,.96),rgba(10,23,41,.96));
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 16px 40px rgba(0,0,0,.22);
-  }
-  .card h3{margin:0 0 14px;font-size:18px;color:#fff}
-  .kpi{display:flex;flex-direction:column;gap:8px;min-height:122px}
-  .kpi .label{color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-  .kpi .value{font-size:30px;font-weight:900;color:#fff}
-  .kpi .note{color:var(--muted);font-size:13px;line-height:1.4}
-  .gold{color:var(--gold)!important}.green{color:var(--green)!important}.blue{color:var(--blue)!important}.orange{color:var(--orange)!important}.red{color:var(--red)!important}.purple{color:var(--purple)!important}
-  table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px;font-size:14px}
-  th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left}
-  th{background:rgba(255,216,77,.13);color:var(--gold);font-size:13px;text-transform:uppercase}
-  td{color:#eef3ff}
-  tr:last-child td{border-bottom:0}
-  .market-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-  .badge{font-size:12px;font-weight:800;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--muted)}
-  .summary-box{
-    border-left:4px solid var(--gold);
-    background:rgba(255,216,77,.08);
-    padding:16px 18px;
-    border-radius:16px;
-    color:#fff;
-    line-height:1.55;
-  }
-  .bar-wrap{background:rgba(255,255,255,.08);height:12px;border-radius:999px;overflow:hidden;margin-top:10px}
-  .bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--green))}
-  .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-  .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:13px;color:var(--muted)}
-  .country-tabs{display:flex;gap:10px;margin:0 0 18px}
-  .country-tab{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);padding:10px 16px;border-radius:999px;cursor:pointer;font-weight:800}
-  .country-tab.active{background:rgba(255,216,77,.18);color:#fff;border-color:rgba(255,216,77,.5)}
-  .country-panel{display:none}.country-panel.active{display:block}
-  @media(max-width:900px){.sidebar{position:relative;width:100%;height:auto}.app{display:block}.main{margin-left:0;width:100%;padding:18px}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.hero h2{font-size:25px}}
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#07111f;color:#fff;}
+  .app{display:flex;min-height:100vh;background:radial-gradient(circle at top left,#183b72 0,#07111f 42%,#050a12 100%)}
+  .sidebar{width:250px;padding:26px 18px;background:rgba(4,10,20,.88);border-right:1px solid rgba(255,255,255,.1);position:sticky;top:0;height:100vh}
+  .brand{font-weight:900;font-size:24px;line-height:1.1;margin-bottom:8px}.sub{font-size:12px;color:#9fb4d6;margin-bottom:28px}
+  .nav button{width:100%;border:0;text-align:left;padding:15px 16px;margin-bottom:12px;border-radius:16px;background:rgba(255,255,255,.07);color:#cfe0ff;font-weight:800;cursor:pointer;font-size:15px}
+  .nav button.active{background:linear-gradient(135deg,#ffd84d,#ff9f1c);color:#211500;box-shadow:0 12px 28px rgba(255,177,31,.22)}
+  .content{flex:1;padding:30px 34px 50px;max-width:1280px;margin:auto}.topline{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:22px}
+  h1{margin:0;font-size:34px} .pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.09);color:#bfd0ef;font-size:13px;border:1px solid rgba(255,255,255,.1)}
+  .section{display:none}.section.active{display:block}.country-tabs{display:flex;gap:10px;margin:18px 0 20px}.country-tabs button{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#dbe8ff;border-radius:999px;padding:10px 18px;font-weight:900;cursor:pointer}.country-tabs button.active{background:#fff;color:#06101f}
+  .country-panel{display:none}.country-panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;box-shadow:0 14px 40px rgba(0,0,0,.2)}
+  .kpi-label{font-size:12px;color:#aebfe1;margin-bottom:8px}.kpi-value{font-size:28px;font-weight:900}.kpi-note{font-size:12px;color:#9fb4d6;margin-top:8px}.accent{color:#ffd84d}.good{color:#4ee39a}.warn{color:#ffbf47}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.wide{grid-column:1/-1} table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left} th{color:#ffd84d;font-size:12px;text-transform:uppercase;letter-spacing:.04em} td:last-child,th:last-child{text-align:right}.insight{line-height:1.55;color:#d6e5ff}.callout{background:linear-gradient(135deg,rgba(255,216,77,.18),rgba(255,159,28,.08));border:1px solid rgba(255,216,77,.28)}
+  .progress{height:10px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#ffd84d,#ff8c1a)}
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.tag{display:inline-block;padding:7px 10px;background:rgba(255,255,255,.09);border-radius:999px;color:#cddfff;font-size:12px;margin:4px 4px 0 0}
+  @media(max-width:950px){.app{display:block}.sidebar{width:100%;height:auto;position:relative}.grid,.two-col,.split{grid-template-columns:1fr}.content{padding:24px 16px}.topline{display:block}h1{font-size:27px}}
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="sidebar">
-    <div class="brand">
-      <h1>FIFA Rewards<br>Dashboard</h1>
-      <p>Coins + Match Predictor summary</p>
+    <div class="brand">FIFA Rewards<br>Dashboard</div>
+    <div class="sub">Coins & Match Predictor Summary</div>
+    <div class="nav">
+      <button class="main-tab active" data-target="coins">⚽ FIFA Coins</button>
+      <button class="main-tab" data-target="predictor">🎯 Match Predictor</button>
     </div>
-    <button class="nav-btn active" onclick="showSection('coins', this)">🪙 FIFA Coins</button>
-    <button class="nav-btn" onclick="showSection('predictor', this)">🎯 Match Predictor</button>
   </aside>
 
-  <main class="main">
+  <main class="content">
+    <div class="topline">
+      <div><h1>Rewards Performance Summary</h1><div class="sub">Separated by category and country for management presentation.</div></div>
+      <div class="pill">BR & MX Market Review</div>
+    </div>
+
     <section id="coins" class="section active">
-      <div class="hero">
-        <h2>🪙 FIFA Coins Performance</h2>
-        <p>Deposit-based coin earning summary for Brazil and Mexico, including deposits generated, coins issued, redemption activity and most popular shop items.</p>
-      </div>
-
-      <div class="grid grid-4" style="margin-bottom:18px">
-        <div class="card kpi"><div class="label">Total Players</div><div class="value gold">63</div><div class="note">BR 48 + MX 15</div></div>
-        <div class="card kpi"><div class="label">Coins Issued</div><div class="value blue">5,725</div><div class="note">Total coins received</div></div>
-        <div class="card kpi"><div class="label">Coins Redeemed</div><div class="value green">3,190</div><div class="note">Total coins spent</div></div>
-        <div class="card kpi"><div class="label">Balance Coins</div><div class="value orange">2,535</div><div class="note">Outstanding coin balance</div></div>
-      </div>
-
       <div class="country-tabs">
-        <button class="country-tab active" onclick="showCountry('br', this)">🇧🇷 Brazil</button>
-        <button class="country-tab" onclick="showCountry('mx', this)">🇲🇽 Mexico</button>
+        <button class="country-tab active" data-group="coins" data-target="coins-br">🇧🇷 Brazil</button>
+        <button class="country-tab" data-group="coins" data-target="coins-mx">🇲🇽 Mexico</button>
       </div>
 
-      <div id="br" class="country-panel active">
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="market-title"><h3>Brazil Overview</h3><span class="badge">BR Market</span></div>
-            <table>
-              <tr><th>Metric</th><th>Value</th></tr>
-              <tr><td>Total Unique Player</td><td>48</td></tr>
-              <tr><td>Total Coins Received</td><td>4,010</td></tr>
-              <tr><td>Total Coins Spent</td><td>1,650</td></tr>
-              <tr><td>Total Balance Coins</td><td>2,360</td></tr>
-              <tr><td>Redemption Rate</td><td>41.15%</td></tr>
-              <tr><td>Total Deposit Amount</td><td>R$100,131.63</td></tr>
-              <tr><td>Average Deposit per Coin</td><td>R$24.97</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Brazil Single Deposit Coin Setup</h3>
-            <table>
-              <tr><th>Deposit Amount</th><th>Rico Coins</th><th>Deposit per Coin</th></tr>
-              <tr><td>R$100</td><td>5</td><td>R$20.00</td></tr>
-              <tr><td>R$500</td><td>30</td><td>R$16.67</td></tr>
-              <tr><td>R$1,000</td><td>70</td><td>R$14.29</td></tr>
-              <tr><td>R$3,000</td><td>240</td><td>R$12.50</td></tr>
-              <tr><td>R$10,000</td><td>900</td><td>R$11.11</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Most Popular Shop Item</h3>
-            <table>
-              <tr><th>Item</th><th>Redeemed</th></tr>
-              <tr><td>R$5 Bonus</td><td>12</td></tr>
-              <tr><td>18 Free Spins</td><td>2</td></tr>
-              <tr><td>R$100 Bonus</td><td>2</td></tr>
-              <tr><td>10 Free Spins</td><td>1</td></tr>
-              <tr><td>R$50 Bonus</td><td>1</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Brazil Key Insight</h3>
-            <div class="summary-box">
-              Brazil generated over <b>R$100k deposits</b> from 48 coin earners. Redemption is still moderate at <b>41.15%</b>, meaning many players are saving coins for future rewards.
-            </div>
-            <div class="pill-row">
-              <div class="pill">Saved Rate: 58.85%</div>
-              <div class="pill">Top Reward: R$5 Bonus</div>
-              <div class="pill">Avg Deposit/Coin: R$24.97</div>
-            </div>
-          </div>
+      <div id="coins-br" class="country-panel active">
+        <div class="grid">
+          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">48</div></div>
+          <div class="card"><div class="kpi-label">Total Deposit Amount</div><div class="kpi-value">R$100,131.63</div></div>
+          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">4,010</div></div>
+          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">41.15%</div><div class="progress"><div class="bar" style="width:41.15%"></div></div></div>
+        </div>
+        <div class="two-col">
+          <div class="card"><h3>Deposit to Coin Setup</h3><table><tr><th>Deposit Amount</th><th>Rico Coins</th><th>Deposit per Coin</th></tr><tr><td>R$100</td><td>5</td><td>R$20.00</td></tr><tr><td>R$500</td><td>30</td><td>R$16.67</td></tr><tr><td>R$1,000</td><td>70</td><td>R$14.29</td></tr><tr><td>R$3,000</td><td>240</td><td>R$12.50</td></tr><tr><td>R$10,000</td><td>900</td><td>R$11.11</td></tr></table></div>
+          <div class="card"><h3>Coin Economy</h3><table><tr><th>Metric</th><th>Value</th></tr><tr><td>Coins Spent</td><td>1,650</td></tr><tr><td>Balance Coins</td><td>2,360</td></tr><tr><td>Saved Rate</td><td>58.85%</td></tr><tr><td>Average Deposit per Coin</td><td>R$24.97</td></tr></table></div>
+          <div class="card"><h3>Most Popular Shop Items</h3><table><tr><th>Item</th><th>Redeemed</th></tr><tr><td>R$5 Bonus</td><td>12</td></tr><tr><td>18 Free Spins</td><td>2</td></tr><tr><td>R$100 Bonus</td><td>2</td></tr><tr><td>10 Free Spins</td><td>1</td></tr><tr><td>R$50 Bonus</td><td>1</td></tr></table></div>
+          <div class="card callout"><h3>Brazil Insight</h3><p class="insight">Brazil generated strong deposit volume with lower redemption activity. Around <b>58.85%</b> of coins remain saved, meaning players may be accumulating coins for higher-value rewards. R$5 Bonus is currently the strongest shop item.</p></div>
         </div>
       </div>
 
-      <div id="mx" class="country-panel">
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="market-title"><h3>Mexico Overview</h3><span class="badge">MX Market</span></div>
-            <table>
-              <tr><th>Metric</th><th>Value</th></tr>
-              <tr><td>Total Unique Player</td><td>15</td></tr>
-              <tr><td>Total Coins Received</td><td>1,715</td></tr>
-              <tr><td>Total Coins Spent</td><td>1,540</td></tr>
-              <tr><td>Total Balance Coins</td><td>175</td></tr>
-              <tr><td>Redemption Rate</td><td>89.80%</td></tr>
-              <tr><td>Total Deposit Amount</td><td>MX$62,410.00</td></tr>
-              <tr><td>Average Deposit per Coin</td><td>MX$36.39</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Mexico Single Deposit Coin Setup</h3>
-            <table>
-              <tr><th>Deposit Amount</th><th>Rico Coins</th><th>Deposit per Coin</th></tr>
-              <tr><td>MX$300</td><td>5</td><td>MX$60.00</td></tr>
-              <tr><td>MX$1,800</td><td>30</td><td>MX$60.00</td></tr>
-              <tr><td>MX$3,500</td><td>70</td><td>MX$50.00</td></tr>
-              <tr><td>MX$10,000</td><td>240</td><td>MX$41.67</td></tr>
-              <tr><td>MX$20,000</td><td>500</td><td>MX$40.00</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Most Popular Shop Item</h3>
-            <table>
-              <tr><th>Item</th><th>Redeemed</th></tr>
-              <tr><td>MX$300 Bonus</td><td>3</td></tr>
-              <tr><td>MX$15 Bonus</td><td>1</td></tr>
-              <tr><td>MX$150 Bonus</td><td>3</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <h3>Mexico Key Insight</h3>
-            <div class="summary-box">
-              Mexico shows very strong redemption behavior with <b>89.80%</b> of coins already spent. Players are redeeming rewards quickly after earning coins.
-            </div>
-            <div class="pill-row">
-              <div class="pill">Saved Rate: 10.20%</div>
-              <div class="pill">Top Rewards: Bonus Funds</div>
-              <div class="pill">Avg Deposit/Coin: MX$36.39</div>
-            </div>
-          </div>
+      <div id="coins-mx" class="country-panel">
+        <div class="grid">
+          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">15</div></div>
+          <div class="card"><div class="kpi-label">Total Deposit Amount</div><div class="kpi-value">MX$62,410.00</div></div>
+          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">1,715</div></div>
+          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">89.80%</div><div class="progress"><div class="bar" style="width:89.8%"></div></div></div>
+        </div>
+        <div class="two-col">
+          <div class="card"><h3>Deposit to Coin Setup</h3><table><tr><th>Deposit Amount</th><th>Rico Coins</th><th>Deposit per Coin</th></tr><tr><td>MX$300</td><td>5</td><td>MX$60.00</td></tr><tr><td>MX$1,800</td><td>30</td><td>MX$60.00</td></tr><tr><td>MX$3,500</td><td>70</td><td>MX$50.00</td></tr><tr><td>MX$10,000</td><td>240</td><td>MX$41.67</td></tr><tr><td>MX$20,000</td><td>500</td><td>MX$40.00</td></tr></table></div>
+          <div class="card"><h3>Coin Economy</h3><table><tr><th>Metric</th><th>Value</th></tr><tr><td>Coins Spent</td><td>1,540</td></tr><tr><td>Balance Coins</td><td>175</td></tr><tr><td>Saved Rate</td><td>10.20%</td></tr><tr><td>Average Deposit per Coin</td><td>MX$36.39</td></tr></table></div>
+          <div class="card"><h3>Most Popular Shop Items</h3><table><tr><th>Item</th><th>Redeemed</th></tr><tr><td>MX$300 Bonus</td><td>3</td></tr><tr><td>MX$150 Bonus</td><td>3</td></tr><tr><td>MX$15 Bonus</td><td>1</td></tr></table></div>
+          <div class="card callout"><h3>Mexico Insight</h3><p class="insight">Mexico shows very strong redemption behavior with an <b>89.80%</b> redemption rate. Players are using coins quickly instead of saving, so the shop items are clear and attractive for this market.</p></div>
         </div>
       </div>
     </section>
 
     <section id="predictor" class="section">
-      <div class="hero">
-        <h2>🎯 Match Predictor Performance</h2>
-        <p>Players unlock the predictor after accumulating R$100 in Brazil or MX$200 in Mexico. The main opportunity is to remind unlocked users to submit their prediction before match time.</p>
+      <div class="country-tabs">
+        <button class="country-tab active" data-group="predictor" data-target="pred-br">🇧🇷 Brazil</button>
+        <button class="country-tab" data-group="predictor" data-target="pred-mx">🇲🇽 Mexico</button>
       </div>
-
-      <div class="grid grid-4" style="margin-bottom:18px">
-        <div class="card kpi"><div class="label">Total Unlocked</div><div class="value gold">138</div><div class="note">BR 78 + MX 60</div></div>
-        <div class="card kpi"><div class="label">Total Predicted</div><div class="value green">52</div><div class="note">BR 30 + MX 22</div></div>
-        <div class="card kpi"><div class="label">Not Yet Predicted</div><div class="value orange">86</div><div class="note">Reminder opportunity</div></div>
-        <div class="card kpi"><div class="label">Overall Bet Rate</div><div class="value blue">37.68%</div><div class="note">52 / 138 unlocked users</div></div>
+      <div id="pred-br" class="country-panel active">
+        <div class="split">
+          <div><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="card"><div class="kpi-label">Unlocked Players</div><div class="kpi-value">78</div><div class="kpi-note">Required accumulated deposit: R$100</div></div><div class="card"><div class="kpi-label">Predicted Players</div><div class="kpi-value accent">30</div></div><div class="card"><div class="kpi-label">Bet / Prediction Rate</div><div class="kpi-value good">38.46%</div><div class="progress"><div class="bar" style="width:38.46%"></div></div></div></div></div>
+          <div class="card callout"><h3>Action Opportunity</h3><p class="insight"><b>48 unlocked BR players</b> have not submitted their prediction yet. Send a targeted reminder before kickoff to convert unlocked players into prediction participants.</p><span class="tag">Reminder Push</span><span class="tag">Rich Inbox</span><span class="tag">Lucky Spin Ticket</span></div>
+        </div>
+        <div class="card wide" style="margin-top:18px"><h3>Suggested Reminder Copy</h3><p class="insight"><b>Title:</b> Your Match Predictor Is Unlocked ⚽<br><b>Message:</b> You’ve unlocked the FIFA Match Predictor. Submit your prediction now and stand a chance to win Lucky Spin Tickets!</p></div>
       </div>
-
-      <div class="grid grid-2">
-        <div class="card">
-          <h3>Predictor Result by Market</h3>
-          <table>
-            <tr><th>Market</th><th>Unlocked</th><th>Predicted</th><th>Bet %</th></tr>
-            <tr><td>Brazil</td><td>78</td><td>30</td><td>38.46%</td></tr>
-            <tr><td>Mexico</td><td>60</td><td>22</td><td>36.67%</td></tr>
-          </table>
+      <div id="pred-mx" class="country-panel">
+        <div class="split">
+          <div><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="card"><div class="kpi-label">Unlocked Players</div><div class="kpi-value">60</div><div class="kpi-note">Required accumulated deposit: MX$200</div></div><div class="card"><div class="kpi-label">Predicted Players</div><div class="kpi-value accent">22</div></div><div class="card"><div class="kpi-label">Bet / Prediction Rate</div><div class="kpi-value good">36.67%</div><div class="progress"><div class="bar" style="width:36.67%"></div></div></div></div></div>
+          <div class="card callout"><h3>Action Opportunity</h3><p class="insight"><b>38 unlocked MX players</b> have not submitted their prediction yet. Send a targeted reminder to encourage prediction before match deadline.</p><span class="tag">Reminder Push</span><span class="tag">Inbox Banner</span><span class="tag">Lucky Spin Ticket</span></div>
         </div>
-
-        <div class="card">
-          <h3>Conversion Visual</h3>
-          <p style="color:var(--muted);margin:0 0 14px">Brazil prediction rate: <b class="green">38.46%</b></p>
-          <div class="bar-wrap"><div class="bar" style="width:38.46%"></div></div>
-          <p style="color:var(--muted);margin:20px 0 14px">Mexico prediction rate: <b class="green">36.67%</b></p>
-          <div class="bar-wrap"><div class="bar" style="width:36.67%"></div></div>
-        </div>
-
-        <div class="card">
-          <h3>Key Insight</h3>
-          <div class="summary-box">
-            Around <b>62%</b> of unlocked users have not submitted their prediction yet. This is a strong CRM opportunity because the players already completed the unlock requirement.
-          </div>
-          <div class="pill-row">
-            <div class="pill">BR Not Predicted: 48</div>
-            <div class="pill">MX Not Predicted: 38</div>
-            <div class="pill">Total Opportunity: 86 users</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Recommended Action</h3>
-          <div class="summary-box">
-            Send a reminder campaign to unlocked players who have not predicted yet: <br><br>
-            <b>“Your Match Predictor is unlocked! Submit your prediction now and win Lucky Spin Tickets.”</b>
-          </div>
-          <div class="pill-row">
-            <div class="pill">Target: Unlocked but no prediction</div>
-            <div class="pill">Timing: Before kickoff</div>
-            <div class="pill">Reward Hook: Lucky Spin Tickets</div>
-          </div>
-        </div>
+        <div class="card wide" style="margin-top:18px"><h3>Suggested Reminder Copy</h3><p class="insight"><b>Title:</b> Tu Predictor ya está desbloqueado ⚽<br><b>Message:</b> Haz tu predicción ahora y gana la oportunidad de recibir Tickets de Lucky Spin.</p></div>
       </div>
     </section>
   </main>
 </div>
-
 <script>
-function showSection(id, btn){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
-function showCountry(id, btn){
-  document.querySelectorAll('.country-panel').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.country-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
+  document.querySelectorAll('.main-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(btn.dataset.target).classList.add('active')}));
+  document.querySelectorAll('.country-tab').forEach(btn=>btn.addEventListener('click',()=>{const group=btn.dataset.group;document.querySelectorAll(`.country-tab[data-group="${group}"]`).forEach(b=>b.classList.remove('active'));btn.classList.add('active');const parent=document.getElementById(group);parent.querySelectorAll('.country-panel').forEach(p=>p.classList.remove('active'));document.getElementById(btn.dataset.target).classList.add('active')}));
 </script>
 </body>
 </html>
