@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rico Coins Performance Summary</title>
+<style>
+  :root{
+    --bg:#070b1a;--card:#101833;--card2:#142044;--gold:#ffd84d;--gold2:#ff9f1c;--text:#f5f7ff;--muted:#aeb8d4;--green:#34d399;--red:#fb7185;--blue:#60a5fa;--line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top left,#1a2c66 0,#070b1a 42%,#030611 100%);color:var(--text);}
+  .wrap{max-width:1180px;margin:0 auto;padding:34px 24px 60px;}
+  .hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:26px;padding:34px;background:linear-gradient(135deg,rgba(255,216,77,.18),rgba(96,165,250,.10),rgba(255,255,255,.03));box-shadow:0 25px 70px rgba(0,0,0,.35);}
+  .hero:after{content:"🪙";position:absolute;right:38px;top:12px;font-size:130px;opacity:.16;transform:rotate(-12deg)}
+  h1{margin:0 0 10px;font-size:42px;letter-spacing:-1px}.sub{color:var(--muted);font-size:17px;max-width:760px;line-height:1.55}.badge{display:inline-block;background:rgba(255,216,77,.16);border:1px solid rgba(255,216,77,.5);color:var(--gold);padding:8px 12px;border-radius:999px;font-weight:bold;margin-bottom:16px}
+  .tabs{display:flex;gap:12px;margin:26px 0 20px}.tab{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);padding:13px 22px;border-radius:14px;cursor:pointer;font-size:16px;font-weight:bold}.tab.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1b1200;border-color:transparent}
+  .panel{display:none}.panel.active{display:block;animation:fade .25s ease}@keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.kpi{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:18px;padding:18px;min-height:120px}.kpi .label{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.7px}.kpi .value{font-size:29px;font-weight:bold;margin:12px 0 4px}.kpi .hint{color:var(--muted);font-size:13px}.green{color:var(--green)}.gold{color:var(--gold)}.blue{color:var(--blue)}
+  .two{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.card{background:rgba(16,24,51,.78);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 44px rgba(0,0,0,.22)}h2{font-size:22px;margin:0 0 16px}table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px}th,td{padding:12px 13px;border-bottom:1px solid var(--line);text-align:left}th{color:#1b1200;background:linear-gradient(135deg,var(--gold),var(--gold2));font-size:13px}td{color:#f7f8ff}tr:last-child td{border-bottom:0}.right{text-align:right}.bar{height:12px;background:rgba(255,255,255,.10);border-radius:999px;overflow:hidden;margin-top:9px}.fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:999px}.fill2{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:999px}.insight{display:grid;gap:12px}.note{padding:14px 15px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid var(--line);line-height:1.45}.note b{color:var(--gold)}.footer{margin-top:18px;padding:18px;border-radius:20px;background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(96,165,250,.10));border:1px solid var(--line);line-height:1.55}
+  @media(max-width:900px){.grid,.two{grid-template-columns:1fr}.hero:after{display:none}h1{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="badge">Rico Coins Performance Review</div>
+    <h1>Virtual Currency Summary Dashboard</h1>
+    <div class="sub">A simple business view of how Rico Coins performed by market: player participation, deposits generated, redemption behavior, coin efficiency, and most popular shop items.</div>
+  </section>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('br', this)">🇧🇷 Brazil</button>
+    <button class="tab" onclick="showTab('mx', this)">🇲🇽 Mexico</button>
+  </div>
+
+  <section id="br" class="panel active">
+    <div class="grid">
+      <div class="kpi"><div class="label">Unique Players</div><div class="value">48</div><div class="hint">Players earned Coins</div></div>
+      <div class="kpi"><div class="label">Deposits Generated</div><div class="value gold">R$100,131.63</div><div class="hint">From Coin earners</div></div>
+      <div class="kpi"><div class="label">Coins Issued</div><div class="value blue">4,010</div><div class="hint">Total Coins received</div></div>
+      <div class="kpi"><div class="label">Redemption Rate</div><div class="value green">41.15%</div><div class="hint">1,650 Coins spent</div></div>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <h2>Single Deposit Coin Structure</h2>
+        <table>
+          <tr><th>Per Deposit Amount</th><th class="right">Rico Coins</th><th class="right">Deposit per Coin</th></tr>
+          <tr><td>R$100</td><td class="right">5</td><td class="right">R$20.00</td></tr>
+          <tr><td>R$500</td><td class="right">30</td><td class="right">R$16.67</td></tr>
+          <tr><td>R$1,000</td><td class="right">70</td><td class="right">R$14.29</td></tr>
+          <tr><td>R$3,000</td><td class="right">240</td><td class="right">R$12.50</td></tr>
+          <tr><td>R$10,000</td><td class="right">900</td><td class="right">R$11.11</td></tr>
+        </table>
+      </div>
+      <div class="card insight">
+        <h2>Key Summary</h2>
+        <div class="note"><b>Average Deposit per Coin:</b> R$24.97</div>
+        <div class="note"><b>Coins Balance:</b> 2,360 Coins saved by players</div>
+        <div class="note"><b>Saved Rate:</b> 58.85% of issued Coins remain unspent</div>
+        <div class="note"><b>Most Popular Item:</b> R$5 Bonus</div>
+      </div>
+    </div>
+
+    <div class="two" style="margin-top:18px">
+      <div class="card">
+        <h2>Coin Flow</h2>
+        <div>Coins Redeemed: <b>1,650 / 4,010</b></div><div class="bar"><div class="fill" style="width:41.15%"></div></div><br>
+        <div>Coins Saved: <b>2,360 / 4,010</b></div><div class="bar"><div class="fill2" style="width:58.85%"></div></div>
+      </div>
+      <div class="card">
+        <h2>Most Popular Shop Items</h2>
+        <table>
+          <tr><th>Reward</th><th class="right">Redeemed</th></tr>
+          <tr><td>R$5 Bonus</td><td class="right">12</td></tr>
+          <tr><td>18 Free Spins</td><td class="right">2</td></tr>
+          <tr><td>R$100 Bonus</td><td class="right">2</td></tr>
+          <tr><td>10 Free Spins</td><td class="right">1</td></tr>
+          <tr><td>R$50 Bonus</td><td class="right">1</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer"><b>Business Insight:</b> Brazil generated strong deposit volume with lower redemption urgency. Players are accumulating Coins, which can support future retention through higher-value shop items.</div>
+  </section>
+
+  <section id="mx" class="panel">
+    <div class="grid">
+      <div class="kpi"><div class="label">Unique Players</div><div class="value">15</div><div class="hint">Players earned Coins</div></div>
+      <div class="kpi"><div class="label">Deposits Generated</div><div class="value gold">MX$62,410.00</div><div class="hint">From Coin earners</div></div>
+      <div class="kpi"><div class="label">Coins Issued</div><div class="value blue">1,715</div><div class="hint">Total Coins received</div></div>
+      <div class="kpi"><div class="label">Redemption Rate</div><div class="value green">89.80%</div><div class="hint">1,540 Coins spent</div></div>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <h2>Single Deposit Coin Structure</h2>
+        <table>
+          <tr><th>Per Deposit Amount</th><th class="right">Rico Coins</th><th class="right">Deposit per Coin</th></tr>
+          <tr><td>MX$300</td><td class="right">5</td><td class="right">MX$60.00</td></tr>
+          <tr><td>MX$1,800</td><td class="right">30</td><td class="right">MX$60.00</td></tr>
+          <tr><td>MX$3,500</td><td class="right">70</td><td class="right">MX$50.00</td></tr>
+          <tr><td>MX$10,000</td><td class="right">240</td><td class="right">MX$41.67</td></tr>
+          <tr><td>MX$20,000</td><td class="right">500</td><td class="right">MX$40.00</td></tr>
+        </table>
+      </div>
+      <div class="card insight">
+        <h2>Key Summary</h2>
+        <div class="note"><b>Average Deposit per Coin:</b> MX$36.39</div>
+        <div class="note"><b>Coins Balance:</b> 175 Coins remaining</div>
+        <div class="note"><b>Saved Rate:</b> 10.20% of issued Coins remain unspent</div>
+        <div class="note"><b>Most Popular Item:</b> MX$300 Bonus & MX$150 Bonus</div>
+      </div>
+    </div>
+
+    <div class="two" style="margin-top:18px">
+      <div class="card">
+        <h2>Coin Flow</h2>
+        <div>Coins Redeemed: <b>1,540 / 1,715</b></div><div class="bar"><div class="fill" style="width:89.8%"></div></div><br>
+        <div>Coins Saved: <b>175 / 1,715</b></div><div class="bar"><div class="fill2" style="width:10.2%"></div></div>
+      </div>
+      <div class="card">
+        <h2>Most Popular Shop Items</h2>
+        <table>
+          <tr><th>Reward</th><th class="right">Redeemed</th></tr>
+          <tr><td>MX$300 Bonus</td><td class="right">3</td></tr>
+          <tr><td>MX$15 Bonus</td><td class="right">1</td></tr>
+          <tr><td>MX$150 Bonus</td><td class="right">3</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer"><b>Business Insight:</b> Mexico shows very high redemption activity. Players are using Coins quickly, which means shop rewards are attractive and easy to understand.</div>
+  </section>
+</div>
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
