@@ -46,10 +46,40 @@
   .info:hover::after{content:attr(data-tip);position:absolute;left:50%;bottom:130%;transform:translateX(-50%);width:max-content;max-width:270px;background:#fff;color:#06101f;padding:9px 11px;border-radius:10px;font-size:12px;font-weight:700;line-height:1.35;box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:99;white-space:pre-line}
   .info:hover::before{content:"";position:absolute;left:50%;bottom:112%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:100}
 
+  /* DAILY MISSION FUNNEL */
+  .mission-hero{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;box-shadow:0 14px 40px rgba(0,0,0,.2);margin-bottom:18px}
+  .mission-hero-title{font-size:20px;font-weight:900;margin-bottom:14px;color:#fff}
+  .mission-hero-inner{display:grid;grid-template-columns:1fr 150px;gap:22px;align-items:center}
+  .funnel-wrap{display:flex;align-items:stretch;min-height:128px;overflow:visible;padding-left:18px}
+  .funnel-step{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%,12% 50%);padding:16px 28px 16px 36px;margin-left:-20px;text-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .funnel-step:first-child{margin-left:0;clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%)}
+  .funnel-step:last-child{clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%,12% 50%)}
+  .funnel-step.s1{width:30%;background:linear-gradient(135deg,#ffca28,#ff9800)}
+  .funnel-step.s2{width:27%;background:linear-gradient(135deg,#ff8f00,#ef6c00)}
+  .funnel-step.s3{width:24%;background:linear-gradient(135deg,#ff3d55,#c62838)}
+  .funnel-step.s4{width:21%;background:linear-gradient(135deg,#813a79,#351839)}
+  .funnel-label{font-size:13px;font-weight:900;margin-bottom:8px;white-space:nowrap}
+  .funnel-value{font-size:34px;font-weight:900;line-height:1;margin-bottom:7px}
+  .funnel-rate{font-size:15px;font-weight:900;color:#fff7cc;line-height:1.1}
+  .funnel-sub{font-size:10px;font-weight:900;opacity:.95;margin-top:3px;letter-spacing:.3px;text-transform:uppercase}
+  .spin-rate-box{display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(255,255,255,.18);padding-left:22px;position:relative}
+  .spin-rate-box:before{content:"";position:absolute;left:-14px;top:50%;width:26px;height:2px;background:rgba(255,255,255,.45)}
+  .spin-circle{width:118px;height:118px;border-radius:50%;border:4px solid rgba(255,64,129,.75);background:radial-gradient(circle,#1b1730 0%,#0b1020 70%);box-shadow:0 0 26px rgba(255,64,129,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .spin-big{font-size:26px;font-weight:900;color:#ffffff;line-height:1}
+  .spin-label{font-size:10px;font-weight:900;color:#ffca28;margin-top:5px;letter-spacing:.6px}
+  .spin-small{font-size:10px;color:#b9c8e8;margin-top:4px}
+  .mini-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .mini-stat{padding:14px;border:1px solid rgba(255,216,77,.18);border-radius:14px;background:rgba(0,0,0,.16)}
+  .mini-stat b{font-size:18px;color:#fff}.mini-stat span{display:block;font-size:11px;color:#b8c8e8;margin-top:3px}
+
   @media(max-width:950px){
     .app{display:block}.sidebar{width:100%;height:auto;position:relative}
-    .grid,.two-col,.split{grid-template-columns:1fr}
+    .grid,.two-col,.split,.mission-hero-inner,.mini-stat-row{grid-template-columns:1fr}
     .content{padding:24px 16px}.topline{display:block}h1{font-size:27px}
+    .funnel-wrap{display:block;padding-left:0;min-height:0}
+    .funnel-step,.funnel-step:first-child,.funnel-step:last-child{width:100%!important;margin:0 0 8px 0;clip-path:none;border-radius:16px;min-height:105px}
+    .spin-rate-box{border-left:0;border-top:1px solid rgba(255,255,255,.18);padding:18px 0 0 0}
+    .spin-rate-box:before{display:none}
   }
 </style>
 </head>
@@ -194,23 +224,56 @@
       </div>
 
       <div id="mission-br" class="country-panel active">
-        <div class="grid">
-          <div class="card"><div class="kpi-label">Deposit Events</div><div class="kpi-value">474</div><div class="kpi-note">12–22 Jun Total</div></div>
-          <div class="card"><div class="kpi-label">Tier 1 Completed</div><div class="kpi-value accent">253</div><div class="kpi-note">R$100 Deposit Milestone</div></div>
-          <div class="card"><div class="kpi-label">Tier 2 Completed</div><div class="kpi-value warn">110</div><div class="kpi-note">R$500 Deposit Milestone</div></div>
-          <div class="card"><div class="kpi-label">Wheel Token Usage</div><div class="kpi-value good">80.2%</div><div class="kpi-note">308 of 384 tokens spun</div><div class="progress"><div class="bar" style="width:80.2%"></div></div></div>
+        <div class="mission-hero">
+          <div class="mission-hero-title">Daily Mission Funnel</div>
+          <div class="mission-hero-inner">
+            <div class="funnel-wrap">
+              <div class="funnel-step s1">
+                <div class="funnel-label">Deposit Players</div>
+                <div class="funnel-value">474</div>
+                <div class="funnel-rate">100%</div>
+                <div class="funnel-sub">Starting Point</div>
+              </div>
+              <div class="funnel-step s2">
+                <div class="funnel-label">Tier 1 Completed</div>
+                <div class="funnel-value">253</div>
+                <div class="funnel-rate">53.4%</div>
+                <div class="funnel-sub">R$100</div>
+              </div>
+              <div class="funnel-step s3">
+                <div class="funnel-label">Tier 2 Completed</div>
+                <div class="funnel-value">110</div>
+                <div class="funnel-rate">23.2%</div>
+                <div class="funnel-sub">R$500</div>
+              </div>
+              <div class="funnel-step s4">
+                <div class="funnel-label">Tier 3 Completed</div>
+                <div class="funnel-value">13</div>
+                <div class="funnel-rate">2.7%</div>
+                <div class="funnel-sub">R$3,000</div>
+              </div>
+            </div>
+            <div class="spin-rate-box">
+              <div class="spin-circle">
+                <div class="spin-big">80.21%</div>
+                <div class="spin-label">SPUN RATE</div>
+                <div class="spin-small">308 / 384 Tokens</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="two-col">
           <div class="card">
-            <h3>Mission Funnel</h3>
+            <h3>Funnel Details</h3>
             <table>
-              <tr><th>Stage</th><th>Count</th><th>Rate</th></tr>
-              <tr><td>Deposit Events</td><td>474</td><td>100%</td></tr>
-              <tr><td>Complete R$100</td><td>253</td><td>53.4%</td></tr>
-              <tr><td>Complete R$500</td><td>110</td><td>23.2%</td></tr>
-              <tr><td>Complete R$3,000</td><td>13</td><td>2.7%</td></tr>
+              <tr><th>Stage</th><th>Count</th><th>Rate</th><th>Drop Off</th></tr>
+              <tr><td>Deposit Players</td><td>474</td><td>100%</td><td>—</td></tr>
+              <tr><td>Tier 1 Completed (R$100)</td><td>253</td><td>53.4%</td><td>46.6%</td></tr>
+              <tr><td>Tier 2 Completed (R$500)</td><td>110</td><td>23.2%</td><td>56.5%</td></tr>
+              <tr><td>Tier 3 Completed (R$3,000)</td><td>13</td><td>2.7%</td><td>88.2%</td></tr>
             </table>
+            <div class="kpi-note">Conversion Rate = Completed / Deposit Players</div>
           </div>
 
           <div class="card">
@@ -233,67 +296,111 @@
               <tr><td>Pending</td><td>25</td></tr>
               <tr><td><b>Total Tokens</b></td><td><b>384</b></td></tr>
             </table>
+            <h3 style="margin-top:18px;margin-bottom:4px">Wheel Token Usage</h3>
+            <div class="kpi-value good" style="font-size:24px">80.21%</div>
+            <div class="progress"><div class="bar" style="width:80.21%"></div></div>
           </div>
 
           <div class="card callout">
             <h3>Brazil Mission Insight</h3>
-            <p class="insight">More than half of deposit events reached the first mission milestone, with a <b>53.4%</b> Tier 1 completion rate. Tier 2 progression remains healthy at <b>23.2%</b>, while Tier 3 is mainly serving as a VIP-level objective.</p>
-            <p class="insight">Wheel engagement is strong, with <b>80.2%</b> of awarded tokens already used.</p>
-            <span class="tag">53.4% Reach Tier 1</span><span class="tag">80.2% Wheel Usage</span><span class="tag">VIP Tier Objective</span>
+            <p class="insight">More than half of deposit players reached the first mission milestone, with a <b>53.4%</b> Tier 1 completion rate. Tier 2 progression remains healthy at <b>23.2%</b>, while Tier 3 is mainly serving as a VIP-level objective.</p>
+            <p class="insight">Wheel engagement is strong, with <b>80.21%</b> of awarded tokens already spun.</p>
+            <span class="tag">53.4% Reach Tier 1</span><span class="tag">80.21% Spun Rate</span><span class="tag">VIP Tier Objective</span>
           </div>
         </div>
       </div>
 
-     <div id="mission-mx" class="country-panel">
-  <div class="grid">
-    <div class="card"><div class="kpi-label">Deposit Events</div><div class="kpi-value">409</div><div class="kpi-note">12–22 Jun Total</div></div>
-    <div class="card"><div class="kpi-label">Tier 1 Completed</div><div class="kpi-value accent">91</div><div class="kpi-note">MX$300 Deposit Milestone</div></div>
-    <div class="card"><div class="kpi-label">Tier 2 Completed</div><div class="kpi-value warn">17</div><div class="kpi-note">MX$1,800 Deposit Milestone</div></div>
-    <div class="card"><div class="kpi-label">Wheel Token Usage</div><div class="kpi-value good">88.79%</div><div class="kpi-note">103 spun, 11 expired, 0 pending</div><div class="progress"><div class="bar" style="width:88.79%"></div></div></div>
-  </div>
+      <div id="mission-mx" class="country-panel">
+        <div class="mission-hero">
+          <div class="mission-hero-title">Daily Mission Funnel</div>
+          <div class="mission-hero-inner">
+            <div class="funnel-wrap">
+              <div class="funnel-step s1">
+                <div class="funnel-label">Deposit Players</div>
+                <div class="funnel-value">409</div>
+                <div class="funnel-rate">100%</div>
+                <div class="funnel-sub">Starting Point</div>
+              </div>
+              <div class="funnel-step s2">
+                <div class="funnel-label">Tier 1 Completed</div>
+                <div class="funnel-value">91</div>
+                <div class="funnel-rate">22.2%</div>
+                <div class="funnel-sub">MX$300</div>
+              </div>
+              <div class="funnel-step s3">
+                <div class="funnel-label">Tier 2 Completed</div>
+                <div class="funnel-value">17</div>
+                <div class="funnel-rate">4.2%</div>
+                <div class="funnel-sub">MX$1,800</div>
+              </div>
+              <div class="funnel-step s4">
+                <div class="funnel-label">Tier 3 Completed</div>
+                <div class="funnel-value">8</div>
+                <div class="funnel-rate">2.0%</div>
+                <div class="funnel-sub">MX$10,000</div>
+              </div>
+            </div>
+            <div class="spin-rate-box">
+              <div class="spin-circle">
+                <div class="spin-big">90.35%</div>
+                <div class="spin-label">SPUN RATE</div>
+                <div class="spin-small">103 / 114 Tokens</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <div class="two-col">
-    <div class="card">
-      <h3>Mission Funnel</h3>
-      <table>
-        <tr><th>Stage</th><th>Count</th><th>Rate</th></tr>
-        <tr><td>Deposit Events</td><td>409</td><td>100%</td></tr>
-        <tr><td>Complete MX$300</td><td>91</td><td>22.2%</td></tr>
-        <tr><td>Complete MX$1,800</td><td>17</td><td>4.2%</td></tr>
-        <tr><td>Complete MX$10,000</td><td>8</td><td>2.0%</td></tr>
-      </table>
-    </div>
+        <div class="two-col">
+          <div class="card">
+            <h3>Funnel Details</h3>
+            <table>
+              <tr><th>Stage</th><th>Count</th><th>Rate</th><th>Drop Off</th></tr>
+              <tr><td>Deposit Players</td><td>409</td><td>100%</td><td>—</td></tr>
+              <tr><td>Tier 1 Completed (MX$300)</td><td>91</td><td>22.2%</td><td>77.8%</td></tr>
+              <tr><td>Tier 2 Completed (MX$1,800)</td><td>17</td><td>4.2%</td><td>81.3%</td></tr>
+              <tr><td>Tier 3 Completed (MX$10,000)</td><td>8</td><td>2.0%</td><td>52.9%</td></tr>
+            </table>
+            <div class="kpi-note">Conversion Rate = Completed / Deposit Players</div>
+          </div>
 
-    <div class="card">
-      <h3>Average Daily Performance</h3>
-      <table>
-        <tr><th>Metric</th><th>Average / Day</th></tr>
-        <tr><td>Deposit Players</td><td>37</td></tr>
-        <tr><td>Tier 1 Completed</td><td>8</td></tr>
-        <tr><td>Tier 2 Completed</td><td>2</td></tr>
-        <tr><td>Tier 3 Completed</td><td>1</td></tr>
-      </table>
-    </div>
+          <div class="card">
+            <h3>Average Daily Performance</h3>
+            <table>
+              <tr><th>Metric</th><th>Average / Day</th></tr>
+              <tr><td>Deposit Players</td><td>37</td></tr>
+              <tr><td>Tier 1 Completed</td><td>8</td></tr>
+              <tr><td>Tier 2 Completed</td><td>2</td></tr>
+              <tr><td>Tier 3 Completed</td><td>1</td></tr>
+              <tr><td>Active Players</td><td>1.5</td></tr>
+            </table>
+          </div>
 
-    <div class="card">
-      <h3>Wheel Token Status</h3>
-      <table>
-        <tr><th>Status</th><th>Count</th></tr>
-        <tr><td>Spun</td><td>103</td></tr>
-        <tr><td>Expired</td><td>11</td></tr>
-        <tr><td>Pending</td><td>0</td></tr>
-        <tr><td><b>Total Tokens</b></td><td><b>114</b></td></tr>
-      </table>
-    </div>
+          <div class="card">
+            <h3>Wheel Token Status</h3>
+            <table>
+              <tr><th>Status</th><th>Count</th></tr>
+              <tr><td>Spun</td><td>103</td></tr>
+              <tr><td>Expired</td><td>11</td></tr>
+              <tr><td>Pending</td><td>0</td></tr>
+              <tr><td><b>Total Tokens</b></td><td><b>114</b></td></tr>
+            </table>
+            <h3 style="margin-top:18px;margin-bottom:4px">Wheel Token Usage</h3>
+            <div class="kpi-value good" style="font-size:24px">90.35%</div>
+            <div class="progress"><div class="bar" style="width:90.35%"></div></div>
+          </div>
 
-    <div class="card callout">
-      <h3>Mexico Mission Insight</h3>
-      <p class="insight">Mexico recorded <b>409 deposit events</b>, with <b>91</b> completions at the MX$300 milestone. Tier 1 conversion is <b>22.2%</b>, while the MX$10,000 tier remains a VIP-level target with <b>8 completions</b>.</p>
-      <p class="insight">Wheel engagement is strong with <b>88.79%</b> token usage, showing that once players receive a Wheel Token, they are highly likely to spin it.</p>
-      <span class="tag">22.2% Reach Tier 1</span><span class="tag">88.79% Wheel Usage</span><span class="tag">VIP Tier Objective</span>
-    </div>
-  </div>
-</div>
+          <div class="card callout">
+            <h3>Mexico Mission Insight</h3>
+            <p class="insight">Mexico recorded <b>409 deposit players</b> during 12–22 Jun. <b>22.2%</b> of deposit players completed the first milestone, while Tier 2 and Tier 3 conversion remain higher-value goals.</p>
+            <p class="insight">Wheel token usage is strong at <b>90.35%</b>, showing high engagement once tokens are earned.</p>
+            <div class="mini-stat-row">
+              <div class="mini-stat"><b>22.2%</b><span>Tier 1 Conversion</span></div>
+              <div class="mini-stat"><b>409</b><span>Total Deposit Players</span></div>
+              <div class="mini-stat"><b>90.35%</b><span>Wheel Token Spun Rate</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="predictor" class="section">
@@ -339,8 +446,6 @@
 
   </main>
 </div>
-
-<!-- Replace your current <script> section with this corrected version -->
 
 <script>
   document.querySelectorAll('.main-tab').forEach(btn => {
