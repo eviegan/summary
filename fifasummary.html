@@ -340,11 +340,14 @@
   </main>
 </div>
 
+<!-- Replace your current <script> section with this corrected version -->
+
 <script>
   document.querySelectorAll('.main-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{
       document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
+
       document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
       document.getElementById(btn.dataset.target).classList.add('active');
     });
@@ -352,11 +355,18 @@
 
   document.querySelectorAll('.country-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      const group=btn.dataset.group;
-      document.querySelectorAll(`.country-tab[data-group="${group}"]`).forEach(b=>b.classList.remove('active'));
+      const section = btn.closest('.section');
+
+      section.querySelectorAll('.country-tab').forEach(tab=>{
+        tab.classList.remove('active');
+      });
+
       btn.classList.add('active');
-      const parent=document.getElementById(group);
-      parent.querySelectorAll('.country-panel').forEach(p=>p.classList.remove('active'));
+
+      section.querySelectorAll('.country-panel').forEach(panel=>{
+        panel.classList.remove('active');
+      });
+
       document.getElementById(btn.dataset.target).classList.add('active');
     });
   });
