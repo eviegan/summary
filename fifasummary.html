@@ -41,6 +41,52 @@
   .bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#ffd84d,#ff8c1a)}
   .split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
   .tag{display:inline-block;padding:7px 10px;background:rgba(255,255,255,.09);border-radius:999px;color:#cddfff;font-size:12px;margin:4px 4px 0 0}
+
+  .info{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:16px;
+    height:16px;
+    margin-left:6px;
+    border-radius:50%;
+    background:rgba(255,255,255,.16);
+    color:#ffd84d;
+    font-size:11px;
+    font-weight:900;
+    cursor:help;
+    position:relative;
+  }
+  .info:hover::after{
+    content:attr(data-tip);
+    position:absolute;
+    left:50%;
+    bottom:130%;
+    transform:translateX(-50%);
+    width:max-content;
+    max-width:270px;
+    background:#fff;
+    color:#06101f;
+    padding:9px 11px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:700;
+    line-height:1.35;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    z-index:99;
+    white-space:pre-line;
+  }
+  .info:hover::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:112%;
+    transform:translateX(-50%);
+    border:7px solid transparent;
+    border-top-color:#fff;
+    z-index:100;
+  }
+
   @media(max-width:950px){
     .app{display:block}.sidebar{width:100%;height:auto;position:relative}
     .grid,.two-col,.split{grid-template-columns:1fr}
@@ -79,10 +125,30 @@
 
       <div id="coins-br" class="country-panel active">
         <div class="grid">
-          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">64</div><div class="kpi-note good">+33% vs last update</div></div>
-          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">8,770</div><div class="kpi-note good">+119% vs last update</div></div>
-          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">4,960</div><div class="kpi-note good">+201% vs last update</div></div>
-          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">56.56%</div><div class="kpi-note good">+15.41 pts improvement</div><div class="progress"><div class="bar" style="width:56.56%"></div></div></div>
+          <div class="card">
+            <div class="kpi-label">Unique Players</div>
+            <div class="kpi-value">64</div>
+            <div class="kpi-note good">+33% vs last update <span class="info" data-tip="Previous update: 48 players&#10;Latest update: 64 players">i</span></div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Coins Received</div>
+            <div class="kpi-value accent">8,770</div>
+            <div class="kpi-note good">+119% vs last update <span class="info" data-tip="Previous update: 4,010 coins&#10;Latest update: 8,770 coins">i</span></div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Coins Spent</div>
+            <div class="kpi-value">4,960</div>
+            <div class="kpi-note good">+201% vs last update <span class="info" data-tip="Previous update: 1,650 coins spent&#10;Latest update: 4,960 coins spent">i</span></div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Redemption Rate</div>
+            <div class="kpi-value good">56.56%</div>
+            <div class="kpi-note good">+15.41 pts improvement <span class="info" data-tip="Previous update: 41.15%&#10;Latest update: 56.56%">i</span></div>
+            <div class="progress"><div class="bar" style="width:56.56%"></div></div>
+          </div>
         </div>
 
         <div class="two-col">
@@ -127,20 +193,35 @@
             <p class="insight">Brazil shows healthier coin usage this week. Coins spent increased faster than coins received, meaning players are becoming more active in the shop. The strongest item is still the <b>low-cost R$5 Bonus</b>, followed by Free Spins.</p>
             <span class="tag">Small Bonus Works</span><span class="tag">Free Spins Still Attractive</span><span class="tag">Redemption Improving</span>
           </div>
-
-          <div class="card wide">
-            <h3>Brazil Summary</h3>
-            <p class="insight">Player participation increased from <b>48 to 64 players</b>, while total coins received more than doubled. Redemption rate improved from <b>41.15% to 56.56%</b>, showing that players understand the coin system better and are more willing to redeem.</p>
-          </div>
         </div>
       </div>
 
       <div id="coins-mx" class="country-panel">
         <div class="grid">
-          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">25</div><div class="kpi-note good">+67% vs last update</div></div>
-          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">3,140</div><div class="kpi-note good">+83% vs last update</div></div>
-          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">2,850</div><div class="kpi-note good">+85% vs last update</div></div>
-          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">90.76%</div><div class="kpi-note good">Very strong redemption</div><div class="progress"><div class="bar" style="width:90.76%"></div></div></div>
+          <div class="card">
+            <div class="kpi-label">Unique Players</div>
+            <div class="kpi-value">25</div>
+            <div class="kpi-note good">+67% vs last update <span class="info" data-tip="Previous update: 15 players&#10;Latest update: 25 players">i</span></div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Coins Received</div>
+            <div class="kpi-value accent">3,140</div>
+            <div class="kpi-note good">+83% vs last update <span class="info" data-tip="Previous update: 1,715 coins&#10;Latest update: 3,140 coins">i</span></div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Coins Spent</div>
+            <div class="kpi-value">2,850</div>
+            <div class="kpi-note good">+85% vs last update <span class="info" data-tip="Previous update: 1,540 coins spent&#10;Latest update: 2,850 coins spent">i</span></div>
+          </div>
+
+          <div class="card">
+            <div class="kpi-label">Redemption Rate</div>
+            <div class="kpi-value good">90.76%</div>
+            <div class="kpi-note good">+0.96 pts improvement <span class="info" data-tip="Previous update: 89.80%&#10;Latest update: 90.76%">i</span></div>
+            <div class="progress"><div class="bar" style="width:90.76%"></div></div>
+          </div>
         </div>
 
         <div class="two-col">
@@ -184,11 +265,6 @@
             <p class="insight">Mexico continues to show the strongest redemption behavior with a <b>90.76%</b> redemption rate. Players are not saving coins for long; they prefer to redeem quickly, especially for direct bonus funds.</p>
             <span class="tag">Bonus Fund Preferred</span><span class="tag">Low Coin Balance</span><span class="tag">High Shop Usage</span>
           </div>
-
-          <div class="card wide">
-            <h3>Mexico Summary</h3>
-            <p class="insight">Mexico grew from <b>15 to 25 players</b>, while redemption rate remained extremely strong at around <b>91%</b>. This shows that the coin shop offer is clear and attractive for MX players.</p>
-          </div>
         </div>
       </div>
     </section>
@@ -202,30 +278,10 @@
 
       <div id="mission-br" class="country-panel active">
         <div class="grid">
-          <div class="card">
-            <div class="kpi-label">Deposit Events</div>
-            <div class="kpi-value">474</div>
-            <div class="kpi-note">12–22 Jun Total</div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Tier 1 Completed</div>
-            <div class="kpi-value accent">253</div>
-            <div class="kpi-note">R$100 Deposit Milestone</div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Tier 2 Completed</div>
-            <div class="kpi-value warn">110</div>
-            <div class="kpi-note">R$500 Deposit Milestone</div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Wheel Token Usage</div>
-            <div class="kpi-value good">80.2%</div>
-            <div class="kpi-note">308 of 384 tokens spun</div>
-            <div class="progress"><div class="bar" style="width:80.2%"></div></div>
-          </div>
+          <div class="card"><div class="kpi-label">Deposit Events</div><div class="kpi-value">474</div><div class="kpi-note">12–22 Jun Total</div></div>
+          <div class="card"><div class="kpi-label">Tier 1 Completed</div><div class="kpi-value accent">253</div><div class="kpi-note">R$100 Deposit Milestone</div></div>
+          <div class="card"><div class="kpi-label">Tier 2 Completed</div><div class="kpi-value warn">110</div><div class="kpi-note">R$500 Deposit Milestone</div></div>
+          <div class="card"><div class="kpi-label">Wheel Token Usage</div><div class="kpi-value good">80.2%</div><div class="kpi-note">308 of 384 tokens spun</div><div class="progress"><div class="bar" style="width:80.2%"></div></div></div>
         </div>
 
         <div class="two-col">
@@ -264,37 +320,61 @@
 
           <div class="card callout">
             <h3>Brazil Mission Insight</h3>
-            <p class="insight">
-              More than half of deposit events reached the first mission milestone, with a <b>53.4%</b> Tier 1 completion rate.
-              Tier 2 progression remains healthy at <b>23.2%</b>, while Tier 3 is mainly serving as a VIP-level objective.
-            </p>
-            <p class="insight">
-              Wheel engagement is strong, with <b>80.2%</b> of awarded tokens already used. This suggests players are highly likely to interact once they receive the token.
-            </p>
-            <span class="tag">53.4% Reach Tier 1</span>
-            <span class="tag">80.2% Wheel Usage</span>
-            <span class="tag">VIP Tier Objective</span>
-          </div>
-
-          <div class="card wide">
-            <h3>Executive Summary</h3>
-            <p class="insight">
-              From 12–22 June, the Brazil Daily Mission generated <b>474 deposit events</b>.
-              A total of <b>253</b> completions were recorded at Tier 1, <b>110</b> at Tier 2 and <b>13</b> at Tier 3.
-              On average, each day had <b>43 deposit players</b>, <b>23 Tier 1 completions</b>, <b>10 Tier 2 completions</b> and <b>1 Tier 3 completion</b>.
-            </p>
-            <p class="insight">
-              The R$100 milestone is the main engagement driver. The R$500 milestone helps push higher deposit behaviour,
-              while R$3,000 remains suitable as a premium/VIP target. Token usage is strong, but expired tokens should be reduced through reminder messages.
-            </p>
+            <p class="insight">More than half of deposit events reached the first mission milestone, with a <b>53.4%</b> Tier 1 completion rate. Tier 2 progression remains healthy at <b>23.2%</b>, while Tier 3 is mainly serving as a VIP-level objective.</p>
+            <p class="insight">Wheel engagement is strong, with <b>80.2%</b> of awarded tokens already used.</p>
+            <span class="tag">53.4% Reach Tier 1</span><span class="tag">80.2% Wheel Usage</span><span class="tag">VIP Tier Objective</span>
           </div>
         </div>
       </div>
 
       <div id="mission-mx" class="country-panel">
-        <div class="card callout">
-          <h3>Mexico Data Pending</h3>
-          <p class="insight">MX Daily Mission statistics will be updated after 2PM.</p>
+        <div class="grid">
+          <div class="card"><div class="kpi-label">Deposit Events</div><div class="kpi-value">409</div><div class="kpi-note">12–22 Jun Total</div></div>
+          <div class="card"><div class="kpi-label">Tier 1 Completed</div><div class="kpi-value accent">91</div><div class="kpi-note">MX$300 Deposit Milestone</div></div>
+          <div class="card"><div class="kpi-label">Tier 2 Completed</div><div class="kpi-value warn">17</div><div class="kpi-note">MX$1,800 Deposit Milestone</div></div>
+          <div class="card"><div class="kpi-label">Wheel Token Usage</div><div class="kpi-value good">88.79%</div><div class="kpi-note">103 spun, 11 expired</div><div class="progress"><div class="bar" style="width:88.79%"></div></div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Mission Funnel</h3>
+            <table>
+              <tr><th>Stage</th><th>Count</th><th>Rate</th></tr>
+              <tr><td>Deposit Events</td><td>409</td><td>100%</td></tr>
+              <tr><td>Complete MX$300</td><td>91</td><td>22.2%</td></tr>
+              <tr><td>Complete MX$1,800</td><td>17</td><td>4.2%</td></tr>
+              <tr><td>Complete MX$10,000</td><td>8</td><td>2.0%</td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Average Daily Performance</h3>
+            <table>
+              <tr><th>Metric</th><th>Average / Day</th></tr>
+              <tr><td>Deposit Players</td><td>37</td></tr>
+              <tr><td>Tier 1 Completed</td><td>8</td></tr>
+              <tr><td>Tier 2 Completed</td><td>2</td></tr>
+              <tr><td>Tier 3 Completed</td><td>1</td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Wheel Token Status</h3>
+            <table>
+              <tr><th>Status</th><th>Count</th></tr>
+              <tr><td>Spun</td><td>103</td></tr>
+              <tr><td>Expired</td><td>11</td></tr>
+              <tr><td>Pending</td><td>0</td></tr>
+              <tr><td><b>Total Visible Tokens</b></td><td><b>114</b></td></tr>
+            </table>
+          </div>
+
+          <div class="card callout">
+            <h3>Mexico Mission Insight</h3>
+            <p class="insight">Mexico has <b>409 deposit events</b>, with <b>91</b> players reaching the first deposit milestone. Compared with Brazil, MX has a lower Tier 1 completion rate, but wheel usage remains strong once players receive the token.</p>
+            <p class="insight">The MX$10,000 milestone is mostly a VIP-level target, with <b>8 completions</b> during the period.</p>
+            <span class="tag">22.2% Reach Tier 1</span><span class="tag">Strong Wheel Usage</span><span class="tag">VIP Tier Objective</span>
+          </div>
         </div>
       </div>
     </section>
