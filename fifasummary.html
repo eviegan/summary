@@ -42,50 +42,9 @@
   .split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
   .tag{display:inline-block;padding:7px 10px;background:rgba(255,255,255,.09);border-radius:999px;color:#cddfff;font-size:12px;margin:4px 4px 0 0}
 
-  .info{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:16px;
-    height:16px;
-    margin-left:6px;
-    border-radius:50%;
-    background:rgba(255,255,255,.16);
-    color:#ffd84d;
-    font-size:11px;
-    font-weight:900;
-    cursor:help;
-    position:relative;
-  }
-  .info:hover::after{
-    content:attr(data-tip);
-    position:absolute;
-    left:50%;
-    bottom:130%;
-    transform:translateX(-50%);
-    width:max-content;
-    max-width:270px;
-    background:#fff;
-    color:#06101f;
-    padding:9px 11px;
-    border-radius:10px;
-    font-size:12px;
-    font-weight:700;
-    line-height:1.35;
-    box-shadow:0 8px 24px rgba(0,0,0,.28);
-    z-index:99;
-    white-space:pre-line;
-  }
-  .info:hover::before{
-    content:"";
-    position:absolute;
-    left:50%;
-    bottom:112%;
-    transform:translateX(-50%);
-    border:7px solid transparent;
-    border-top-color:#fff;
-    z-index:100;
-  }
+  .info{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-left:6px;border-radius:50%;background:rgba(255,255,255,.16);color:#ffd84d;font-size:11px;font-weight:900;cursor:help;position:relative}
+  .info:hover::after{content:attr(data-tip);position:absolute;left:50%;bottom:130%;transform:translateX(-50%);width:max-content;max-width:270px;background:#fff;color:#06101f;padding:9px 11px;border-radius:10px;font-size:12px;font-weight:700;line-height:1.35;box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:99;white-space:pre-line}
+  .info:hover::before{content:"";position:absolute;left:50%;bottom:112%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:100}
 
   @media(max-width:950px){
     .app{display:block}.sidebar{width:100%;height:auto;position:relative}
@@ -116,7 +75,6 @@
       <div class="pill">BR & MX Market Review</div>
     </div>
 
-    <!-- FIFA COINS -->
     <section id="coins" class="section active">
       <div class="country-tabs">
         <button class="country-tab active" data-group="coins" data-target="coins-br">🇧🇷 Brazil</button>
@@ -125,30 +83,10 @@
 
       <div id="coins-br" class="country-panel active">
         <div class="grid">
-          <div class="card">
-            <div class="kpi-label">Unique Players</div>
-            <div class="kpi-value">64</div>
-            <div class="kpi-note good">+33% vs last update <span class="info" data-tip="Previous update: 48 players&#10;Latest update: 64 players">i</span></div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Coins Received</div>
-            <div class="kpi-value accent">8,770</div>
-            <div class="kpi-note good">+119% vs last update <span class="info" data-tip="Previous update: 4,010 coins&#10;Latest update: 8,770 coins">i</span></div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Coins Spent</div>
-            <div class="kpi-value">4,960</div>
-            <div class="kpi-note good">+201% vs last update <span class="info" data-tip="Previous update: 1,650 coins spent&#10;Latest update: 4,960 coins spent">i</span></div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Redemption Rate</div>
-            <div class="kpi-value good">56.56%</div>
-            <div class="kpi-note good">+15.41 pts improvement <span class="info" data-tip="Previous update: 41.15%&#10;Latest update: 56.56%">i</span></div>
-            <div class="progress"><div class="bar" style="width:56.56%"></div></div>
-          </div>
+          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">64</div><div class="kpi-note good">+33% vs last update <span class="info" data-tip="Previous update: 48 players&#10;Latest update: 64 players">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">8,770</div><div class="kpi-note good">+119% vs last update <span class="info" data-tip="Previous update: 4,010 coins&#10;Latest update: 8,770 coins">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">4,960</div><div class="kpi-note good">+201% vs last update <span class="info" data-tip="Previous update: 1,650 coins spent&#10;Latest update: 4,960 coins spent">i</span></div></div>
+          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">56.56%</div><div class="kpi-note good">+15.41 pts improvement <span class="info" data-tip="Previous update: 41.15%&#10;Latest update: 56.56%">i</span></div><div class="progress"><div class="bar" style="width:56.56%"></div></div></div>
         </div>
 
         <div class="two-col">
@@ -198,30 +136,10 @@
 
       <div id="coins-mx" class="country-panel">
         <div class="grid">
-          <div class="card">
-            <div class="kpi-label">Unique Players</div>
-            <div class="kpi-value">25</div>
-            <div class="kpi-note good">+67% vs last update <span class="info" data-tip="Previous update: 15 players&#10;Latest update: 25 players">i</span></div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Coins Received</div>
-            <div class="kpi-value accent">3,140</div>
-            <div class="kpi-note good">+83% vs last update <span class="info" data-tip="Previous update: 1,715 coins&#10;Latest update: 3,140 coins">i</span></div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Coins Spent</div>
-            <div class="kpi-value">2,850</div>
-            <div class="kpi-note good">+85% vs last update <span class="info" data-tip="Previous update: 1,540 coins spent&#10;Latest update: 2,850 coins spent">i</span></div>
-          </div>
-
-          <div class="card">
-            <div class="kpi-label">Redemption Rate</div>
-            <div class="kpi-value good">90.76%</div>
-            <div class="kpi-note good">+0.96 pts improvement <span class="info" data-tip="Previous update: 89.80%&#10;Latest update: 90.76%">i</span></div>
-            <div class="progress"><div class="bar" style="width:90.76%"></div></div>
-          </div>
+          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">25</div><div class="kpi-note good">+67% vs last update <span class="info" data-tip="Previous update: 15 players&#10;Latest update: 25 players">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">3,140</div><div class="kpi-note good">+83% vs last update <span class="info" data-tip="Previous update: 1,715 coins&#10;Latest update: 3,140 coins">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">2,850</div><div class="kpi-note good">+85% vs last update <span class="info" data-tip="Previous update: 1,540 coins spent&#10;Latest update: 2,850 coins spent">i</span></div></div>
+          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">90.76%</div><div class="kpi-note good">+0.96 pts improvement <span class="info" data-tip="Previous update: 89.80%&#10;Latest update: 90.76%">i</span></div><div class="progress"><div class="bar" style="width:90.76%"></div></div></div>
         </div>
 
         <div class="two-col">
@@ -269,7 +187,6 @@
       </div>
     </section>
 
-    <!-- DAILY MISSION -->
     <section id="dailymission" class="section">
       <div class="country-tabs">
         <button class="country-tab active" data-group="mission" data-target="mission-br">🇧🇷 Brazil</button>
@@ -332,7 +249,7 @@
           <div class="card"><div class="kpi-label">Deposit Events</div><div class="kpi-value">409</div><div class="kpi-note">12–22 Jun Total</div></div>
           <div class="card"><div class="kpi-label">Tier 1 Completed</div><div class="kpi-value accent">91</div><div class="kpi-note">MX$300 Deposit Milestone</div></div>
           <div class="card"><div class="kpi-label">Tier 2 Completed</div><div class="kpi-value warn">17</div><div class="kpi-note">MX$1,800 Deposit Milestone</div></div>
-          <div class="card"><div class="kpi-label">Wheel Token Usage</div><div class="kpi-value good">88.79%</div><div class="kpi-note">103 spun, 11 expired</div><div class="progress"><div class="bar" style="width:88.79%"></div></div></div>
+          <div class="card"><div class="kpi-label">Wheel Token Usage</div><div class="kpi-value good">88.79%</div><div class="kpi-note">103 spun, 11 expired, 0 pending</div><div class="progress"><div class="bar" style="width:88.79%"></div></div></div>
         </div>
 
         <div class="two-col">
@@ -365,21 +282,20 @@
               <tr><td>Spun</td><td>103</td></tr>
               <tr><td>Expired</td><td>11</td></tr>
               <tr><td>Pending</td><td>0</td></tr>
-              <tr><td><b>Total Visible Tokens</b></td><td><b>114</b></td></tr>
+              <tr><td><b>Total Tokens</b></td><td><b>114</b></td></tr>
             </table>
           </div>
 
           <div class="card callout">
             <h3>Mexico Mission Insight</h3>
-            <p class="insight">Mexico has <b>409 deposit events</b>, with <b>91</b> players reaching the first deposit milestone. Compared with Brazil, MX has a lower Tier 1 completion rate, but wheel usage remains strong once players receive the token.</p>
-            <p class="insight">The MX$10,000 milestone is mostly a VIP-level target, with <b>8 completions</b> during the period.</p>
-            <span class="tag">22.2% Reach Tier 1</span><span class="tag">Strong Wheel Usage</span><span class="tag">VIP Tier Objective</span>
+            <p class="insight">Mexico recorded <b>409 deposit events</b>, with <b>91</b> players reaching the first milestone. The Tier 1 completion rate is <b>22.2%</b>, while the highest tier remains a VIP-level target with <b>8 completions</b>.</p>
+            <p class="insight">Wheel engagement is strong with <b>88.79%</b> token usage, showing that once players receive a Wheel Token, they are highly likely to spin it.</p>
+            <span class="tag">22.2% Reach Tier 1</span><span class="tag">88.79% Wheel Usage</span><span class="tag">VIP Tier Objective</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- MATCH PREDICTOR -->
     <section id="predictor" class="section">
       <div class="country-tabs">
         <button class="country-tab active" data-group="predictor" data-target="pred-br">🇧🇷 Brazil</button>
@@ -395,7 +311,6 @@
               <div class="card"><div class="kpi-label">Prediction Rate</div><div class="kpi-value good">24.75%</div><div class="progress"><div class="bar" style="width:24.75%"></div></div></div>
             </div>
           </div>
-
           <div class="card callout">
             <h3>Action Opportunity</h3>
             <p class="insight"><b>76 unlocked BR players</b> have not submitted their prediction yet. The main opportunity is to convert unlocked players with reminder messages before match deadline.</p>
@@ -413,7 +328,6 @@
               <div class="card"><div class="kpi-label">Prediction Rate</div><div class="kpi-value good">43.96%</div><div class="progress"><div class="bar" style="width:43.96%"></div></div></div>
             </div>
           </div>
-
           <div class="card callout">
             <h3>Action Opportunity</h3>
             <p class="insight"><b>51 unlocked MX players</b> have not submitted their prediction yet. MX has stronger conversion than BR, so increasing unlock volume could drive more prediction participation.</p>
