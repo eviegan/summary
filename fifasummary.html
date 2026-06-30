@@ -72,6 +72,19 @@
   .mini-stat{padding:14px;border:1px solid rgba(255,216,77,.18);border-radius:14px;background:rgba(0,0,0,.16)}
   .mini-stat b{font-size:18px;color:#fff}.mini-stat span{display:block;font-size:11px;color:#b8c8e8;margin-top:3px}
 
+
+  /* DEPOSIT IMPACT SUMMARY */
+  .impact-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-bottom:18px}
+  .big-title{font-size:22px;font-weight:900;margin-bottom:10px;color:#fff}
+  .growth-list{display:grid;gap:10px;margin-top:12px}
+  .growth-row{display:grid;grid-template-columns:120px 1fr 82px;gap:10px;align-items:center;font-size:13px;color:#dbe8ff}
+  .growth-track{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+  .growth-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#4ee39a,#ffd84d)}
+  .decline-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#ff7373,#ffbf47)}
+  .summary-box{padding:14px;border-radius:16px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.1);margin-top:12px}
+  .summary-box b{color:#ffd84d}
+  .small-note{font-size:12px;color:#aebfe1;line-height:1.45;margin-top:10px}
+
   @media(max-width:950px){
     .app{display:block}.sidebar{width:100%;height:auto;position:relative}
     .grid,.two-col,.split,.mission-hero-inner,.mini-stat-row{grid-template-columns:1fr}
@@ -91,6 +104,7 @@
     <div class="sub">Coins, Daily Mission & Match Predictor Summary</div>
     <div class="nav">
       <button class="main-tab active" data-target="coins">⚽ FIFA Coins</button>
+      <button class="main-tab" data-target="depositimpact">📈 Deposit Impact</button>
       <button class="main-tab" data-target="dailymission">🎁 Daily Mission</button>
       <button class="main-tab" data-target="predictor">🎯 Match Predictor</button>
     </div>
@@ -100,7 +114,7 @@
     <div class="topline">
       <div>
         <h1>Rewards Performance Summary</h1>
-        <div class="sub">Latest Update: 22/06</div>
+        <div class="sub">Latest Update: 29/06</div>
       </div>
       <div class="pill">BR & MX Market Review</div>
     </div>
@@ -113,10 +127,10 @@
 
       <div id="coins-br" class="country-panel active">
         <div class="grid">
-          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">64</div><div class="kpi-note good">+33% vs last update <span class="info" data-tip="Previous update: 48 players&#10;Latest update: 64 players">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">8,770</div><div class="kpi-note good">+119% vs last update <span class="info" data-tip="Previous update: 4,010 coins&#10;Latest update: 8,770 coins">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">4,960</div><div class="kpi-note good">+201% vs last update <span class="info" data-tip="Previous update: 1,650 coins spent&#10;Latest update: 4,960 coins spent">i</span></div></div>
-          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">56.56%</div><div class="kpi-note good">+15.41 pts improvement <span class="info" data-tip="Previous update: 41.15%&#10;Latest update: 56.56%">i</span></div><div class="progress"><div class="bar" style="width:56.56%"></div></div></div>
+          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">82</div><div class="kpi-note good">+70.8% vs First Week</div><div class="kpi-note good">▲ +28.1% vs Last Week <span class="info" data-tip="15/06: 48 players&#10;22/06: 64 players&#10;29/06: 82 players&#10;&#10;Growth vs First Week: +34 players (+70.8%)&#10;Growth vs Last Week: +18 players (+28.1%)">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">16,245</div><div class="kpi-note good">+305.1% vs First Week</div><div class="kpi-note good">▲ +85.2% vs Last Week <span class="info" data-tip="15/06: 4,010 coins&#10;22/06: 8,770 coins&#10;29/06: 16,245 coins&#10;&#10;Growth vs First Week: +12,235 coins (+305.1%)&#10;Growth vs Last Week: +7,475 coins (+85.2%)">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">9,840</div><div class="kpi-note good">+496.4% vs First Week</div><div class="kpi-note good">▲ +98.4% vs Last Week <span class="info" data-tip="15/06: 1,650 coins spent&#10;22/06: 4,960 coins spent&#10;29/06: 9,840 coins spent&#10;&#10;Growth vs First Week: +8,190 coins (+496.4%)&#10;Growth vs Last Week: +4,880 coins (+98.4%)">i</span></div></div>
+          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">60.57%</div><div class="kpi-note good">+19.42 pts vs First Week</div><div class="kpi-note good">▲ +4.01 pts vs Last Week <span class="info" data-tip="15/06: 41.15%&#10;22/06: 56.56%&#10;29/06: 60.57%&#10;&#10;Growth vs First Week: +19.42 percentage points&#10;Growth vs Last Week: +4.01 percentage points">i</span></div><div class="progress"><div class="bar" style="width:60.57%"></div></div></div>
         </div>
 
         <div class="two-col">
@@ -136,11 +150,11 @@
             <h3>Coin Economy</h3>
             <table>
               <tr><th>Metric</th><th>Value</th></tr>
-              <tr><td>Total Coins Received</td><td>8,770</td></tr>
-              <tr><td>Total Coins Spent</td><td>4,960</td></tr>
-              <tr><td>Balance Coins</td><td>3,810</td></tr>
-              <tr><td>Saved Rate</td><td>43.44%</td></tr>
-              <tr><td>Redemption Rate</td><td>56.56%</td></tr>
+              <tr><td>Total Coins Received</td><td>16,245</td></tr>
+              <tr><td>Total Coins Spent</td><td>9,840</td></tr>
+              <tr><td>Balance Coins</td><td>6,405</td></tr>
+              <tr><td>Saved Rate</td><td>39.43%</td></tr>
+              <tr><td>Redemption Rate</td><td>60.57%</td></tr>
             </table>
           </div>
 
@@ -148,28 +162,28 @@
             <h3>Most Popular Shop Items</h3>
             <table>
               <tr><th>Item</th><th>Redeemed</th></tr>
-              <tr><td>R$5 Bonus</td><td>57</td></tr>
-              <tr><td>18 Free Spins</td><td>15</td></tr>
-              <tr><td>10 Free Spins</td><td>10</td></tr>
-              <tr><td>R$100 Bonus</td><td>2</td></tr>
-              <tr><td>R$50 Bonus</td><td>2</td></tr>
+              <tr><td>R$5 Bonus</td><td>99</td></tr>
+              <tr><td>18 Free Spins</td><td>28</td></tr>
+              <tr><td>10 Free Spins</td><td>16</td></tr>
+              <tr><td>R$100 Bonus</td><td>5</td></tr>
+              <tr><td>R$50 Bonus</td><td>4</td></tr>
             </table>
           </div>
 
           <div class="card callout">
             <h3>Brazil Insight</h3>
-            <p class="insight">Brazil shows healthier coin usage this week. Coins spent increased faster than coins received, meaning players are becoming more active in the shop. The strongest item is still the <b>low-cost R$5 Bonus</b>, followed by Free Spins.</p>
-            <span class="tag">Small Bonus Works</span><span class="tag">Free Spins Still Attractive</span><span class="tag">Redemption Improving</span>
+            <p class="insight">Brazil continues to build a healthy coin economy. Total unique players increased to <b>82</b>, while total coins received nearly doubled to <b>16,245</b>. Redemption rate also improved to <b>60.57%</b>, showing players are becoming more comfortable spending their coins rather than saving them. The <b>R$5 Bonus</b> remains the clear favourite reward with <b>99 redemptions</b>, while Free Spins continue to be the second most popular choice.</p>
+            <span class="tag">Growing Adoption</span><span class="tag">Higher Shop Activity</span><span class="tag">Redemption Improving</span>
           </div>
         </div>
       </div>
 
       <div id="coins-mx" class="country-panel">
         <div class="grid">
-          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">25</div><div class="kpi-note good">+67% vs last update <span class="info" data-tip="Previous update: 15 players&#10;Latest update: 25 players">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">3,140</div><div class="kpi-note good">+83% vs last update <span class="info" data-tip="Previous update: 1,715 coins&#10;Latest update: 3,140 coins">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">2,850</div><div class="kpi-note good">+85% vs last update <span class="info" data-tip="Previous update: 1,540 coins spent&#10;Latest update: 2,850 coins spent">i</span></div></div>
-          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">90.76%</div><div class="kpi-note good">+0.96 pts improvement <span class="info" data-tip="Previous update: 89.80%&#10;Latest update: 90.76%">i</span></div><div class="progress"><div class="bar" style="width:90.76%"></div></div></div>
+          <div class="card"><div class="kpi-label">Unique Players</div><div class="kpi-value">46</div><div class="kpi-note good">+206.7% vs First Week</div><div class="kpi-note good">▲ +84.0% vs Last Week <span class="info" data-tip="15/06: 15 players&#10;22/06: 25 players&#10;29/06: 46 players&#10;&#10;Growth vs First Week: +31 players (+206.7%)&#10;Growth vs Last Week: +21 players (+84.0%)">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">5,745</div><div class="kpi-note good">+235.0% vs First Week</div><div class="kpi-note good">▲ +83.0% vs Last Week <span class="info" data-tip="15/06: 1,715 coins&#10;22/06: 3,140 coins&#10;29/06: 5,745 coins&#10;&#10;Growth vs First Week: +4,030 coins (+235.0%)&#10;Growth vs Last Week: +2,605 coins (+83.0%)">i</span></div></div>
+          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">5,070</div><div class="kpi-note good">+229.2% vs First Week</div><div class="kpi-note good">▲ +77.9% vs Last Week <span class="info" data-tip="15/06: 1,540 coins spent&#10;22/06: 2,850 coins spent&#10;29/06: 5,070 coins spent&#10;&#10;Growth vs First Week: +3,530 coins (+229.2%)&#10;Growth vs Last Week: +2,220 coins (+77.9%)">i</span></div></div>
+          <div class="card"><div class="kpi-label">Redemption Rate</div><div class="kpi-value good">88.25%</div><div class="kpi-note red">-1.55 pts vs First Week</div><div class="kpi-note red">▼ -2.51 pts vs Last Week <span class="info" data-tip="15/06: 89.80%&#10;22/06: 90.76%&#10;29/06: 88.25%&#10;&#10;Change vs First Week: -1.55 percentage points&#10;Change vs Last Week: -2.51 percentage points">i</span></div><div class="progress"><div class="bar" style="width:88.25%"></div></div></div>
         </div>
 
         <div class="two-col">
@@ -189,11 +203,11 @@
             <h3>Coin Economy</h3>
             <table>
               <tr><th>Metric</th><th>Value</th></tr>
-              <tr><td>Total Coins Received</td><td>3,140</td></tr>
-              <tr><td>Total Coins Spent</td><td>2,850</td></tr>
-              <tr><td>Balance Coins</td><td>290</td></tr>
-              <tr><td>Saved Rate</td><td>9.24%</td></tr>
-              <tr><td>Redemption Rate</td><td>90.76%</td></tr>
+              <tr><td>Total Coins Received</td><td>5,745</td></tr>
+              <tr><td>Total Coins Spent</td><td>5,070</td></tr>
+              <tr><td>Balance Coins</td><td>675</td></tr>
+              <tr><td>Saved Rate</td><td>11.75%</td></tr>
+              <tr><td>Redemption Rate</td><td>88.25%</td></tr>
             </table>
           </div>
 
@@ -201,17 +215,220 @@
             <h3>Most Popular Shop Items</h3>
             <table>
               <tr><th>Item</th><th>Redeemed</th></tr>
-              <tr><td>MX$15 Bonus</td><td>19</td></tr>
+              <tr><td>MX$15 Bonus</td><td>33</td></tr>
               <tr><td>MX$300 Bonus</td><td>4</td></tr>
-              <tr><td>MX$150 Bonus</td><td>2</td></tr>
-              <tr><td>18 Giros Gratis</td><td>2</td></tr>
+              <tr><td>MX$150 Bonus</td><td>8</td></tr>
+              <tr><td>18 Free Spins</td><td>4</td></tr>
+              <tr><td>10 Free Spins</td><td>2</td></tr>
             </table>
           </div>
 
           <div class="card callout">
             <h3>Mexico Insight</h3>
-            <p class="insight">Mexico continues to show the strongest redemption behavior with a <b>90.76%</b> redemption rate. Players are not saving coins for long; they prefer to redeem quickly, especially for direct bonus funds.</p>
-            <span class="tag">Bonus Fund Preferred</span><span class="tag">Low Coin Balance</span><span class="tag">High Shop Usage</span>
+            <p class="insight">Mexico continues to maintain an exceptionally high redemption rate at <b>88.25%</b>, although it declined slightly compared to last week as more coins entered circulation. Shop activity remains very healthy, with <b>5,070 coins spent</b> from <b>5,745 coins earned</b>. Players overwhelmingly prefer <b>MX$15 Bonus</b>, confirming that smaller instant rewards remain the strongest engagement driver.</p>
+            <span class="tag">High Redemption</span><span class="tag">Bonus Preferred</span><span class="tag">Strong Shop Usage</span>
+          </div>
+        </div>
+        <div class="card callout wide" style="margin-top:18px">
+          <h3>Overall Coin Summary</h3>
+          <p class="insight">Compared with the previous report on <b>22/06</b>, both markets continued to grow. Brazil showed stronger growth in shop activity, with coins spent increasing by <b>98.4%</b> and redemption rate improving to <b>60.57%</b>. Mexico still has the strongest redemption behavior at <b>88.25%</b>, meaning players are redeeming almost 9 out of every 10 coins earned.</p>
+          <p class="insight">Across both markets, small cash bonus rewards remain the main driver. <b>R$5 Bonus</b> leads Brazil, while <b>MX$15 Bonus</b> dominates Mexico. Free Spins continue to work as the secondary reward option.</p>
+          <span class="tag">Brazil Growth Stronger</span><span class="tag">Mexico Redemption Stronger</span><span class="tag">Small Bonus Wins</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="depositimpact" class="section">
+      <div class="topline" style="margin-bottom:18px">
+        <div>
+          <h1>Deposit Impact</h1>
+          <div class="sub">Comparison: 12 Jun - 29 Jun vs 12 May - 29 May</div>
+        </div>
+        <div class="pill">BR & MX Coin Mission Impact</div>
+      </div>
+
+      <div class="country-tabs">
+        <button class="country-tab active" data-group="impact" data-target="impact-br">🇧🇷 Brazil</button>
+        <button class="country-tab" data-group="impact" data-target="impact-mx">🇲🇽 Mexico</button>
+      </div>
+
+      <div id="impact-br" class="country-panel active">
+        <div class="grid">
+          <div class="card"><div class="kpi-label">Visible Players Checked</div><div class="kpi-value accent">27</div><div class="kpi-note">Players from current comparison sheet</div></div>
+          <div class="card"><div class="kpi-label">Current Period Deposit</div><div class="kpi-value">R$258,386</div><div class="kpi-note">12 Jun - 29 Jun</div></div>
+          <div class="card"><div class="kpi-label">Previous Period Deposit</div><div class="kpi-value">R$288,140</div><div class="kpi-note">12 May - 29 May</div></div>
+          <div class="card"><div class="kpi-label">Net Deposit Change</div><div class="kpi-value red">-10.33%</div><div class="kpi-note">R$29,754 lower vs previous period</div></div>
+        </div>
+
+        <div class="grid" style="margin-top:16px">
+          <div class="card"><div class="kpi-label">Players Increased Deposit</div><div class="kpi-value good">20</div><div class="kpi-note">74.1% of visible players</div><div class="progress"><div class="bar" style="width:74.1%"></div></div></div>
+          <div class="card"><div class="kpi-label">Players Declined Deposit</div><div class="kpi-value red">7</div><div class="kpi-note">25.9% of visible players</div><div class="progress"><div class="bar" style="width:25.9%"></div></div></div>
+          <div class="card"><div class="kpi-label">Reactivated Players</div><div class="kpi-value accent">4</div><div class="kpi-note">R$0 last period → deposited this period</div></div>
+          <div class="card"><div class="kpi-label">Reactivation Deposit Value</div><div class="kpi-value good">R$15,282</div><div class="kpi-note">New deposit value from 0-deposit players</div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="card callout">
+            <h3>Positive Uplift Generated</h3>
+            <div class="kpi-value good">+R$106,039</div>
+            <div class="kpi-note">Total increase from players who deposited more than last month</div>
+            <div class="progress"><div class="bar" style="width:78%"></div></div>
+          </div>
+
+          <div class="card">
+            <h3>Decline Value to Recover</h3>
+            <div class="kpi-value red">-R$135,794</div>
+            <div class="kpi-note">Total drop from players who deposited less than last month</div>
+            <div class="progress"><div class="bar" style="width:100%"></div></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Top 10 Deposit Growth</h3>
+            <table>
+              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Growth</th></tr>
+              <tr><td>gabblb96</td><td>R$36,119</td><td>R$6,355</td><td class="good">▲ 468.36%</td></tr>
+              <tr><td>gona777</td><td>R$1,414</td><td>R$306</td><td class="good">▲ 362.19%</td></tr>
+              <tr><td>jaquetaka</td><td>R$950</td><td>R$218</td><td class="good">▲ 335.78%</td></tr>
+              <tr><td>luisrafael</td><td>R$2,064</td><td>R$512</td><td class="good">▲ 303.13%</td></tr>
+              <tr><td>petylove</td><td>R$18,020</td><td>R$5,820</td><td class="good">▲ 209.62%</td></tr>
+              <tr><td>lorenzon23</td><td>R$20,690</td><td>R$8,042</td><td class="good">▲ 157.27%</td></tr>
+              <tr><td>denison85</td><td>R$5,695</td><td>R$0</td><td class="good">New Active</td></tr>
+              <tr><td>rafa1921</td><td>R$6,429</td><td>R$0</td><td class="good">New Active</td></tr>
+              <tr><td>gabzinxs77</td><td>R$1,958</td><td>R$0</td><td class="good">New Active</td></tr>
+              <tr><td>lhx9797</td><td>R$1,200</td><td>R$0</td><td class="good">New Active</td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Top Deposit Decline / VIP Follow-up</h3>
+            <table>
+              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Change</th></tr>
+              <tr><td>doooctor7</td><td>R$3,235</td><td>R$48,805</td><td class="red">▼ 93.37%</td></tr>
+              <tr><td>ramont</td><td>R$2,340</td><td>R$21,790</td><td class="red">▼ 89.26%</td></tr>
+              <tr><td>kalab17</td><td>R$4,145</td><td>R$31,317</td><td class="red">▼ 86.76%</td></tr>
+              <tr><td>schmittjr</td><td>R$2,781</td><td>R$20,484</td><td class="red">▼ 86.42%</td></tr>
+              <tr><td>ludo888</td><td>R$3,871</td><td>R$21,191</td><td class="red">▼ 81.74%</td></tr>
+              <tr><td>renanm27</td><td>R$5,682</td><td>R$14,077</td><td class="red">▼ 59.64%</td></tr>
+              <tr><td>fabinnho1</td><td>R$10,930</td><td>R$11,113</td><td class="red">▼ 1.65%</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Reactivated Players</h3>
+            <table>
+              <tr><th>Username</th><th>Previous Deposit</th><th>Current Deposit</th><th>Generated</th></tr>
+              <tr><td>rafa1921</td><td>R$0</td><td>R$6,429</td><td class="good">+R$6,429</td></tr>
+              <tr><td>denison85</td><td>R$0</td><td>R$5,695</td><td class="good">+R$5,695</td></tr>
+              <tr><td>gabzinxs77</td><td>R$0</td><td>R$1,958</td><td class="good">+R$1,958</td></tr>
+              <tr><td>lhx9797</td><td>R$0</td><td>R$1,200</td><td class="good">+R$1,200</td></tr>
+              <tr><td><b>Total</b></td><td><b>R$0</b></td><td><b>R$15,282</b></td><td class="good"><b>+R$15,282</b></td></tr>
+            </table>
+          </div>
+
+          <div class="card callout">
+            <h3>Campaign Impact Numbers</h3>
+            <table>
+              <tr><th>Metric</th><th>Result</th></tr>
+              <tr><td>Visible Sample Size</td><td>27 players</td></tr>
+              <tr><td>Increased Deposit Players</td><td class="good">20 players</td></tr>
+              <tr><td>Declined Deposit Players</td><td class="red">7 players</td></tr>
+              <tr><td>Reactivated Players</td><td class="good">4 players</td></tr>
+              <tr><td>Positive Uplift Generated</td><td class="good">+R$106,039</td></tr>
+              <tr><td>Decline Value</td><td class="red">-R$135,794</td></tr>
+              <tr><td>Net Change</td><td class="red">-R$29,754</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="impact-mx" class="country-panel">
+        <div class="grid">
+          <div class="card"><div class="kpi-label">Visible Players Checked</div><div class="kpi-value accent">9</div><div class="kpi-note">Players from current MX comparison sheet</div></div>
+          <div class="card"><div class="kpi-label">Current Period Deposit</div><div class="kpi-value">MX$457,862</div><div class="kpi-note">12 Jun - 29 Jun</div></div>
+          <div class="card"><div class="kpi-label">Previous Period Deposit</div><div class="kpi-value">MX$198,315</div><div class="kpi-note">12 May - 29 May</div></div>
+          <div class="card"><div class="kpi-label">Net Deposit Change</div><div class="kpi-value good">+130.88%</div><div class="kpi-note">MX$259,547 higher vs previous period</div></div>
+        </div>
+
+        <div class="grid" style="margin-top:16px">
+          <div class="card"><div class="kpi-label">Players Increased Deposit</div><div class="kpi-value good">8</div><div class="kpi-note">88.9% of visible players</div><div class="progress"><div class="bar" style="width:88.9%"></div></div></div>
+          <div class="card"><div class="kpi-label">Players Declined Deposit</div><div class="kpi-value red">1</div><div class="kpi-note">11.1% of visible players</div><div class="progress"><div class="bar" style="width:11.1%"></div></div></div>
+          <div class="card"><div class="kpi-label">Reactivated Players</div><div class="kpi-value accent">1</div><div class="kpi-note">MX$0 last period → deposited this period</div></div>
+          <div class="card"><div class="kpi-label">Reactivation Deposit Value</div><div class="kpi-value good">MX$3,773</div><div class="kpi-note">New deposit value from 0-deposit player</div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="card callout">
+            <h3>Positive Uplift Generated</h3>
+            <div class="kpi-value good">+MX$261,312</div>
+            <div class="kpi-note">Total increase from players who deposited more than last month</div>
+            <div class="progress"><div class="bar" style="width:100%"></div></div>
+          </div>
+
+          <div class="card">
+            <h3>Decline Value to Recover</h3>
+            <div class="kpi-value red">-MX$1,765</div>
+            <div class="kpi-note">Total drop from player who deposited less than last month</div>
+            <div class="progress"><div class="bar" style="width:12%"></div></div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Top Deposit Growth</h3>
+            <table>
+              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Growth</th></tr>
+              <tr><td>razzz9988</td><td>MX$3,773</td><td>MX$0</td><td class="good">New Active</td></tr>
+              <tr><td>bbliko</td><td>MX$9,200</td><td>MX$600</td><td class="good">▲ 1433.33%</td></tr>
+              <tr><td>eurbi04</td><td>MX$4,000</td><td>MX$300</td><td class="good">▲ 1233.33%</td></tr>
+              <tr><td>martha1107</td><td>MX$33,910</td><td>MX$4,020</td><td class="good">▲ 743.53%</td></tr>
+              <tr><td>pepemarin</td><td>MX$11,846</td><td>MX$1,967</td><td class="good">▲ 502.24%</td></tr>
+              <tr><td>lobit01105</td><td>MX$373,034</td><td>MX$170,771</td><td class="good">▲ 118.44%</td></tr>
+              <tr><td>h241113</td><td>MX$6,335</td><td>MX$3,928</td><td class="good">▲ 61.28%</td></tr>
+              <tr><td>machetes</td><td>MX$7,300</td><td>MX$6,500</td><td class="good">▲ 12.31%</td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Deposit Decline / Follow-up</h3>
+            <table>
+              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Change</th></tr>
+              <tr><td>jozeta1907</td><td>MX$8,464</td><td>MX$10,229</td><td class="red">▼ 17.25%</td></tr>
+            </table>
+            <div class="summary-box">
+              <b>MX is showing a very strong net uplift.</b><br>
+              Only 1 visible player declined, while 8 players increased deposits compared with the same period last month.
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Reactivated Players</h3>
+            <table>
+              <tr><th>Username</th><th>Previous Deposit</th><th>Current Deposit</th><th>Generated</th></tr>
+              <tr><td>razzz9988</td><td>MX$0</td><td>MX$3,773</td><td class="good">+MX$3,773</td></tr>
+              <tr><td><b>Total</b></td><td><b>MX$0</b></td><td><b>MX$3,773</b></td><td class="good"><b>+MX$3,773</b></td></tr>
+            </table>
+          </div>
+
+          <div class="card callout">
+            <h3>Campaign Impact Numbers</h3>
+            <table>
+              <tr><th>Metric</th><th>Result</th></tr>
+              <tr><td>Visible Sample Size</td><td>9 players</td></tr>
+              <tr><td>Increased Deposit Players</td><td class="good">8 players</td></tr>
+              <tr><td>Declined Deposit Players</td><td class="red">1 player</td></tr>
+              <tr><td>Reactivated Players</td><td class="good">1 player</td></tr>
+              <tr><td>Positive Uplift Generated</td><td class="good">+MX$261,312</td></tr>
+              <tr><td>Decline Value</td><td class="red">-MX$1,765</td></tr>
+              <tr><td>Net Change</td><td class="good">+MX$259,547</td></tr>
+            </table>
           </div>
         </div>
       </div>
@@ -225,42 +442,49 @@
 
       <div id="mission-br" class="country-panel active">
         <div class="mission-hero">
-          <div class="mission-hero-title">Daily Mission Funnel</div>
+          <div class="mission-hero-title">Daily Mission Funnel <span class="tag">12 Jun - 29 Jun</span></div>
           <div class="mission-hero-inner">
             <div class="funnel-wrap">
               <div class="funnel-step s1">
                 <div class="funnel-label">Deposit Players</div>
-                <div class="funnel-value">474</div>
+                <div class="funnel-value">715</div>
                 <div class="funnel-rate">100%</div>
-                <div class="funnel-sub">Starting Point</div>
+                <div class="funnel-sub">+50.8% vs 22/06</div>
               </div>
               <div class="funnel-step s2">
                 <div class="funnel-label">Tier 1 Completed</div>
-                <div class="funnel-value">253</div>
-                <div class="funnel-rate">53.4%</div>
-                <div class="funnel-sub">R$100</div>
+                <div class="funnel-value">398</div>
+                <div class="funnel-rate">55.66%</div>
+                <div class="funnel-sub">R$100 • +145</div>
               </div>
               <div class="funnel-step s3">
                 <div class="funnel-label">Tier 2 Completed</div>
-                <div class="funnel-value">110</div>
-                <div class="funnel-rate">23.2%</div>
-                <div class="funnel-sub">R$500</div>
+                <div class="funnel-value">173</div>
+                <div class="funnel-rate">24.20%</div>
+                <div class="funnel-sub">R$500 • +63</div>
               </div>
               <div class="funnel-step s4">
                 <div class="funnel-label">Tier 3 Completed</div>
-                <div class="funnel-value">13</div>
-                <div class="funnel-rate">2.7%</div>
-                <div class="funnel-sub">R$3,000</div>
+                <div class="funnel-value">28</div>
+                <div class="funnel-rate">3.92%</div>
+                <div class="funnel-sub">R$3,000 • +15</div>
               </div>
             </div>
             <div class="spin-rate-box">
               <div class="spin-circle">
-                <div class="spin-big">80.21%</div>
+                <div class="spin-big">77.65%</div>
                 <div class="spin-label">SPUN RATE</div>
-                <div class="spin-small">308 / 384 Tokens</div>
+                <div class="spin-small">469 / 604 Tokens</div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="grid" style="margin-bottom:18px">
+          <div class="card"><div class="kpi-label">Deposit Player Growth</div><div class="kpi-value good">+241</div><div class="kpi-note">474 → 715 players (+50.8%)</div></div>
+          <div class="card"><div class="kpi-label">Tier 1 Growth</div><div class="kpi-value good">+145</div><div class="kpi-note">253 → 398 completed (+57.3%)</div></div>
+          <div class="card"><div class="kpi-label">Tier 3 Growth</div><div class="kpi-value good">+15</div><div class="kpi-note">13 → 28 completed (+115.4%)</div></div>
+          <div class="card"><div class="kpi-label">Spun Rate Change</div><div class="kpi-value warn">-2.56 pts</div><div class="kpi-note">80.21% → 77.65%</div></div>
         </div>
 
         <div class="two-col">
@@ -268,10 +492,10 @@
             <h3>Average Daily Performance</h3>
             <table>
               <tr><th>Metric</th><th>Average / Day</th></tr>
-              <tr><td>Deposit Players</td><td>43</td></tr>
-              <tr><td>Tier 1 Completed</td><td>23</td></tr>
+              <tr><td>Deposit Players</td><td>40</td></tr>
+              <tr><td>Tier 1 Completed</td><td>22</td></tr>
               <tr><td>Tier 2 Completed</td><td>10</td></tr>
-              <tr><td>Tier 3 Completed</td><td>1</td></tr>
+              <tr><td>Tier 3 Completed</td><td>2</td></tr>
             </table>
           </div>
 
@@ -279,64 +503,74 @@
             <h3>Wheel Token Status</h3>
             <table>
               <tr><th>Status</th><th>Count</th></tr>
-              <tr><td>Spun</td><td>308</td></tr>
-              <tr><td>Expired</td><td>51</td></tr>
-              <tr><td>Pending</td><td>25</td></tr>
-              <tr><td><b>Total Tokens</b></td><td><b>384</b></td></tr>
+              <tr><td>Received</td><td>604</td></tr>
+              <tr><td>Spun</td><td>469</td></tr>
+              <tr><td>Expired</td><td>107</td></tr>
+              <tr><td>Pending</td><td>28</td></tr>
             </table>
           </div>
 
-          <div class="card callout wide">
-            <h3>Brazil Mission Insight</h3>
-            <p class="insight">Brazil recorded <b>474 deposit players</b> during 12–22 Jun. More than half reached the first mission milestone, with a <b>53.4%</b> Tier 1 completion rate. Tier 2 remains healthy at <b>23.2%</b>, while Tier 3 works better as a VIP-level target.</p>
-            <p class="insight">Wheel engagement is strong, with <b>80.21%</b> of awarded tokens already spun.</p>
-            <div class="mini-stat-row">
-              <div class="mini-stat"><b>53.4%</b><span>Tier 1 Conversion</span></div>
-              <div class="mini-stat"><b>474</b><span>Total Deposit Players</span></div>
-              <div class="mini-stat"><b>80.21%</b><span>Wheel Token Spun Rate</span></div>
-            </div>
+          <div class="card wide">
+            <h3>Vs Previous Update</h3>
+            <table>
+              <tr><th>Metric</th><th>22/06</th><th>29/06</th><th>Growth</th></tr>
+              <tr><td>Deposit Players</td><td>474</td><td>715</td><td class="good">+241 / +50.8%</td></tr>
+              <tr><td>Tier 1 Completed</td><td>253</td><td>398</td><td class="good">+145 / +57.3%</td></tr>
+              <tr><td>Tier 2 Completed</td><td>110</td><td>173</td><td class="good">+63 / +57.3%</td></tr>
+              <tr><td>Tier 3 Completed</td><td>13</td><td>28</td><td class="good">+15 / +115.4%</td></tr>
+              <tr><td>Wheel Tokens Received</td><td>384</td><td>604</td><td class="good">+220 / +57.3%</td></tr>
+              <tr><td>Wheel Tokens Spun</td><td>308</td><td>469</td><td class="good">+161 / +52.3%</td></tr>
+              <tr><td>Spun Rate</td><td>80.21%</td><td>77.65%</td><td class="warn">-2.56 pts</td></tr>
+            </table>
           </div>
         </div>
       </div>
 
       <div id="mission-mx" class="country-panel">
         <div class="mission-hero">
-          <div class="mission-hero-title">Daily Mission Funnel</div>
+          <div class="mission-hero-title">Daily Mission Funnel <span class="tag">12 Jun - 29 Jun</span></div>
           <div class="mission-hero-inner">
             <div class="funnel-wrap">
               <div class="funnel-step s1">
                 <div class="funnel-label">Deposit Players</div>
-                <div class="funnel-value">409</div>
+                <div class="funnel-value">662</div>
                 <div class="funnel-rate">100%</div>
-                <div class="funnel-sub">Starting Point</div>
+                <div class="funnel-sub">+61.9% vs 22/06</div>
               </div>
               <div class="funnel-step s2">
                 <div class="funnel-label">Tier 1 Completed</div>
-                <div class="funnel-value">91</div>
-                <div class="funnel-rate">22.2%</div>
-                <div class="funnel-sub">MX$300</div>
+                <div class="funnel-value">159</div>
+                <div class="funnel-rate">24.02%</div>
+                <div class="funnel-sub">MX$300 • +68</div>
               </div>
               <div class="funnel-step s3">
                 <div class="funnel-label">Tier 2 Completed</div>
-                <div class="funnel-value">17</div>
-                <div class="funnel-rate">4.2%</div>
-                <div class="funnel-sub">MX$1,800</div>
+                <div class="funnel-value">31</div>
+                <div class="funnel-rate">4.68%</div>
+                <div class="funnel-sub">MX$1,800 • +14</div>
               </div>
               <div class="funnel-step s4">
                 <div class="funnel-label">Tier 3 Completed</div>
-                <div class="funnel-value">8</div>
-                <div class="funnel-rate">2.0%</div>
-                <div class="funnel-sub">MX$10,000</div>
+                <div class="funnel-value">13</div>
+                <div class="funnel-rate">1.96%</div>
+                <div class="funnel-sub">MX$10,000 • +5</div>
               </div>
             </div>
             <div class="spin-rate-box">
               <div class="spin-circle">
-                <div class="spin-big">90.35%</div>
+                <div class="spin-big">89.09%</div>
                 <div class="spin-label">SPUN RATE</div>
-                <div class="spin-small">103 / 114 Tokens</div>
+                <div class="spin-small">196 / 220 Tokens</div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="grid" style="margin-bottom:18px">
+          <div class="card"><div class="kpi-label">Deposit Player Growth</div><div class="kpi-value good">+253</div><div class="kpi-note">409 → 662 players (+61.9%)</div></div>
+          <div class="card"><div class="kpi-label">Tier 1 Growth</div><div class="kpi-value good">+68</div><div class="kpi-note">91 → 159 completed (+74.7%)</div></div>
+          <div class="card"><div class="kpi-label">Tier 3 Growth</div><div class="kpi-value good">+5</div><div class="kpi-note">8 → 13 completed (+62.5%)</div></div>
+          <div class="card"><div class="kpi-label">Spun Rate Change</div><div class="kpi-value warn">-1.26 pts</div><div class="kpi-note">90.35% → 89.09%</div></div>
         </div>
 
         <div class="two-col">
@@ -348,7 +582,6 @@
               <tr><td>Tier 1 Completed</td><td>8</td></tr>
               <tr><td>Tier 2 Completed</td><td>2</td></tr>
               <tr><td>Tier 3 Completed</td><td>1</td></tr>
-              <tr><td>Active Players</td><td>1.5</td></tr>
             </table>
           </div>
 
@@ -356,22 +589,25 @@
             <h3>Wheel Token Status</h3>
             <table>
               <tr><th>Status</th><th>Count</th></tr>
-              <tr><td>Spun</td><td>103</td></tr>
-              <tr><td>Expired</td><td>11</td></tr>
-              <tr><td>Pending</td><td>0</td></tr>
-              <tr><td><b>Total Tokens</b></td><td><b>114</b></td></tr>
+              <tr><td>Received</td><td>220</td></tr>
+              <tr><td>Spun</td><td>196</td></tr>
+              <tr><td>Expired</td><td>20</td></tr>
+              <tr><td>Pending</td><td>4</td></tr>
             </table>
           </div>
 
-          <div class="card callout wide">
-            <h3>Mexico Mission Insight</h3>
-            <p class="insight">Mexico recorded <b>409 deposit players</b> during 12–22 Jun. <b>22.2%</b> of deposit players completed the first milestone, while Tier 2 and Tier 3 remain higher-value goals.</p>
-            <p class="insight">Wheel token usage is strong at <b>90.35%</b>, showing high engagement once tokens are earned.</p>
-            <div class="mini-stat-row">
-              <div class="mini-stat"><b>22.2%</b><span>Tier 1 Conversion</span></div>
-              <div class="mini-stat"><b>409</b><span>Total Deposit Players</span></div>
-              <div class="mini-stat"><b>90.35%</b><span>Wheel Token Spun Rate</span></div>
-            </div>
+          <div class="card wide">
+            <h3>Vs Previous Update</h3>
+            <table>
+              <tr><th>Metric</th><th>22/06</th><th>29/06</th><th>Growth</th></tr>
+              <tr><td>Deposit Players</td><td>409</td><td>662</td><td class="good">+253 / +61.9%</td></tr>
+              <tr><td>Tier 1 Completed</td><td>91</td><td>159</td><td class="good">+68 / +74.7%</td></tr>
+              <tr><td>Tier 2 Completed</td><td>17</td><td>31</td><td class="good">+14 / +82.4%</td></tr>
+              <tr><td>Tier 3 Completed</td><td>8</td><td>13</td><td class="good">+5 / +62.5%</td></tr>
+              <tr><td>Wheel Tokens Received</td><td>114</td><td>220</td><td class="good">+106 / +93.0%</td></tr>
+              <tr><td>Wheel Tokens Spun</td><td>103</td><td>196</td><td class="good">+93 / +90.3%</td></tr>
+              <tr><td>Spun Rate</td><td>90.35%</td><td>89.09%</td><td class="warn">-1.26 pts</td></tr>
+            </table>
           </div>
         </div>
       </div>
