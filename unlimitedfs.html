@@ -221,18 +221,6 @@ input[type="radio"]{
     font-size:13px;
 }
 
-.status{
-    padding:9px 13px;
-    border-radius:999px;
-    background:rgba(255,190,85,.12);
-    border:1px solid rgba(255,190,85,.28);
-    color:#ffd176;
-    font-size:12px;
-    font-weight:900;
-    text-transform:uppercase;
-    white-space:nowrap;
-}
-
 /* KPI CARDS */
 
 .kpi-grid{
@@ -436,6 +424,10 @@ tr:last-child td{
     background:linear-gradient(90deg,#42d58d,#6fcfff);
 }
 
+.progress.claim-bar span{
+    background:linear-gradient(90deg,#d86cff,#8a7cff);
+}
+
 .funnel-rate{
     margin-top:7px;
     color:#8f8da8;
@@ -543,6 +535,7 @@ tr:last-child td{
 <div class="container">
 
     <div class="hero">
+
         <div class="eyebrow">
             New Player Onboarding Analysis
         </div>
@@ -560,9 +553,11 @@ tr:last-child td{
         <div class="date-pill">
             Reporting Period: 26 June 2026 – 13 July 2026
         </div>
+
     </div>
 
     <div class="flow-card">
+
         <div class="section-label">
             Campaign Journey
         </div>
@@ -590,12 +585,14 @@ tr:last-child td{
             </div>
 
         </div>
+
     </div>
 
     <input type="radio" name="country-tabs" id="tab-br" checked>
     <input type="radio" name="country-tabs" id="tab-mx">
 
     <div class="tabs">
+
         <label class="tab-label" for="tab-br">
             BR – Brazil
         </label>
@@ -603,6 +600,7 @@ tr:last-child td{
         <label class="tab-label" for="tab-mx">
             MX – Mexico
         </label>
+
     </div>
 
     <div class="content-wrap">
@@ -618,13 +616,12 @@ tr:last-child td{
                     <p>Newly registered players only</p>
                 </div>
 
-            
-
             </div>
 
             <div class="kpi-grid">
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Received Wheel Tickets
                     </div>
@@ -636,9 +633,11 @@ tr:last-child td{
                     <div class="kpi-sub">
                         New players granted all three wheel tickets
                     </div>
+
                 </div>
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Players Who Spun
                     </div>
@@ -651,9 +650,11 @@ tr:last-child td{
                         <strong class="positive">58.36%</strong>
                         of ticket recipients
                     </div>
+
                 </div>
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Deposited After Spinning
                     </div>
@@ -666,9 +667,11 @@ tr:last-child td{
                         <strong>4.44%</strong> of recipients or
                         <strong>7.60%</strong> of spinners
                     </div>
+
                 </div>
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Deposited Before Spinning
                     </div>
@@ -680,6 +683,7 @@ tr:last-child td{
                     <div class="kpi-sub">
                         <strong>1.71%</strong> of ticket recipients
                     </div>
+
                 </div>
 
             </div>
@@ -712,6 +716,7 @@ tr:last-child td{
                             <tbody>
 
                                 <tr>
+
                                     <td>
                                         <strong>Spin 1</strong>
                                     </td>
@@ -734,9 +739,11 @@ tr:last-child td{
                                             43%
                                         </span>
                                     </td>
+
                                 </tr>
 
                                 <tr>
+
                                     <td>
                                         <strong>Spin 2</strong>
                                     </td>
@@ -759,9 +766,11 @@ tr:last-child td{
                                             46%
                                         </span>
                                     </td>
+
                                 </tr>
 
                                 <tr>
+
                                     <td>
                                         <strong>Spin 3</strong>
                                     </td>
@@ -784,6 +793,7 @@ tr:last-child td{
                                             57%
                                         </span>
                                     </td>
+
                                 </tr>
 
                             </tbody>
@@ -791,6 +801,7 @@ tr:last-child td{
                         </table>
 
                     </div>
+
                 </div>
 
                 <div class="card">
@@ -803,109 +814,104 @@ tr:last-child td{
 
                     <div class="funnel">
 
-                       <div class="funnel">
+                        <div class="funnel-item">
 
-    <div class="funnel-item">
+                            <div class="funnel-top">
 
-        <div class="funnel-top">
-            <div class="funnel-name">
-                Spun Spin 3
-            </div>
+                                <div class="funnel-name">
+                                    Spun Spin 3
+                                </div>
 
-            <div class="funnel-number">
-                166
-            </div>
-        </div>
+                                <div class="funnel-number">
+                                    166
+                                </div>
 
-        <div class="progress">
-            <span style="width:100%;"></span>
-        </div>
+                            </div>
 
-        <div class="funnel-rate">
-            Starting point of the Spin 3 funnel
-        </div>
+                            <div class="progress">
+                                <span style="width:100%;"></span>
+                            </div>
 
-    </div>
+                            <div class="funnel-rate">
+                                Starting point of the Spin 3 funnel
+                            </div>
 
-    <div class="funnel-item">
+                        </div>
 
-        <div class="funnel-top">
-            <div class="funnel-name">
-                Unique Player Opted In
-            </div>
+                        <div class="funnel-item">
 
-            <div class="funnel-number">
-                1
-            </div>
-        </div>
+                            <div class="funnel-top">
 
-        <div class="progress warning-bar">
-            <span style="width:.60%;min-width:5px;"></span>
-        </div>
+                                <div class="funnel-name">
+                                    Unique Player Opted In
+                                </div>
 
-        <div class="funnel-rate">
-            0.60% of players who used Spin 3
-        </div>
+                                <div class="funnel-number">
+                                    1
+                                </div>
 
-    </div>
+                            </div>
 
-    <div class="funnel-item">
-
-        <div class="funnel-top">
-            <div class="funnel-name">
-                Players Deposited After Spin 3
-            </div>
-
-            <div class="funnel-number">
-                12
-            </div>
-        </div>
-
-        <div class="progress success-bar">
-            <span style="width:7.23%;min-width:5px;"></span>
-        </div>
-
-        <div class="funnel-rate">
-            7.23% of Spin 3 players made a deposit afterward.
-        </div>
-
-    </div>
-
-    <div class="funnel-item">
-
-        <div class="funnel-top">
-            <div class="funnel-name">
-                Unique Player Claimed 7 Days Unlimited FS
-            </div>
-
-            <div class="funnel-number">
-                1
-            </div>
-        </div>
-
-        <div class="progress warning-bar">
-            <span style="width:.60%;min-width:5px;"></span>
-        </div>
-
-        <div class="funnel-rate">
-            Only one player successfully claimed the promotion.
-        </div>
-
-    </div>
-
-</div>
-
-                            <div class="progress success-bar">
+                            <div class="progress warning-bar">
                                 <span style="width:.60%;min-width:5px;"></span>
                             </div>
 
                             <div class="funnel-rate">
-                             
+                                0.60% of players who used Spin 3
+                            </div>
+
+                        </div>
+
+                        <div class="funnel-item">
+
+                            <div class="funnel-top">
+
+                                <div class="funnel-name">
+                                    Players Deposited After Spin 3
+                                </div>
+
+                                <div class="funnel-number">
+                                    12
+                                </div>
+
+                            </div>
+
+                            <div class="progress success-bar">
+                                <span style="width:7.23%;min-width:5px;"></span>
+                            </div>
+
+                            <div class="funnel-rate">
+                                7.23% of Spin 3 players made a deposit afterward.
+                            </div>
+
+                        </div>
+
+                        <div class="funnel-item">
+
+                            <div class="funnel-top">
+
+                                <div class="funnel-name">
+                                    Unique Player Claimed 7 Days Unlimited FS
+                                </div>
+
+                                <div class="funnel-number">
+                                    1
+                                </div>
+
+                            </div>
+
+                            <div class="progress claim-bar">
+                                <span style="width:.60%;min-width:5px;"></span>
+                            </div>
+
+                            <div class="funnel-rate">
+                                Only one player successfully claimed the promotion.
                             </div>
 
                         </div>
 
                     </div>
+
                 </div>
 
             </div>
@@ -923,13 +929,12 @@ tr:last-child td{
                     <p>Newly registered players only</p>
                 </div>
 
-           
-
             </div>
 
             <div class="kpi-grid">
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Received Wheel Tickets
                     </div>
@@ -941,9 +946,11 @@ tr:last-child td{
                     <div class="kpi-sub">
                         New players granted all three wheel tickets
                     </div>
+
                 </div>
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Players Who Spun
                     </div>
@@ -956,9 +963,11 @@ tr:last-child td{
                         <strong class="positive">81.05%</strong>
                         of ticket recipients
                     </div>
+
                 </div>
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Deposited After Spinning
                     </div>
@@ -971,9 +980,11 @@ tr:last-child td{
                         <strong>7.04%</strong> of recipients or
                         <strong>8.68%</strong> of spinners
                     </div>
+
                 </div>
 
                 <div class="kpi">
+
                     <div class="kpi-title">
                         Deposited Before Spinning
                     </div>
@@ -985,6 +996,7 @@ tr:last-child td{
                     <div class="kpi-sub">
                         <strong>1.31%</strong> of ticket recipients
                     </div>
+
                 </div>
 
             </div>
@@ -1018,6 +1030,7 @@ tr:last-child td{
                             <tbody>
 
                                 <tr>
+
                                     <td>
                                         <strong>Spin 1</strong>
                                     </td>
@@ -1042,9 +1055,11 @@ tr:last-child td{
                                     </td>
 
                                     <td>71</td>
+
                                 </tr>
 
                                 <tr>
+
                                     <td>
                                         <strong>Spin 2</strong>
                                     </td>
@@ -1069,9 +1084,11 @@ tr:last-child td{
                                     </td>
 
                                     <td>76</td>
+
                                 </tr>
 
                                 <tr>
+
                                     <td>
                                         <strong>Spin 3</strong>
                                     </td>
@@ -1096,6 +1113,7 @@ tr:last-child td{
                                     </td>
 
                                     <td>84</td>
+
                                 </tr>
 
                             </tbody>
@@ -1103,6 +1121,7 @@ tr:last-child td{
                         </table>
 
                     </div>
+
                 </div>
 
                 <div class="card">
@@ -1118,6 +1137,7 @@ tr:last-child td{
                         <div class="funnel-item">
 
                             <div class="funnel-top">
+
                                 <div class="funnel-name">
                                     Spun Spin 3
                                 </div>
@@ -1125,6 +1145,7 @@ tr:last-child td{
                                 <div class="funnel-number">
                                     1,041
                                 </div>
+
                             </div>
 
                             <div class="progress">
@@ -1140,20 +1161,23 @@ tr:last-child td{
                         <div class="funnel-item">
 
                             <div class="funnel-top">
+
                                 <div class="funnel-name">
                                     Unique Players Opted In
                                 </div>
 
                                 <div class="funnel-number">
-                                    1034
+                                    1,034
                                 </div>
+
                             </div>
 
                             <div class="progress warning-bar">
-                                <span style="width:1.06%;min-width:5px;"></span>
+                                <span style="width:99.33%;"></span>
                             </div>
 
                             <div class="funnel-rate">
+                                99.33% of players who used Spin 3
                             </div>
 
                         </div>
@@ -1161,26 +1185,54 @@ tr:last-child td{
                         <div class="funnel-item">
 
                             <div class="funnel-top">
+
                                 <div class="funnel-name">
-                                    Unique Players Deposited &amp; Claimed
+                                    Unique Players Deposited After Spin 3
                                 </div>
 
                                 <div class="funnel-number">
                                     90
                                 </div>
+
                             </div>
 
                             <div class="progress success-bar">
-                                <span style="width:1.06%;min-width:5px;"></span>
+                                <span style="width:8.65%;min-width:5px;"></span>
                             </div>
 
                             <div class="funnel-rate">
-                             
+                                8.65% of players who used Spin 3 deposited afterward.
+                            </div>
+
+                        </div>
+
+                        <div class="funnel-item">
+
+                            <div class="funnel-top">
+
+                                <div class="funnel-name">
+                                    Unique Players Claimed 7 Days Unlimited FS
+                                </div>
+
+                                <div class="funnel-number">
+                                    7
+                                </div>
+
+                            </div>
+
+                            <div class="progress claim-bar">
+                                <span style="width:.67%;min-width:5px;"></span>
+                            </div>
+
+                            <div class="funnel-rate">
+                                Seven unique players successfully claimed the
+                                7 Days Unlimited Free Spins promotion.
                             </div>
 
                         </div>
 
                     </div>
+
                 </div>
 
             </div>
