@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>New Player Wheel Campaign Summary</title>
+<title>Player Wheel Campaign Summary</title>
 
 <style>
 *{
@@ -29,7 +29,7 @@ body{
 
 .container{
     width:100%;
-    max-width:1180px;
+    max-width:1240px;
     margin:0 auto;
 }
 
@@ -90,11 +90,105 @@ body{
     font-weight:700;
 }
 
+/* HIDE RADIO INPUTS */
+
+input[type="radio"]{
+    display:none;
+}
+
+/* MAIN LAYOUT */
+
+.dashboard-layout{
+    display:grid;
+    grid-template-columns:190px minmax(0,1fr);
+    gap:20px;
+    align-items:start;
+}
+
+/* AUDIENCE SIDEBAR */
+
+.audience-sidebar{
+    position:sticky;
+    top:18px;
+    padding:12px;
+    border-radius:18px;
+    background:linear-gradient(145deg,#171732,#101024);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 16px 40px rgba(0,0,0,.24);
+}
+
+.sidebar-title{
+    padding:8px 10px 13px;
+    color:#8f8da8;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.audience-label{
+    display:block;
+    margin-bottom:9px;
+    padding:16px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    color:#aaa8c2;
+    background:#111127;
+    border:1px solid rgba(255,255,255,.06);
+    font-size:13px;
+    font-weight:900;
+    transition:.25s ease;
+}
+
+.audience-label:last-child{
+    margin-bottom:0;
+}
+
+.audience-label span{
+    display:block;
+    margin-top:5px;
+    color:#76748d;
+    font-size:10px;
+    font-weight:600;
+    line-height:1.4;
+}
+
+#audience-new:checked ~ .dashboard-layout .audience-sidebar label[for="audience-new"],
+#audience-existing:checked ~ .dashboard-layout .audience-sidebar label[for="audience-existing"]{
+    color:#ffffff;
+    background:linear-gradient(135deg,#ff6ec4,#7873f5);
+    border-color:transparent;
+    box-shadow:0 9px 24px rgba(120,115,245,.28);
+}
+
+#audience-new:checked ~ .dashboard-layout .audience-sidebar label[for="audience-new"] span,
+#audience-existing:checked ~ .dashboard-layout .audience-sidebar label[for="audience-existing"] span{
+    color:rgba(255,255,255,.78);
+}
+
+/* AUDIENCE CONTENT */
+
+.audience-content{
+    min-width:0;
+}
+
+.audience-panel{
+    display:none;
+}
+
+#audience-new:checked ~ .dashboard-layout .audience-content .new-panel{
+    display:block;
+}
+
+#audience-existing:checked ~ .dashboard-layout .audience-content .existing-panel{
+    display:block;
+}
+
 /* CAMPAIGN FLOW */
 
 .flow-card{
     padding:22px;
-    margin-bottom:24px;
+    margin-bottom:20px;
     border:1px solid rgba(255,255,255,.09);
     border-radius:18px;
     background:linear-gradient(
@@ -149,13 +243,9 @@ body{
     font-weight:900;
 }
 
-/* TABS */
+/* COUNTRY TABS */
 
-input[type="radio"]{
-    display:none;
-}
-
-.tabs{
+.country-tabs{
     display:flex;
     gap:10px;
     margin-bottom:20px;
@@ -165,7 +255,7 @@ input[type="radio"]{
     border:1px solid rgba(255,255,255,.08);
 }
 
-.tab-label{
+.country-tab-label{
     flex:1;
     padding:14px 18px;
     border-radius:10px;
@@ -177,22 +267,43 @@ input[type="radio"]{
     transition:.25s ease;
 }
 
-#tab-br:checked ~ .tabs label[for="tab-br"],
-#tab-mx:checked ~ .tabs label[for="tab-mx"]{
+/* NEW COUNTRY TAB ACTIVE */
+
+#new-br:checked ~ .country-tabs label[for="new-br"],
+#new-mx:checked ~ .country-tabs label[for="new-mx"]{
     color:#ffffff;
     background:linear-gradient(90deg,#ff6ec4,#7873f5);
     box-shadow:0 8px 24px rgba(120,115,245,.25);
 }
 
-.tab-content{
+/* EXISTING COUNTRY TAB ACTIVE */
+
+#existing-br:checked ~ .country-tabs label[for="existing-br"],
+#existing-mx:checked ~ .country-tabs label[for="existing-mx"]{
+    color:#ffffff;
+    background:linear-gradient(90deg,#ff6ec4,#7873f5);
+    box-shadow:0 8px 24px rgba(120,115,245,.25);
+}
+
+/* COUNTRY CONTENT */
+
+.country-content{
     display:none;
 }
 
-#tab-br:checked ~ .content-wrap .br-content{
+#new-br:checked ~ .country-content-wrap .new-br-content{
     display:block;
 }
 
-#tab-mx:checked ~ .content-wrap .mx-content{
+#new-mx:checked ~ .country-content-wrap .new-mx-content{
+    display:block;
+}
+
+#existing-br:checked ~ .country-content-wrap .existing-br-content{
+    display:block;
+}
+
+#existing-mx:checked ~ .country-content-wrap .existing-mx-content{
     display:block;
 }
 
@@ -221,6 +332,18 @@ input[type="radio"]{
     font-size:13px;
 }
 
+.audience-badge{
+    padding:8px 12px;
+    border-radius:999px;
+    color:#d8d4ff;
+    background:rgba(120,115,245,.12);
+    border:1px solid rgba(120,115,245,.25);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
 /* KPI CARDS */
 
 .kpi-grid{
@@ -228,6 +351,10 @@ input[type="radio"]{
     grid-template-columns:repeat(4,1fr);
     gap:14px;
     margin-bottom:22px;
+}
+
+.kpi-grid.five-columns{
+    grid-template-columns:repeat(5,1fr);
 }
 
 .kpi{
@@ -248,6 +375,14 @@ input[type="radio"]{
     width:100%;
     height:3px;
     background:linear-gradient(90deg,#ff6ec4,#7873f5);
+}
+
+.kpi.claim-kpi:before{
+    background:linear-gradient(90deg,#42d58d,#6fcfff);
+}
+
+.kpi.total-kpi:before{
+    background:linear-gradient(90deg,#ffb84e,#ff7b76);
 }
 
 .kpi-title{
@@ -285,6 +420,13 @@ input[type="radio"]{
 .two-column{
     display:grid;
     grid-template-columns:1.15fr .85fr;
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.existing-two-column{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
     gap:18px;
     margin-bottom:20px;
 }
@@ -428,11 +570,63 @@ tr:last-child td{
     background:linear-gradient(90deg,#d86cff,#8a7cff);
 }
 
+.progress.total-bar span{
+    background:linear-gradient(90deg,#ffcf5a,#ff8b5f);
+}
+
 .funnel-rate{
     margin-top:7px;
     color:#8f8da8;
     font-size:11px;
     line-height:1.45;
+}
+
+/* EXISTING SUMMARY */
+
+.summary-list{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+}
+
+.summary-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    padding:15px;
+    border-radius:12px;
+    background:#111127;
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.summary-row-left strong{
+    display:block;
+    margin-bottom:5px;
+    font-size:13px;
+}
+
+.summary-row-left span{
+    color:#8f8da8;
+    font-size:11px;
+    line-height:1.45;
+}
+
+.summary-row-value{
+    flex:0 0 auto;
+    font-size:21px;
+    font-weight:900;
+}
+
+.summary-note{
+    margin-top:14px;
+    padding:15px;
+    border-radius:12px;
+    color:#c6c3d8;
+    background:rgba(120,115,245,.08);
+    border:1px solid rgba(120,115,245,.18);
+    font-size:12px;
+    line-height:1.6;
 }
 
 /* FOOTER */
@@ -446,13 +640,42 @@ tr:last-child td{
 
 /* RESPONSIVE */
 
+@media(max-width:1080px){
+
+    .kpi-grid.five-columns{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
 @media(max-width:920px){
 
-    .kpi-grid{
+    .dashboard-layout{
+        grid-template-columns:1fr;
+    }
+
+    .audience-sidebar{
+        position:static;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .sidebar-title{
+        grid-column:1/-1;
+    }
+
+    .audience-label{
+        margin-bottom:0;
+        text-align:center;
+    }
+
+    .kpi-grid,
+    .kpi-grid.five-columns{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .two-column{
+    .two-column,
+    .existing-two-column{
         grid-template-columns:1fr;
     }
 
@@ -493,7 +716,8 @@ tr:last-child td{
         flex-direction:column;
     }
 
-    .kpi-grid{
+    .kpi-grid,
+    .kpi-grid.five-columns{
         grid-template-columns:1fr 1fr;
         gap:10px;
     }
@@ -507,7 +731,7 @@ tr:last-child td{
         font-size:28px;
     }
 
-    .tabs{
+    .country-tabs{
         position:sticky;
         top:8px;
         z-index:10;
@@ -515,13 +739,22 @@ tr:last-child td{
     }
 }
 
-@media(max-width:420px){
+@media(max-width:440px){
 
-    .kpi-grid{
+    .audience-sidebar{
         grid-template-columns:1fr;
     }
 
-    .tab-label{
+    .sidebar-title{
+        grid-column:auto;
+    }
+
+    .kpi-grid,
+    .kpi-grid.five-columns{
+        grid-template-columns:1fr;
+    }
+
+    .country-tab-label{
         padding:12px 10px;
         font-size:13px;
     }
@@ -537,7 +770,7 @@ tr:last-child td{
     <div class="hero">
 
         <div class="eyebrow">
-            New Player Onboarding Analysis
+            Player Campaign Analysis
         </div>
 
         <h1>
@@ -546,685 +779,1470 @@ tr:last-child td{
         </h1>
 
         <p>
-            Performance summary for newly registered players who received
-            three Lucky Wheel tickets during the onboarding journey.
+            Performance summary for new and existing players who received
+            the 7 Days Unlimited Free Spins campaign.
         </p>
 
         <div class="date-pill">
-            Reporting Period: 26 June 2026 – 13 July 2026
+            Reporting Period: From 26 June 2026
         </div>
 
     </div>
 
-    <div class="flow-card">
+    <!-- AUDIENCE CONTROLS -->
 
-        <div class="section-label">
-            Campaign Journey
-        </div>
+    <input type="radio" name="audience-tabs" id="audience-new" checked>
+    <input type="radio" name="audience-tabs" id="audience-existing">
 
-        <div class="flow">
+    <div class="dashboard-layout">
 
-            <div class="flow-step">
-                New Player Receives 3 Wheel Tickets
+        <!-- LEFT SIDEBAR -->
+
+        <div class="audience-sidebar">
+
+            <div class="sidebar-title">
+                Player Type
             </div>
 
-            <div class="flow-step">
-                Player Spins the Wheel
-            </div>
-
-            <div class="flow-step">
-                Player Receives a Bonus Offer
-            </div>
-
-            <div class="flow-step">
-                Spin 3 Player Opts In
-            </div>
-
-            <div class="flow-step">
-                Player Deposits &amp; Claims Free Spins
-            </div>
-
-        </div>
-
-    </div>
-
-    <input type="radio" name="country-tabs" id="tab-br" checked>
-    <input type="radio" name="country-tabs" id="tab-mx">
-
-    <div class="tabs">
-
-        <label class="tab-label" for="tab-br">
-            BR – Brazil
-        </label>
-
-        <label class="tab-label" for="tab-mx">
-            MX – Mexico
-        </label>
-
-    </div>
-
-    <div class="content-wrap">
-
-        <!-- BRAZIL -->
-
-        <div class="tab-content br-content">
-
-            <div class="country-header">
-
-                <div class="country-title">
-                    <h2>Brazil Performance</h2>
-                    <p>Newly registered players only</p>
-                </div>
-
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi">
-
-                    <div class="kpi-title">
-                        Received Wheel Tickets
-                    </div>
-
-                    <div class="kpi-value">
-                        293
-                    </div>
-
-                    <div class="kpi-sub">
-                        New players granted all three wheel tickets
-                    </div>
-
-                </div>
-
-                <div class="kpi">
-
-                    <div class="kpi-title">
-                        Players Who Spun
-                    </div>
-
-                    <div class="kpi-value">
-                        171
-                    </div>
-
-                    <div class="kpi-sub">
-                        <strong class="positive">58.36%</strong>
-                        of ticket recipients
-                    </div>
-
-                </div>
-
-                <div class="kpi">
-
-                    <div class="kpi-title">
-                        Deposited After Spinning
-                    </div>
-
-                    <div class="kpi-value">
-                        13
-                    </div>
-
-                    <div class="kpi-sub">
-                        <strong>4.44%</strong> of recipients or
-                        <strong>7.60%</strong> of spinners
-                    </div>
-
-                </div>
-
-                <div class="kpi">
-
-                    <div class="kpi-title">
-                        Deposited Before Spinning
-                    </div>
-
-                    <div class="kpi-value">
-                        5
-                    </div>
-
-                    <div class="kpi-sub">
-                        <strong>1.71%</strong> of ticket recipients
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="two-column">
-
-                <div class="card">
-
-                    <h3>Wheel Performance by Spin</h3>
-
-                    <p class="card-description">
-                        Number of newly registered players who used each
-                        wheel ticket.
-                    </p>
-
-                    <div class="table-wrap">
-
-                        <table>
-
-                            <thead>
-                                <tr>
-                                    <th>Spin</th>
-                                    <th>Reward</th>
-                                    <th>Granted</th>
-                                    <th>Spun</th>
-                                    <th>Spin Rate</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>
-                                        <strong>Spin 1</strong>
-                                    </td>
-
-                                    <td>
-                                        <span class="reward-name">
-                                            Deposit to Unlock 20 FS
-                                        </span>
-
-                                        <span class="small-text">
-                                            First deposit required
-                                        </span>
-                                    </td>
-
-                                    <td>293</td>
-                                    <td>125</td>
-
-                                    <td>
-                                        <span class="rate-badge">
-                                            43%
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <strong>Spin 2</strong>
-                                    </td>
-
-                                    <td>
-                                        <span class="reward-name">
-                                            Accumulate R$50 to Get 50 FS
-                                        </span>
-
-                                        <span class="small-text">
-                                            Accumulated deposit mission
-                                        </span>
-                                    </td>
-
-                                    <td>293</td>
-                                    <td>136</td>
-
-                                    <td>
-                                        <span class="rate-badge">
-                                            46%
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <strong>Spin 3</strong>
-                                    </td>
-
-                                    <td>
-                                        <span class="reward-name">
-                                            7 Days Unlimited Free Spins
-                                        </span>
-
-                                        <span class="small-text">
-                                            One-time opt-in required before deposit
-                                        </span>
-                                    </td>
-
-                                    <td>293</td>
-                                    <td>166</td>
-
-                                    <td>
-                                        <span class="rate-badge">
-                                            57%
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-                <div class="card">
-
-                    <h3>Spin 3 Conversion Funnel</h3>
-
-                    <p class="card-description">
-                        Conversion after the player used the Spin 3 ticket.
-                    </p>
-
-                    <div class="funnel">
-
-                        <div class="funnel-item">
-
-                            <div class="funnel-top">
-
-                                <div class="funnel-name">
-                                    Spun Spin 3
-                                </div>
-
-                                <div class="funnel-number">
-                                    166
-                                </div>
-
-                            </div>
-
-                            <div class="progress">
-                                <span style="width:100%;"></span>
-                            </div>
-
-                            <div class="funnel-rate">
-                                Starting point of the Spin 3 funnel
-                            </div>
-
-                        </div>
-
-                        <div class="funnel-item">
-
-                            <div class="funnel-top">
-
-                                <div class="funnel-name">
-                                    Unique Player Opted In
-                                </div>
-
-                                <div class="funnel-number">
-                                    165
-                                </div>
-
-                            </div>
-
-                            <div class="progress warning-bar">
-                                <span style="width:.60%;min-width:5px;"></span>
-                            </div>
-
-                            <div class="funnel-rate">
-                            </div>
-
-                        </div>
-
-                        <div class="funnel-item">
-
-                            <div class="funnel-top">
-
-                                <div class="funnel-name">
-                                    Players Deposited After Spin 3
-                                </div>
-
-                                <div class="funnel-number">
-                                    12
-                                </div>
-
-                            </div>
-
-                            <div class="progress success-bar">
-                                <span style="width:7.23%;min-width:5px;"></span>
-                            </div>
-
-                            <div class="funnel-rate">
-                            </div>
-
-                        </div>
-
-                        <div class="funnel-item">
-
-                            <div class="funnel-top">
-
-                                <div class="funnel-name">
-                                    Unique Player Claimed 7 Days Unlimited FS
-                                </div>
-
-                                <div class="funnel-number">
-                                    1
-                                </div>
-
-                            </div>
-
-                            <div class="progress claim-bar">
-                                <span style="width:.60%;min-width:5px;"></span>
-                            </div>
-
-                            <div class="funnel-rate">
-                                Only one player successfully claimed the promotion.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+            <label class="audience-label" for="audience-new">
+                NEW Players
+                <span>
+                    Newly registered player journey
+                </span>
+            </label>
+
+            <label class="audience-label" for="audience-existing">
+                EXISTING Players
+                <span>
+                    First login from 26 June 2026
+                </span>
+            </label>
 
         </div>
 
-        <!-- MEXICO -->
+        <!-- MAIN CONTENT -->
 
-        <div class="tab-content mx-content">
+        <div class="audience-content">
 
-            <div class="country-header">
+            <!-- =========================================
+                 NEW PLAYER PANEL
+            ========================================== -->
 
-                <div class="country-title">
-                    <h2>Mexico Performance</h2>
-                    <p>Newly registered players only</p>
+            <div class="audience-panel new-panel">
+
+                <div class="flow-card">
+
+                    <div class="section-label">
+                        New Player Campaign Journey
+                    </div>
+
+                    <div class="flow">
+
+                        <div class="flow-step">
+                            New Player Receives 3 Wheel Tickets
+                        </div>
+
+                        <div class="flow-step">
+                            Player Spins the Wheel
+                        </div>
+
+                        <div class="flow-step">
+                            Player Receives a Bonus Offer
+                        </div>
+
+                        <div class="flow-step">
+                            Spin 3 Player Opts In
+                        </div>
+
+                        <div class="flow-step">
+                            Player Deposits &amp; Claims Free Spins
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <input type="radio" name="new-country-tabs" id="new-br" checked>
+                <input type="radio" name="new-country-tabs" id="new-mx">
+
+                <div class="country-tabs">
+
+                    <label class="country-tab-label" for="new-br">
+                        BR – Brazil
+                    </label>
+
+                    <label class="country-tab-label" for="new-mx">
+                        MX – Mexico
+                    </label>
+
+                </div>
+
+                <div class="country-content-wrap">
+
+                    <!-- NEW BRAZIL -->
+
+                    <div class="country-content new-br-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Brazil Performance</h2>
+                                <p>Newly registered players only</p>
+                            </div>
+
+                            <div class="audience-badge">
+                                New Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Wheel Tickets
+                                </div>
+
+                                <div class="kpi-value">
+                                    293
+                                </div>
+
+                                <div class="kpi-sub">
+                                    New players granted all three wheel tickets
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Players Who Spun
+                                </div>
+
+                                <div class="kpi-value">
+                                    171
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong class="positive">58.36%</strong>
+                                    of ticket recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    13
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>4.44%</strong> of recipients or
+                                    <strong>7.60%</strong> of spinners
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited Before Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    5
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>1.71%</strong> of ticket recipients
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="two-column">
+
+                            <div class="card">
+
+                                <h3>Wheel Performance by Spin</h3>
+
+                                <p class="card-description">
+                                    Number of newly registered players who used each
+                                    wheel ticket.
+                                </p>
+
+                                <div class="table-wrap">
+
+                                    <table>
+
+                                        <thead>
+                                            <tr>
+                                                <th>Spin</th>
+                                                <th>Reward</th>
+                                                <th>Granted</th>
+                                                <th>Spun</th>
+                                                <th>Spin Rate</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 1</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Deposit to Unlock 20 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        First deposit required
+                                                    </span>
+                                                </td>
+
+                                                <td>293</td>
+                                                <td>125</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        43%
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 2</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Accumulate R$50 to Get 50 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        Accumulated deposit mission
+                                                    </span>
+                                                </td>
+
+                                                <td>293</td>
+                                                <td>136</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        46%
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 3</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        7 Days Unlimited Free Spins
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        One-time opt-in required before deposit
+                                                    </span>
+                                                </td>
+
+                                                <td>293</td>
+                                                <td>166</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        57%
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>Spin 3 Conversion Funnel</h3>
+
+                                <p class="card-description">
+                                    Conversion after the player used the Spin 3 ticket.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Spun Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                166
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the Spin 3 funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Player Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                165
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:99.40%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            99.40% of players who used Spin 3
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Players Deposited After Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                12
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:7.23%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            7.23% of Spin 3 players deposited afterward
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Player Claimed 7 Days Unlimited FS
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:.60%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Only one player successfully claimed the promotion
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- NEW MEXICO -->
+
+                    <div class="country-content new-mx-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Mexico Performance</h2>
+                                <p>Newly registered players only</p>
+                            </div>
+
+                            <div class="audience-badge">
+                                New Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Wheel Tickets
+                                </div>
+
+                                <div class="kpi-value">
+                                    1,293
+                                </div>
+
+                                <div class="kpi-sub">
+                                    New players granted all three wheel tickets
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Players Who Spun
+                                </div>
+
+                                <div class="kpi-value">
+                                    1,048
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong class="positive">81.05%</strong>
+                                    of ticket recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    91
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>7.04%</strong> of recipients or
+                                    <strong>8.68%</strong> of spinners
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited Before Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    17
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>1.31%</strong> of ticket recipients
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="two-column">
+
+                            <div class="card">
+
+                                <h3>Wheel Performance by Spin</h3>
+
+                                <p class="card-description">
+                                    Number of newly registered players who used each
+                                    wheel ticket.
+                                </p>
+
+                                <div class="table-wrap">
+
+                                    <table>
+
+                                        <thead>
+                                            <tr>
+                                                <th>Spin</th>
+                                                <th>Reward</th>
+                                                <th>Granted</th>
+                                                <th>Spun</th>
+                                                <th>Spin Rate</th>
+                                                <th>Deposit After Spin</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 1</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Deposit to Unlock 20 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        First deposit required
+                                                    </span>
+                                                </td>
+
+                                                <td>1,293</td>
+                                                <td>874</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        67.6%
+                                                    </span>
+                                                </td>
+
+                                                <td>71</td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 2</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Accumulate MX$150 to Get 50 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        Accumulated deposit mission
+                                                    </span>
+                                                </td>
+
+                                                <td>1,293</td>
+                                                <td>934</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        72.2%
+                                                    </span>
+                                                </td>
+
+                                                <td>76</td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 3</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        7 Days Unlimited Free Spins
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        One-time opt-in required before deposit
+                                                    </span>
+                                                </td>
+
+                                                <td>1,293</td>
+                                                <td>1,041</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        80.5%
+                                                    </span>
+                                                </td>
+
+                                                <td>84</td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>Spin 3 Conversion Funnel</h3>
+
+                                <p class="card-description">
+                                    Conversion after the player used the Spin 3 ticket.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Spun Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1,041
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the Spin 3 funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1,034
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:99.33%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            99.33% of players who used Spin 3
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Deposited After Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                90
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:8.65%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            8.65% of players who used Spin 3 deposited afterward
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Claimed 7 Days Unlimited FS
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                7
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:.67%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Seven unique players successfully claimed the promotion
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="kpi-grid">
+            <!-- =========================================
+                 EXISTING PLAYER PANEL
+            ========================================== -->
 
-                <div class="kpi">
+            <div class="audience-panel existing-panel">
 
-                    <div class="kpi-title">
-                        Received Wheel Tickets
+                <div class="flow-card">
+
+                    <div class="section-label">
+                        Existing Player Campaign Journey
                     </div>
 
-                    <div class="kpi-value">
-                        1,293
-                    </div>
+                    <div class="flow">
 
-                    <div class="kpi-sub">
-                        New players granted all three wheel tickets
-                    </div>
+                        <div class="flow-step">
+                            Existing Player Logs In From 26 June
+                        </div>
 
-                </div>
+                        <div class="flow-step">
+                            Receives One Spin 3 Ticket
+                        </div>
 
-                <div class="kpi">
+                        <div class="flow-step">
+                            Opts In to 7 Days Unlimited FS
+                        </div>
 
-                    <div class="kpi-title">
-                        Players Who Spun
-                    </div>
+                        <div class="flow-step">
+                            Deposits After Opt-In
+                        </div>
 
-                    <div class="kpi-value">
-                        1,048
-                    </div>
-
-                    <div class="kpi-sub">
-                        <strong class="positive">81.05%</strong>
-                        of ticket recipients
-                    </div>
-
-                </div>
-
-                <div class="kpi">
-
-                    <div class="kpi-title">
-                        Deposited After Spinning
-                    </div>
-
-                    <div class="kpi-value">
-                        91
-                    </div>
-
-                    <div class="kpi-sub">
-                        <strong>7.04%</strong> of recipients or
-                        <strong>8.68%</strong> of spinners
-                    </div>
-
-                </div>
-
-                <div class="kpi">
-
-                    <div class="kpi-title">
-                        Deposited Before Spinning
-                    </div>
-
-                    <div class="kpi-value">
-                        17
-                    </div>
-
-                    <div class="kpi-sub">
-                        <strong>1.31%</strong> of ticket recipients
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="two-column">
-
-                <div class="card">
-
-                    <h3>Wheel Performance by Spin</h3>
-
-                    <p class="card-description">
-                        Number of newly registered players who used each
-                        wheel ticket.
-                    </p>
-
-                    <div class="table-wrap">
-
-                        <table>
-
-                            <thead>
-                                <tr>
-                                    <th>Spin</th>
-                                    <th>Reward</th>
-                                    <th>Granted</th>
-                                    <th>Spun</th>
-                                    <th>Spin Rate</th>
-                                    <th>Deposit After Spin</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>
-                                        <strong>Spin 1</strong>
-                                    </td>
-
-                                    <td>
-                                        <span class="reward-name">
-                                            Deposit to Unlock 20 FS
-                                        </span>
-
-                                        <span class="small-text">
-                                            First deposit required
-                                        </span>
-                                    </td>
-
-                                    <td>1,293</td>
-                                    <td>874</td>
-
-                                    <td>
-                                        <span class="rate-badge">
-                                            67.6%
-                                        </span>
-                                    </td>
-
-                                    <td>71</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <strong>Spin 2</strong>
-                                    </td>
-
-                                    <td>
-                                        <span class="reward-name">
-                                            Accumulate MX$150 to Get 50 FS
-                                        </span>
-
-                                        <span class="small-text">
-                                            Accumulated deposit mission
-                                        </span>
-                                    </td>
-
-                                    <td>1,293</td>
-                                    <td>934</td>
-
-                                    <td>
-                                        <span class="rate-badge">
-                                            72.2%
-                                        </span>
-                                    </td>
-
-                                    <td>76</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <strong>Spin 3</strong>
-                                    </td>
-
-                                    <td>
-                                        <span class="reward-name">
-                                            7 Days Unlimited Free Spins
-                                        </span>
-
-                                        <span class="small-text">
-                                            One-time opt-in required before deposit
-                                        </span>
-                                    </td>
-
-                                    <td>1,293</td>
-                                    <td>1,041</td>
-
-                                    <td>
-                                        <span class="rate-badge">
-                                            80.5%
-                                        </span>
-                                    </td>
-
-                                    <td>84</td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
+                        <div class="flow-step">
+                            Claims Unlimited Free Spins
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="card">
+                <input type="radio" name="existing-country-tabs" id="existing-br" checked>
+                <input type="radio" name="existing-country-tabs" id="existing-mx">
 
-                    <h3>Spin 3 Conversion Funnel</h3>
+                <div class="country-tabs">
 
-                    <p class="card-description">
-                        Conversion after the player used the Spin 3 ticket.
-                    </p>
+                    <label class="country-tab-label" for="existing-br">
+                        BR – Brazil
+                    </label>
 
-                    <div class="funnel">
+                    <label class="country-tab-label" for="existing-mx">
+                        MX – Mexico
+                    </label>
 
-                        <div class="funnel-item">
+                </div>
 
-                            <div class="funnel-top">
+                <div class="country-content-wrap">
 
-                                <div class="funnel-name">
-                                    Spun Spin 3
-                                </div>
+                    <!-- EXISTING BRAZIL -->
 
-                                <div class="funnel-number">
-                                    1,041
-                                </div>
+                    <div class="country-content existing-br-content">
 
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Brazil Performance</h2>
+                                <p>
+                                    Existing players who first logged in from
+                                    26 June 2026
+                                </p>
                             </div>
 
-                            <div class="progress">
-                                <span style="width:100%;"></span>
-                            </div>
-
-                            <div class="funnel-rate">
-                                Starting point of the Spin 3 funnel
+                            <div class="audience-badge">
+                                Existing Players
                             </div>
 
                         </div>
 
-                        <div class="funnel-item">
+                        <div class="kpi-grid five-columns">
 
-                            <div class="funnel-top">
+                            <div class="kpi">
 
-                                <div class="funnel-name">
-                                    Unique Players Opted In
+                                <div class="kpi-title">
+                                    Received Spin 3
                                 </div>
 
-                                <div class="funnel-number">
-                                    1,034
+                                <div class="kpi-value">
+                                    451
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Existing players who received one
+                                    7 Days Unlimited FS spin
                                 </div>
 
                             </div>
 
-                            <div class="progress warning-bar">
-                                <span style="width:99.33%;"></span>
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Opted In
+                                </div>
+
+                                <div class="kpi-value">
+                                    215
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>47.67%</strong>
+                                    of recipients
+                                </div>
+
                             </div>
 
-                            <div class="funnel-rate">
-                                99.33% of players who used Spin 3
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Opt-In
+                                </div>
+
+                                <div class="kpi-value">
+                                    80
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>37.21%</strong> of opt-ins or
+                                    <strong>17.74%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi claim-kpi">
+
+                                <div class="kpi-title">
+                                    Unique Claiming Players
+                                </div>
+
+                                <div class="kpi-value">
+                                    31
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>38.75%</strong> of depositors or
+                                    <strong>6.87%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi total-kpi">
+
+                                <div class="kpi-title">
+                                    Total Claims
+                                </div>
+
+                                <div class="kpi-value">
+                                    220
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Average
+                                    <strong>7.10 claims</strong>
+                                    per unique claiming player
+                                </div>
+
                             </div>
 
                         </div>
 
-                        <div class="funnel-item">
+                        <div class="existing-two-column">
 
-                            <div class="funnel-top">
+                            <div class="card">
 
-                                <div class="funnel-name">
-                                    Unique Players Deposited After Spin 3
+                                <h3>Existing Player Results</h3>
+
+                                <p class="card-description">
+                                    Summary of player participation and repeat
+                                    promotion usage.
+                                </p>
+
+                                <div class="summary-list">
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Opt-In Conversion</strong>
+                                            <span>
+                                                Received Spin 3 → Opted in
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            47.67%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Deposit Conversion</strong>
+                                            <span>
+                                                Opted in → Deposited afterward
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            37.21%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Claim Conversion</strong>
+                                            <span>
+                                                Deposited after opt-in → Unique claim
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            38.75%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Average Claims</strong>
+                                            <span>
+                                                Total claims per claiming player
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            7.10
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="funnel-number">
-                                    90
+                                <div class="summary-note">
+                                    The 31 unique claiming players generated
+                                    220 total claims, showing strong repeat-deposit
+                                    behaviour after players successfully activated
+                                    and understood the promotion.
                                 </div>
 
                             </div>
 
-                            <div class="progress success-bar">
-                                <span style="width:8.65%;min-width:5px;"></span>
-                            </div>
+                            <div class="card">
 
-                            <div class="funnel-rate">
-                                8.65% of players who used Spin 3 deposited afterward.
+                                <h3>7 Days Unlimited FS Funnel</h3>
+
+                                <p class="card-description">
+                                    Existing-player conversion from receiving
+                                    Spin 3 to claiming the promotion.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Received Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                451
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the existing-player funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                215
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:47.67%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            47.67% of Spin 3 recipients opted in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Deposited After Opt-In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                80
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:17.74%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            17.74% of recipients deposited after opt-in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Claimed
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                31
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:6.87%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            31 unique players successfully claimed
+                                            the 7 Days Unlimited Free Spins promotion
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Total Promotion Claims
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                220
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress total-bar">
+                                            <span style="width:68%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            The 31 unique claiming players generated
+                                            220 total reward claims
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
 
-                        <div class="funnel-item">
+                    </div>
 
-                            <div class="funnel-top">
+                    <!-- EXISTING MEXICO -->
 
-                                <div class="funnel-name">
-                                    Unique Players Claimed 7 Days Unlimited FS
+                    <div class="country-content existing-mx-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Mexico Performance</h2>
+                                <p>
+                                    Existing players who first logged in from
+                                    26 June 2026
+                                </p>
+                            </div>
+
+                            <div class="audience-badge">
+                                Existing Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid five-columns">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Spin 3
                                 </div>
 
-                                <div class="funnel-number">
-                                    7
+                                <div class="kpi-value">
+                                    1,179
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Existing players who received one
+                                    7 Days Unlimited FS spin
                                 </div>
 
                             </div>
 
-                            <div class="progress claim-bar">
-                                <span style="width:.67%;min-width:5px;"></span>
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Opted In
+                                </div>
+
+                                <div class="kpi-value">
+                                    721
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>61.15%</strong>
+                                    of recipients
+                                </div>
+
                             </div>
 
-                            <div class="funnel-rate">
-                                Seven unique players successfully claimed the
-                                7 Days Unlimited Free Spins promotion.
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Opt-In
+                                </div>
+
+                                <div class="kpi-value">
+                                    144
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>19.97%</strong> of opt-ins or
+                                    <strong>12.21%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi claim-kpi">
+
+                                <div class="kpi-title">
+                                    Unique Claiming Players
+                                </div>
+
+                                <div class="kpi-value">
+                                    81
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>56.25%</strong> of depositors or
+                                    <strong>6.87%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi total-kpi">
+
+                                <div class="kpi-title">
+                                    Total Claims
+                                </div>
+
+                                <div class="kpi-value">
+                                    212
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Average
+                                    <strong>2.62 claims</strong>
+                                    per unique claiming player
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="existing-two-column">
+
+                            <div class="card">
+
+                                <h3>Existing Player Results</h3>
+
+                                <p class="card-description">
+                                    Summary of player participation and repeat
+                                    promotion usage.
+                                </p>
+
+                                <div class="summary-list">
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Opt-In Conversion</strong>
+                                            <span>
+                                                Received Spin 3 → Opted in
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            61.15%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Deposit Conversion</strong>
+                                            <span>
+                                                Opted in → Deposited afterward
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            19.97%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Claim Conversion</strong>
+                                            <span>
+                                                Deposited after opt-in → Unique claim
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            56.25%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Average Claims</strong>
+                                            <span>
+                                                Total claims per claiming player
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            2.62
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="summary-note">
+                                    Mexico recorded a stronger opt-in rate than Brazil.
+                                    The 81 unique claiming players generated 212 total
+                                    claims, showing continued promotion usage after
+                                    the first successful claim.
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>7 Days Unlimited FS Funnel</h3>
+
+                                <p class="card-description">
+                                    Existing-player conversion from receiving
+                                    Spin 3 to claiming the promotion.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Received Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1,179
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the existing-player funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                721
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:61.15%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            61.15% of Spin 3 recipients opted in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Deposited After Opt-In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                144
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:12.21%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            12.21% of recipients deposited after opt-in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Claimed
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                81
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:6.87%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            81 unique players successfully claimed
+                                            the 7 Days Unlimited Free Spins promotion
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Total Promotion Claims
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                212
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress total-bar">
+                                            <span style="width:55%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            The 81 unique claiming players generated
+                                            212 total reward claims
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -1240,6 +2258,7 @@ tr:last-child td{
     </div>
 
     <div class="footer">
+        Internal CRM Campaign Performance Summary
     </div>
 
 </div>
