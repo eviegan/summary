@@ -1,713 +1,2268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FIFA Rewards Performance Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Player Wheel Campaign Summary</title>
+
 <style>
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#07111f;color:#fff;}
-  .app{display:flex;min-height:100vh;background:radial-gradient(circle at top left,#183b72 0,#07111f 42%,#050a12 100%)}
-  .sidebar{width:250px;padding:26px 18px;background:rgba(4,10,20,.88);border-right:1px solid rgba(255,255,255,.1);position:sticky;top:0;height:100vh}
-  .brand{font-weight:900;font-size:24px;line-height:1.1;margin-bottom:8px}
-  .sub{font-size:12px;color:#9fb4d6;margin-bottom:28px}
-  .nav button{width:100%;border:0;text-align:left;padding:15px 16px;margin-bottom:12px;border-radius:16px;background:rgba(255,255,255,.07);color:#cfe0ff;font-weight:800;cursor:pointer;font-size:15px}
-  .nav button.active{background:linear-gradient(135deg,#ffd84d,#ff9f1c);color:#211500;box-shadow:0 12px 28px rgba(255,177,31,.22)}
-  .content{flex:1;padding:30px 34px 50px;max-width:1280px;margin:auto}
-  .topline{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:22px}
-  h1{margin:0;font-size:34px}
-  h3{margin-top:0}
-  .pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.09);color:#bfd0ef;font-size:13px;border:1px solid rgba(255,255,255,.1)}
-  .section{display:none}.section.active{display:block}
-  .country-tabs{display:flex;gap:10px;margin:18px 0 20px}
-  .country-tabs button{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#dbe8ff;border-radius:999px;padding:10px 18px;font-weight:900;cursor:pointer}
-  .country-tabs button.active{background:#fff;color:#06101f}
-  .country-panel{display:none}.country-panel.active{display:block}
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  .card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;box-shadow:0 14px 40px rgba(0,0,0,.2)}
-  .kpi-label{font-size:12px;color:#aebfe1;margin-bottom:8px}
-  .kpi-value{font-size:28px;font-weight:900}
-  .kpi-note{font-size:12px;color:#9fb4d6;margin-top:8px}
-  .accent{color:#ffd84d}.good{color:#4ee39a}.warn{color:#ffbf47}.red{color:#ff7373}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
-  .wide{grid-column:1/-1}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left}
-  th{color:#ffd84d;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
-  td:last-child,th:last-child{text-align:right}
-  .insight{line-height:1.55;color:#d6e5ff}
-  .callout{background:linear-gradient(135deg,rgba(255,216,77,.18),rgba(255,159,28,.08));border:1px solid rgba(255,216,77,.28)}
-  .progress{height:10px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;margin-top:10px}
-  .bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#ffd84d,#ff8c1a)}
-  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
-  .tag{display:inline-block;padding:7px 10px;background:rgba(255,255,255,.09);border-radius:999px;color:#cddfff;font-size:12px;margin:4px 4px 0 0}
+*{
+    box-sizing:border-box;
+}
 
-  .info{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-left:6px;border-radius:50%;background:rgba(255,255,255,.16);color:#ffd84d;font-size:11px;font-weight:900;cursor:help;position:relative}
-  .info:hover::after{content:attr(data-tip);position:absolute;left:50%;bottom:130%;transform:translateX(-50%);width:max-content;max-width:270px;background:#fff;color:#06101f;padding:9px 11px;border-radius:10px;font-size:12px;font-weight:700;line-height:1.35;box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:99;white-space:pre-line}
-  .info:hover::before{content:"";position:absolute;left:50%;bottom:112%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:100}
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#09091d;
+    color:#ffffff;
+}
 
-  /* DAILY MISSION FUNNEL */
-  .mission-hero{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:18px;box-shadow:0 14px 40px rgba(0,0,0,.2);margin-bottom:18px}
-  .mission-hero-title{font-size:20px;font-weight:900;margin-bottom:14px;color:#fff}
-  .mission-hero-inner{display:grid;grid-template-columns:1fr 150px;gap:22px;align-items:center}
-  .funnel-wrap{display:flex;align-items:stretch;min-height:128px;overflow:visible;padding-left:18px}
-  .funnel-step{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%,12% 50%);padding:16px 28px 16px 36px;margin-left:-20px;text-shadow:0 2px 8px rgba(0,0,0,.25)}
-  .funnel-step:first-child{margin-left:0;clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%)}
-  .funnel-step:last-child{clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%,12% 50%)}
-  .funnel-step.s1{width:30%;background:linear-gradient(135deg,#ffca28,#ff9800)}
-  .funnel-step.s2{width:27%;background:linear-gradient(135deg,#ff8f00,#ef6c00)}
-  .funnel-step.s3{width:24%;background:linear-gradient(135deg,#ff3d55,#c62838)}
-  .funnel-step.s4{width:21%;background:linear-gradient(135deg,#813a79,#351839)}
-  .funnel-label{font-size:13px;font-weight:900;margin-bottom:8px;white-space:nowrap}
-  .funnel-value{font-size:34px;font-weight:900;line-height:1;margin-bottom:7px}
-  .funnel-rate{font-size:15px;font-weight:900;color:#fff7cc;line-height:1.1}
-  .funnel-sub{font-size:10px;font-weight:900;opacity:.95;margin-top:3px;letter-spacing:.3px;text-transform:uppercase}
-  .spin-rate-box{display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(255,255,255,.18);padding-left:22px;position:relative}
-  .spin-rate-box:before{content:"";position:absolute;left:-14px;top:50%;width:26px;height:2px;background:rgba(255,255,255,.45)}
-  .spin-circle{width:118px;height:118px;border-radius:50%;border:4px solid rgba(255,64,129,.75);background:radial-gradient(circle,#1b1730 0%,#0b1020 70%);box-shadow:0 0 26px rgba(255,64,129,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-  .spin-big{font-size:26px;font-weight:900;color:#ffffff;line-height:1}
-  .spin-label{font-size:10px;font-weight:900;color:#ffca28;margin-top:5px;letter-spacing:.6px}
-  .spin-small{font-size:10px;color:#b9c8e8;margin-top:4px}
-  .mini-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-  .mini-stat{padding:14px;border:1px solid rgba(255,216,77,.18);border-radius:14px;background:rgba(0,0,0,.16)}
-  .mini-stat b{font-size:18px;color:#fff}.mini-stat span{display:block;font-size:11px;color:#b8c8e8;margin-top:3px}
+.page{
+    min-height:100vh;
+    padding:32px 18px 60px;
+    background:
+        radial-gradient(circle at top left,rgba(121,71,255,.28),transparent 34%),
+        radial-gradient(circle at top right,rgba(255,79,177,.18),transparent 30%),
+        #09091d;
+}
 
+.container{
+    width:100%;
+    max-width:1240px;
+    margin:0 auto;
+}
 
-  /* DEPOSIT IMPACT SUMMARY */
-  .impact-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-bottom:18px}
-  .big-title{font-size:22px;font-weight:900;margin-bottom:10px;color:#fff}
-  .growth-list{display:grid;gap:10px;margin-top:12px}
-  .growth-row{display:grid;grid-template-columns:120px 1fr 82px;gap:10px;align-items:center;font-size:13px;color:#dbe8ff}
-  .growth-track{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
-  .growth-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#4ee39a,#ffd84d)}
-  .decline-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#ff7373,#ffbf47)}
-  .summary-box{padding:14px;border-radius:16px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.1);margin-top:12px}
-  .summary-box b{color:#ffd84d}
-  .small-note{font-size:12px;color:#aebfe1;line-height:1.45;margin-top:10px}
+/* HEADER */
 
-  .status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
-  .status-card{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px}
-  .status-title{font-size:12px;color:#aebfe1;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
-  .status-value{font-size:30px;font-weight:900;line-height:1}
-  .status-rate{font-size:12px;color:#cfe0ff;margin-top:8px}
-  .bar.green{background:linear-gradient(90deg,#4ee39a,#22c878)}
-  .bar.orange{background:linear-gradient(90deg,#ffd84d,#ff9f1c)}
-  .bar.redbar{background:linear-gradient(90deg,#ff7373,#ffbf47)}
+.hero{
+    text-align:center;
+    margin-bottom:26px;
+}
 
-  @media(max-width:950px){
-    .app{display:block}.sidebar{width:100%;height:auto;position:relative}
-    .grid,.two-col,.split,.mission-hero-inner,.mini-stat-row,.status-grid{grid-template-columns:1fr}
-    .content{padding:24px 16px}.topline{display:block}h1{font-size:27px}
-    .funnel-wrap{display:block;padding-left:0;min-height:0}
-    .funnel-step,.funnel-step:first-child,.funnel-step:last-child{width:100%!important;margin:0 0 8px 0;clip-path:none;border-radius:16px;min-height:105px}
-    .spin-rate-box{border-left:0;border-top:1px solid rgba(255,255,255,.18);padding:18px 0 0 0}
-    .spin-rate-box:before{display:none}
-  }
+.eyebrow{
+    display:inline-block;
+    padding:8px 16px;
+    margin-bottom:14px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+    background:rgba(255,255,255,.06);
+    color:#d8d4ff;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.hero h1{
+    margin:0;
+    font-size:42px;
+    line-height:1.08;
+    font-weight:900;
+}
+
+.hero h1 span{
+    background:linear-gradient(90deg,#ff6ec4,#8b7cff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.hero p{
+    max-width:760px;
+    margin:14px auto 0;
+    color:#b9b8ce;
+    font-size:16px;
+    line-height:1.6;
+}
+
+.date-pill{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:16px;
+    padding:9px 14px;
+    border-radius:10px;
+    background:#16162e;
+    border:1px solid rgba(255,255,255,.08);
+    color:#e4e2f4;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* HIDE RADIO INPUTS */
+
+input[type="radio"]{
+    display:none;
+}
+
+/* MAIN LAYOUT */
+
+.dashboard-layout{
+    display:grid;
+    grid-template-columns:190px minmax(0,1fr);
+    gap:20px;
+    align-items:start;
+}
+
+/* AUDIENCE SIDEBAR */
+
+.audience-sidebar{
+    position:sticky;
+    top:18px;
+    padding:12px;
+    border-radius:18px;
+    background:linear-gradient(145deg,#171732,#101024);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 16px 40px rgba(0,0,0,.24);
+}
+
+.sidebar-title{
+    padding:8px 10px 13px;
+    color:#8f8da8;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.audience-label{
+    display:block;
+    margin-bottom:9px;
+    padding:16px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    color:#aaa8c2;
+    background:#111127;
+    border:1px solid rgba(255,255,255,.06);
+    font-size:13px;
+    font-weight:900;
+    transition:.25s ease;
+}
+
+.audience-label:last-child{
+    margin-bottom:0;
+}
+
+.audience-label span{
+    display:block;
+    margin-top:5px;
+    color:#76748d;
+    font-size:10px;
+    font-weight:600;
+    line-height:1.4;
+}
+
+#audience-new:checked ~ .dashboard-layout .audience-sidebar label[for="audience-new"],
+#audience-existing:checked ~ .dashboard-layout .audience-sidebar label[for="audience-existing"]{
+    color:#ffffff;
+    background:linear-gradient(135deg,#ff6ec4,#7873f5);
+    border-color:transparent;
+    box-shadow:0 9px 24px rgba(120,115,245,.28);
+}
+
+#audience-new:checked ~ .dashboard-layout .audience-sidebar label[for="audience-new"] span,
+#audience-existing:checked ~ .dashboard-layout .audience-sidebar label[for="audience-existing"] span{
+    color:rgba(255,255,255,.78);
+}
+
+/* AUDIENCE CONTENT */
+
+.audience-content{
+    min-width:0;
+}
+
+.audience-panel{
+    display:none;
+}
+
+#audience-new:checked ~ .dashboard-layout .audience-content .new-panel{
+    display:block;
+}
+
+#audience-existing:checked ~ .dashboard-layout .audience-content .existing-panel{
+    display:block;
+}
+
+/* CAMPAIGN FLOW */
+
+.flow-card{
+    padding:22px;
+    margin-bottom:20px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px;
+    background:linear-gradient(
+        145deg,
+        rgba(30,30,63,.95),
+        rgba(16,16,39,.95)
+    );
+    box-shadow:0 18px 45px rgba(0,0,0,.25);
+}
+
+.section-label{
+    margin-bottom:14px;
+    color:#a9a6c8;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.flow{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+}
+
+.flow-step{
+    position:relative;
+    min-height:74px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px;
+    border-radius:12px;
+    background:#111127;
+    border:1px solid rgba(255,255,255,.08);
+    text-align:center;
+    font-size:13px;
+    line-height:1.4;
+    font-weight:800;
+    color:#f2f1ff;
+}
+
+.flow-step:not(:last-child):after{
+    content:"›";
+    position:absolute;
+    right:-9px;
+    top:50%;
+    z-index:2;
+    transform:translateY(-50%);
+    color:#8f89ff;
+    font-size:22px;
+    font-weight:900;
+}
+
+/* COUNTRY TABS */
+
+.country-tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+    padding:7px;
+    border-radius:14px;
+    background:#111126;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.country-tab-label{
+    flex:1;
+    padding:14px 18px;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    color:#aaa8c2;
+    font-size:15px;
+    font-weight:900;
+    transition:.25s ease;
+}
+
+/* NEW COUNTRY TAB ACTIVE */
+
+#new-br:checked ~ .country-tabs label[for="new-br"],
+#new-mx:checked ~ .country-tabs label[for="new-mx"]{
+    color:#ffffff;
+    background:linear-gradient(90deg,#ff6ec4,#7873f5);
+    box-shadow:0 8px 24px rgba(120,115,245,.25);
+}
+
+/* EXISTING COUNTRY TAB ACTIVE */
+
+#existing-br:checked ~ .country-tabs label[for="existing-br"],
+#existing-mx:checked ~ .country-tabs label[for="existing-mx"]{
+    color:#ffffff;
+    background:linear-gradient(90deg,#ff6ec4,#7873f5);
+    box-shadow:0 8px 24px rgba(120,115,245,.25);
+}
+
+/* COUNTRY CONTENT */
+
+.country-content{
+    display:none;
+}
+
+#new-br:checked ~ .country-content-wrap .new-br-content{
+    display:block;
+}
+
+#new-mx:checked ~ .country-content-wrap .new-mx-content{
+    display:block;
+}
+
+#existing-br:checked ~ .country-content-wrap .existing-br-content{
+    display:block;
+}
+
+#existing-mx:checked ~ .country-content-wrap .existing-mx-content{
+    display:block;
+}
+
+/* COUNTRY HEADER */
+
+.country-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:18px;
+    padding:20px 22px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#171732,#111126);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.country-title h2{
+    margin:0;
+    font-size:24px;
+}
+
+.country-title p{
+    margin:6px 0 0;
+    color:#aeadc2;
+    font-size:13px;
+}
+
+.audience-badge{
+    padding:8px 12px;
+    border-radius:999px;
+    color:#d8d4ff;
+    background:rgba(120,115,245,.12);
+    border:1px solid rgba(120,115,245,.25);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+/* KPI CARDS */
+
+.kpi-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:22px;
+}
+
+.kpi-grid.five-columns{
+    grid-template-columns:repeat(5,1fr);
+}
+
+.kpi{
+    position:relative;
+    overflow:hidden;
+    min-height:142px;
+    padding:19px;
+    border-radius:16px;
+    background:linear-gradient(145deg,#181835,#101024);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.kpi:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,#ff6ec4,#7873f5);
+}
+
+.kpi.claim-kpi:before{
+    background:linear-gradient(90deg,#42d58d,#6fcfff);
+}
+
+.kpi.total-kpi:before{
+    background:linear-gradient(90deg,#ffb84e,#ff7b76);
+}
+
+.kpi-title{
+    color:#a8a6be;
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+}
+
+.kpi-value{
+    margin-top:11px;
+    font-size:34px;
+    font-weight:900;
+    line-height:1;
+}
+
+.kpi-sub{
+    margin-top:10px;
+    color:#cbc9dc;
+    font-size:12px;
+    line-height:1.45;
+}
+
+.kpi-sub strong{
+    color:#ffffff;
+}
+
+.positive{
+    color:#68e0a0 !important;
+}
+
+/* CONTENT */
+
+.two-column{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.existing-two-column{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.card{
+    padding:21px;
+    border-radius:17px;
+    background:linear-gradient(145deg,#171731,#101024);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 14px 35px rgba(0,0,0,.18);
+}
+
+.card h3{
+    margin:0 0 5px;
+    font-size:18px;
+}
+
+.card-description{
+    margin:0 0 18px;
+    color:#a9a7bd;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* TABLE */
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:610px;
+    border-collapse:collapse;
+}
+
+th{
+    padding:12px 11px;
+    background:#111127;
+    color:#aaa8c1;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    font-size:11px;
+    font-weight:800;
+    text-align:left;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+td{
+    padding:14px 11px;
+    color:#eeeef7;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:13px;
+}
+
+tr:last-child td{
+    border-bottom:0;
+}
+
+.reward-name{
+    font-weight:800;
+}
+
+.small-text{
+    display:block;
+    margin-top:4px;
+    color:#8f8da8;
+    font-size:11px;
+}
+
+.rate-badge{
+    display:inline-block;
+    min-width:55px;
+    padding:6px 9px;
+    border-radius:999px;
+    background:rgba(120,115,245,.14);
+    color:#bdb9ff;
+    font-size:11px;
+    font-weight:900;
+    text-align:center;
+}
+
+/* FUNNEL */
+
+.funnel{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.funnel-item{
+    padding:15px 16px;
+    border-radius:12px;
+    background:#111127;
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.funnel-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.funnel-name{
+    color:#c7c5d9;
+    font-size:12px;
+    font-weight:800;
+}
+
+.funnel-number{
+    font-size:20px;
+    font-weight:900;
+}
+
+.progress{
+    height:7px;
+    margin-top:10px;
+    overflow:hidden;
+    border-radius:999px;
+    background:#292942;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg,#ff6ec4,#7873f5);
+}
+
+.progress.warning-bar span{
+    background:linear-gradient(90deg,#ffb84e,#ff7b76);
+}
+
+.progress.success-bar span{
+    background:linear-gradient(90deg,#42d58d,#6fcfff);
+}
+
+.progress.claim-bar span{
+    background:linear-gradient(90deg,#d86cff,#8a7cff);
+}
+
+.progress.total-bar span{
+    background:linear-gradient(90deg,#ffcf5a,#ff8b5f);
+}
+
+.funnel-rate{
+    margin-top:7px;
+    color:#8f8da8;
+    font-size:11px;
+    line-height:1.45;
+}
+
+/* EXISTING SUMMARY */
+
+.summary-list{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+}
+
+.summary-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    padding:15px;
+    border-radius:12px;
+    background:#111127;
+    border:1px solid rgba(255,255,255,.07);
+}
+
+.summary-row-left strong{
+    display:block;
+    margin-bottom:5px;
+    font-size:13px;
+}
+
+.summary-row-left span{
+    color:#8f8da8;
+    font-size:11px;
+    line-height:1.45;
+}
+
+.summary-row-value{
+    flex:0 0 auto;
+    font-size:21px;
+    font-weight:900;
+}
+
+.summary-note{
+    margin-top:14px;
+    padding:15px;
+    border-radius:12px;
+    color:#c6c3d8;
+    background:rgba(120,115,245,.08);
+    border:1px solid rgba(120,115,245,.18);
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* FOOTER */
+
+.footer{
+    margin-top:28px;
+    color:#77758f;
+    font-size:11px;
+    text-align:center;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1080px){
+
+    .kpi-grid.five-columns{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:920px){
+
+    .dashboard-layout{
+        grid-template-columns:1fr;
+    }
+
+    .audience-sidebar{
+        position:static;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:9px;
+    }
+
+    .sidebar-title{
+        grid-column:1/-1;
+    }
+
+    .audience-label{
+        margin-bottom:0;
+        text-align:center;
+    }
+
+    .kpi-grid,
+    .kpi-grid.five-columns{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .two-column,
+    .existing-two-column{
+        grid-template-columns:1fr;
+    }
+
+    .flow{
+        grid-template-columns:1fr;
+    }
+
+    .flow-step{
+        min-height:auto;
+    }
+
+    .flow-step:not(:last-child):after{
+        content:"↓";
+        right:auto;
+        left:50%;
+        top:auto;
+        bottom:-20px;
+        transform:translateX(-50%);
+    }
+}
+
+@media(max-width:620px){
+
+    .page{
+        padding:22px 12px 42px;
+    }
+
+    .hero h1{
+        font-size:31px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .country-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .kpi-grid,
+    .kpi-grid.five-columns{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .kpi{
+        min-height:132px;
+        padding:16px;
+    }
+
+    .kpi-value{
+        font-size:28px;
+    }
+
+    .country-tabs{
+        position:sticky;
+        top:8px;
+        z-index:10;
+        box-shadow:0 8px 25px rgba(0,0,0,.35);
+    }
+}
+
+@media(max-width:440px){
+
+    .audience-sidebar{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar-title{
+        grid-column:auto;
+    }
+
+    .kpi-grid,
+    .kpi-grid.five-columns{
+        grid-template-columns:1fr;
+    }
+
+    .country-tab-label{
+        padding:12px 10px;
+        font-size:13px;
+    }
+}
 </style>
 </head>
+
 <body>
 
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand">FIFA Rewards<br>Dashboard</div>
-    <div class="sub">Coins, Daily Mission & Match Predictor Summary</div>
-    <div class="nav">
-      <button class="main-tab active" data-target="coins">⚽ FIFA Coins</button>
-      <button class="main-tab" data-target="depositimpact">📈 Deposit Impact</button>
-      <button class="main-tab" data-target="dailymission">🎁 Daily Mission</button>
+<div class="page">
+<div class="container">
+
+    <div class="hero">
+
+        <div class="eyebrow">
+            Player Campaign Analysis
+        </div>
+
+        <h1>
+            Lucky Wheel &amp;
+            <span>Unlimited Free Spins</span>
+        </h1>
+
+        <p>
+            Performance summary for new and existing players who received
+            the 7 Days Unlimited Free Spins campaign.
+        </p>
+
+        <div class="date-pill">
+            Reporting Period: From 26 June 2026
+        </div>
+
     </div>
-  </aside>
 
-  <main class="content">
-    <div class="topline">
-      <div>
-        <h1>Rewards Performance Summary</h1>
-        <div class="sub">Latest Update: 29/06</div>
-      </div>
-      <div class="pill">BR & MX Market Review</div>
+    <!-- AUDIENCE CONTROLS -->
+
+    <input type="radio" name="audience-tabs" id="audience-new" checked>
+    <input type="radio" name="audience-tabs" id="audience-existing">
+
+    <div class="dashboard-layout">
+
+        <!-- LEFT SIDEBAR -->
+
+        <div class="audience-sidebar">
+
+            <div class="sidebar-title">
+                Player Type
+            </div>
+
+            <label class="audience-label" for="audience-new">
+                NEW Players
+                <span>
+                    Newly registered player journey
+                </span>
+            </label>
+
+            <label class="audience-label" for="audience-existing">
+                EXISTING Players
+                <span>
+                    First login from 26 June 2026
+                </span>
+            </label>
+
+        </div>
+
+        <!-- MAIN CONTENT -->
+
+        <div class="audience-content">
+
+            <!-- =========================================
+                 NEW PLAYER PANEL
+            ========================================== -->
+
+            <div class="audience-panel new-panel">
+
+                <div class="flow-card">
+
+                    <div class="section-label">
+                        New Player Campaign Journey
+                    </div>
+
+                    <div class="flow">
+
+                        <div class="flow-step">
+                            New Player Receives 3 Wheel Tickets
+                        </div>
+
+                        <div class="flow-step">
+                            Player Spins the Wheel
+                        </div>
+
+                        <div class="flow-step">
+                            Player Receives a Bonus Offer
+                        </div>
+
+                        <div class="flow-step">
+                            Spin 3 Player Opts In
+                        </div>
+
+                        <div class="flow-step">
+                            Player Deposits &amp; Claims Free Spins
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <input type="radio" name="new-country-tabs" id="new-br" checked>
+                <input type="radio" name="new-country-tabs" id="new-mx">
+
+                <div class="country-tabs">
+
+                    <label class="country-tab-label" for="new-br">
+                        BR – Brazil
+                    </label>
+
+                    <label class="country-tab-label" for="new-mx">
+                        MX – Mexico
+                    </label>
+
+                </div>
+
+                <div class="country-content-wrap">
+
+                    <!-- NEW BRAZIL -->
+
+                    <div class="country-content new-br-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Brazil Performance</h2>
+                                <p>Newly registered players only</p>
+                            </div>
+
+                            <div class="audience-badge">
+                                New Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Wheel Tickets
+                                </div>
+
+                                <div class="kpi-value">
+                                    293
+                                </div>
+
+                                <div class="kpi-sub">
+                                    New players granted all three wheel tickets
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Players Who Spun
+                                </div>
+
+                                <div class="kpi-value">
+                                    171
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong class="positive">58.36%</strong>
+                                    of ticket recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    13
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>4.44%</strong> of recipients or
+                                    <strong>7.60%</strong> of spinners
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited Before Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    5
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>1.71%</strong> of ticket recipients
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="two-column">
+
+                            <div class="card">
+
+                                <h3>Wheel Performance by Spin</h3>
+
+                                <p class="card-description">
+                                    Number of newly registered players who used each
+                                    wheel ticket.
+                                </p>
+
+                                <div class="table-wrap">
+
+                                    <table>
+
+                                        <thead>
+                                            <tr>
+                                                <th>Spin</th>
+                                                <th>Reward</th>
+                                                <th>Granted</th>
+                                                <th>Spun</th>
+                                                <th>Spin Rate</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 1</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Deposit to Unlock 20 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        First deposit required
+                                                    </span>
+                                                </td>
+
+                                                <td>293</td>
+                                                <td>125</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        43%
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 2</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Accumulate R$50 to Get 50 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        Accumulated deposit mission
+                                                    </span>
+                                                </td>
+
+                                                <td>293</td>
+                                                <td>136</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        46%
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 3</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        7 Days Unlimited Free Spins
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        One-time opt-in required before deposit
+                                                    </span>
+                                                </td>
+
+                                                <td>293</td>
+                                                <td>166</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        57%
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>Spin 3 Conversion Funnel</h3>
+
+                                <p class="card-description">
+                                    Conversion after the player used the Spin 3 ticket.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Spun Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                166
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the Spin 3 funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Player Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                165
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:99.40%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            99.40% of players who used Spin 3
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Players Deposited After Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                12
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:7.23%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            7.23% of Spin 3 players deposited afterward
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Player Claimed 7 Days Unlimited FS
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:.60%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Only one player successfully claimed the promotion
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- NEW MEXICO -->
+
+                    <div class="country-content new-mx-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Mexico Performance</h2>
+                                <p>Newly registered players only</p>
+                            </div>
+
+                            <div class="audience-badge">
+                                New Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Wheel Tickets
+                                </div>
+
+                                <div class="kpi-value">
+                                    1,293
+                                </div>
+
+                                <div class="kpi-sub">
+                                    New players granted all three wheel tickets
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Players Who Spun
+                                </div>
+
+                                <div class="kpi-value">
+                                    1,048
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong class="positive">81.05%</strong>
+                                    of ticket recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    91
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>7.04%</strong> of recipients or
+                                    <strong>8.68%</strong> of spinners
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited Before Spinning
+                                </div>
+
+                                <div class="kpi-value">
+                                    17
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>1.31%</strong> of ticket recipients
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="two-column">
+
+                            <div class="card">
+
+                                <h3>Wheel Performance by Spin</h3>
+
+                                <p class="card-description">
+                                    Number of newly registered players who used each
+                                    wheel ticket.
+                                </p>
+
+                                <div class="table-wrap">
+
+                                    <table>
+
+                                        <thead>
+                                            <tr>
+                                                <th>Spin</th>
+                                                <th>Reward</th>
+                                                <th>Granted</th>
+                                                <th>Spun</th>
+                                                <th>Spin Rate</th>
+                                                <th>Deposit After Spin</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 1</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Deposit to Unlock 20 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        First deposit required
+                                                    </span>
+                                                </td>
+
+                                                <td>1,293</td>
+                                                <td>874</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        67.6%
+                                                    </span>
+                                                </td>
+
+                                                <td>71</td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 2</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        Accumulate MX$150 to Get 50 FS
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        Accumulated deposit mission
+                                                    </span>
+                                                </td>
+
+                                                <td>1,293</td>
+                                                <td>934</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        72.2%
+                                                    </span>
+                                                </td>
+
+                                                <td>76</td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>Spin 3</strong>
+                                                </td>
+
+                                                <td>
+                                                    <span class="reward-name">
+                                                        7 Days Unlimited Free Spins
+                                                    </span>
+
+                                                    <span class="small-text">
+                                                        One-time opt-in required before deposit
+                                                    </span>
+                                                </td>
+
+                                                <td>1,293</td>
+                                                <td>1,041</td>
+
+                                                <td>
+                                                    <span class="rate-badge">
+                                                        80.5%
+                                                    </span>
+                                                </td>
+
+                                                <td>84</td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>Spin 3 Conversion Funnel</h3>
+
+                                <p class="card-description">
+                                    Conversion after the player used the Spin 3 ticket.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Spun Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1,041
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the Spin 3 funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1,034
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:99.33%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            99.33% of players who used Spin 3
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Deposited After Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                90
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:8.65%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            8.65% of players who used Spin 3 deposited afterward
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Claimed 7 Days Unlimited FS
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                7
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:.67%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Seven unique players successfully claimed the promotion
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================================
+                 EXISTING PLAYER PANEL
+            ========================================== -->
+
+            <div class="audience-panel existing-panel">
+
+                <div class="flow-card">
+
+                    <div class="section-label">
+                        Existing Player Campaign Journey
+                    </div>
+
+                    <div class="flow">
+
+                        <div class="flow-step">
+                            Existing Player Logs In From 26 June
+                        </div>
+
+                        <div class="flow-step">
+                            Receives One Spin 3 Ticket
+                        </div>
+
+                        <div class="flow-step">
+                            Opts In to 7 Days Unlimited FS
+                        </div>
+
+                        <div class="flow-step">
+                            Deposits After Opt-In
+                        </div>
+
+                        <div class="flow-step">
+                            Claims Unlimited Free Spins
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <input type="radio" name="existing-country-tabs" id="existing-br" checked>
+                <input type="radio" name="existing-country-tabs" id="existing-mx">
+
+                <div class="country-tabs">
+
+                    <label class="country-tab-label" for="existing-br">
+                        BR – Brazil
+                    </label>
+
+                    <label class="country-tab-label" for="existing-mx">
+                        MX – Mexico
+                    </label>
+
+                </div>
+
+                <div class="country-content-wrap">
+
+                    <!-- EXISTING BRAZIL -->
+
+                    <div class="country-content existing-br-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Brazil Performance</h2>
+                                <p>
+                                    Existing players who first logged in from
+                                    26 June 2026
+                                </p>
+                            </div>
+
+                            <div class="audience-badge">
+                                Existing Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid five-columns">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Spin 3
+                                </div>
+
+                                <div class="kpi-value">
+                                    451
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Existing players who received one
+                                    7 Days Unlimited FS spin
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Opted In
+                                </div>
+
+                                <div class="kpi-value">
+                                    215
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>47.67%</strong>
+                                    of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Opt-In
+                                </div>
+
+                                <div class="kpi-value">
+                                    80
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>37.21%</strong> of opt-ins or
+                                    <strong>17.74%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi claim-kpi">
+
+                                <div class="kpi-title">
+                                    Unique Claiming Players
+                                </div>
+
+                                <div class="kpi-value">
+                                    31
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>38.75%</strong> of depositors or
+                                    <strong>6.87%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi total-kpi">
+
+                                <div class="kpi-title">
+                                    Total Claims
+                                </div>
+
+                                <div class="kpi-value">
+                                    220
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Average
+                                    <strong>7.10 claims</strong>
+                                    per unique claiming player
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="existing-two-column">
+
+                            <div class="card">
+
+                                <h3>Existing Player Results</h3>
+
+                                <p class="card-description">
+                                    Summary of player participation and repeat
+                                    promotion usage.
+                                </p>
+
+                                <div class="summary-list">
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Opt-In Conversion</strong>
+                                            <span>
+                                                Received Spin 3 → Opted in
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            47.67%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Deposit Conversion</strong>
+                                            <span>
+                                                Opted in → Deposited afterward
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            37.21%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Claim Conversion</strong>
+                                            <span>
+                                                Deposited after opt-in → Unique claim
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            38.75%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Average Claims</strong>
+                                            <span>
+                                                Total claims per claiming player
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            7.10
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="summary-note">
+                                    The 31 unique claiming players generated
+                                    220 total claims, showing strong repeat-deposit
+                                    behaviour after players successfully activated
+                                    and understood the promotion.
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>7 Days Unlimited FS Funnel</h3>
+
+                                <p class="card-description">
+                                    Existing-player conversion from receiving
+                                    Spin 3 to claiming the promotion.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Received Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                451
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the existing-player funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                215
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:47.67%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            47.67% of Spin 3 recipients opted in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Deposited After Opt-In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                80
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:17.74%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            17.74% of recipients deposited after opt-in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Claimed
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                31
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:6.87%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            31 unique players successfully claimed
+                                            the 7 Days Unlimited Free Spins promotion
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Total Promotion Claims
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                220
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress total-bar">
+                                            <span style="width:68%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            The 31 unique claiming players generated
+                                            220 total reward claims
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- EXISTING MEXICO -->
+
+                    <div class="country-content existing-mx-content">
+
+                        <div class="country-header">
+
+                            <div class="country-title">
+                                <h2>Mexico Performance</h2>
+                                <p>
+                                    Existing players who first logged in from
+                                    26 June 2026
+                                </p>
+                            </div>
+
+                            <div class="audience-badge">
+                                Existing Players
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-grid five-columns">
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Received Spin 3
+                                </div>
+
+                                <div class="kpi-value">
+                                    1,179
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Existing players who received one
+                                    7 Days Unlimited FS spin
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Opted In
+                                </div>
+
+                                <div class="kpi-value">
+                                    721
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>61.15%</strong>
+                                    of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi">
+
+                                <div class="kpi-title">
+                                    Deposited After Opt-In
+                                </div>
+
+                                <div class="kpi-value">
+                                    144
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>19.97%</strong> of opt-ins or
+                                    <strong>12.21%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi claim-kpi">
+
+                                <div class="kpi-title">
+                                    Unique Claiming Players
+                                </div>
+
+                                <div class="kpi-value">
+                                    81
+                                </div>
+
+                                <div class="kpi-sub">
+                                    <strong>56.25%</strong> of depositors or
+                                    <strong>6.87%</strong> of recipients
+                                </div>
+
+                            </div>
+
+                            <div class="kpi total-kpi">
+
+                                <div class="kpi-title">
+                                    Total Claims
+                                </div>
+
+                                <div class="kpi-value">
+                                    212
+                                </div>
+
+                                <div class="kpi-sub">
+                                    Average
+                                    <strong>2.62 claims</strong>
+                                    per unique claiming player
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="existing-two-column">
+
+                            <div class="card">
+
+                                <h3>Existing Player Results</h3>
+
+                                <p class="card-description">
+                                    Summary of player participation and repeat
+                                    promotion usage.
+                                </p>
+
+                                <div class="summary-list">
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Opt-In Conversion</strong>
+                                            <span>
+                                                Received Spin 3 → Opted in
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            61.15%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Deposit Conversion</strong>
+                                            <span>
+                                                Opted in → Deposited afterward
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            19.97%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Claim Conversion</strong>
+                                            <span>
+                                                Deposited after opt-in → Unique claim
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            56.25%
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-row">
+
+                                        <div class="summary-row-left">
+                                            <strong>Average Claims</strong>
+                                            <span>
+                                                Total claims per claiming player
+                                            </span>
+                                        </div>
+
+                                        <div class="summary-row-value">
+                                            2.62
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="summary-note">
+                                    Mexico recorded a stronger opt-in rate than Brazil.
+                                    The 81 unique claiming players generated 212 total
+                                    claims, showing continued promotion usage after
+                                    the first successful claim.
+                                </div>
+
+                            </div>
+
+                            <div class="card">
+
+                                <h3>7 Days Unlimited FS Funnel</h3>
+
+                                <p class="card-description">
+                                    Existing-player conversion from receiving
+                                    Spin 3 to claiming the promotion.
+                                </p>
+
+                                <div class="funnel">
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Received Spin 3
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                1,179
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress">
+                                            <span style="width:100%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            Starting point of the existing-player funnel
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Opted In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                721
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress warning-bar">
+                                            <span style="width:61.15%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            61.15% of Spin 3 recipients opted in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Deposited After Opt-In
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                144
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress success-bar">
+                                            <span style="width:12.21%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            12.21% of recipients deposited after opt-in
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Unique Players Claimed
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                81
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress claim-bar">
+                                            <span style="width:6.87%;min-width:5px;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            81 unique players successfully claimed
+                                            the 7 Days Unlimited Free Spins promotion
+                                        </div>
+
+                                    </div>
+
+                                    <div class="funnel-item">
+
+                                        <div class="funnel-top">
+
+                                            <div class="funnel-name">
+                                                Total Promotion Claims
+                                            </div>
+
+                                            <div class="funnel-number">
+                                                212
+                                            </div>
+
+                                        </div>
+
+                                        <div class="progress total-bar">
+                                            <span style="width:55%;"></span>
+                                        </div>
+
+                                        <div class="funnel-rate">
+                                            The 81 unique claiming players generated
+                                            212 total reward claims
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <section id="coins" class="section active">
-      <div class="country-tabs">
-        <button class="country-tab active" data-group="coins" data-target="coins-br">🇧🇷 Brazil</button>
-        <button class="country-tab" data-group="coins" data-target="coins-mx">🇲🇽 Mexico</button>
-      </div>
+    <div class="footer">
+        Internal CRM Campaign Performance Summary
+    </div>
 
-      <div id="coins-br" class="country-panel active">
-        <div class="grid">
-          <div class="card"><div class="kpi-label">Eligible Players</div><div class="kpi-value">82</div><div class="kpi-note good">+70.8% vs First Week</div><div class="kpi-note good">▲ +28.1% vs Last Week <span class="info" data-tip="15/06: 48 players&#10;22/06: 64 players&#10;29/06: 82 players&#10;&#10;Growth vs First Week: +34 players (+70.8%)&#10;Growth vs Last Week: +18 players (+28.1%)">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">16,245</div><div class="kpi-note good">+305.1% vs First Week</div><div class="kpi-note good">▲ +85.2% vs Last Week <span class="info" data-tip="15/06: 4,010 coins&#10;22/06: 8,770 coins&#10;29/06: 16,245 coins&#10;&#10;Growth vs First Week: +12,235 coins (+305.1%)&#10;Growth vs Last Week: +7,475 coins (+85.2%)">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">9,840</div><div class="kpi-note good">+496.4% vs First Week</div><div class="kpi-note good">▲ +98.4% vs Last Week <span class="info" data-tip="15/06: 1,650 coins spent&#10;22/06: 4,960 coins spent&#10;29/06: 9,840 coins spent&#10;&#10;Growth vs First Week: +8,190 coins (+496.4%)&#10;Growth vs Last Week: +4,880 coins (+98.4%)">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coin Redemption Rate</div><div class="kpi-value good">60.57%</div><div class="kpi-note good">+19.42 pts vs First Week</div><div class="kpi-note good">▲ +4.01 pts vs Last Week <span class="info" data-tip="15/06: 41.15%&#10;22/06: 56.56%&#10;29/06: 60.57%&#10;&#10;Growth vs First Week: +19.42 percentage points&#10;Growth vs Last Week: +4.01 percentage points">i</span></div><div class="progress"><div class="bar" style="width:60.57%"></div></div></div>
-        </div>
-
-        <div class="card wide" style="margin-top:18px">
-          <h3>Player Spend Status</h3>
-          <div class="status-grid">
-            <div class="status-card">
-              <div class="status-title">Coin Spenders</div>
-              <div class="status-value good">27</div>
-              <div class="status-rate">32.9% of eligible players</div>
-              <div class="progress"><div class="bar green" style="width:32.9%"></div></div>
-            </div>
-            <div class="status-card">
-              <div class="status-title">Able to Spend But Haven't</div>
-              <div class="status-value warn">18</div>
-              <div class="status-rate">22.0% of eligible players</div>
-              <div class="progress"><div class="bar orange" style="width:22%"></div></div>
-            </div>
-            <div class="status-card">
-              <div class="status-title">Not Enough Coins to Spend</div>
-              <div class="status-value red">37</div>
-              <div class="status-rate">45.1% of eligible players</div>
-              <div class="progress"><div class="bar redbar" style="width:45.1%"></div></div>
-            </div>
-          </div>
-          <div class="small-note">Player redemption rate = 27 spenders / 82 eligible players. Coin redemption rate = 9,840 coins spent / 16,245 coins received.</div>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Coin Economy</h3>
-            <table>
-              <tr><th>Metric</th><th>Value</th></tr>
-              <tr><td>Eligible Players</td><td>82</td></tr>
-              <tr><td>Coin Spenders</td><td>27</td></tr>
-              <tr><td>Able to Spend But Haven't</td><td>18</td></tr>
-              <tr><td>Not Enough Coins to Spend</td><td>37</td></tr>
-              <tr><td>Player Redemption Rate</td><td>32.9%</td></tr>
-              <tr><td>Total Coins Received</td><td>16,245</td></tr>
-              <tr><td>Total Coins Spent</td><td>9,840</td></tr>
-              <tr><td>Balance Coins</td><td>6,405</td></tr>
-              <tr><td>Saved Rate</td><td>39.43%</td></tr>
-              <tr><td>Coin Redemption Rate</td><td>60.57%</td></tr>
-              <tr><td>Avg Coins Spent / Spender</td><td>364</td></tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Most Popular Shop Items</h3>
-            <table>
-              <tr><th>Item</th><th>Redeemed</th></tr>
-              <tr><td>R$5 Bonus</td><td>99</td></tr>
-              <tr><td>18 Free Spins</td><td>28</td></tr>
-              <tr><td>10 Free Spins</td><td>16</td></tr>
-              <tr><td>R$100 Bonus</td><td>5</td></tr>
-              <tr><td>R$50 Bonus</td><td>4</td></tr>
-            </table>
-          </div>
-
-          <div class="card callout wide">
-            <h3>Brazil Insight</h3>
-            <p class="insight">Brazil has <b>82 eligible players</b>, but only <b>27 players</b> have spent coins so far. This means the player redemption rate is <b>32.9%</b>. Another <b>18 players</b> already have enough coins to spend but have not redeemed yet, creating an immediate reminder opportunity. The remaining <b>37 players</b> need more coins before they can redeem.</p>
-            <span class="tag">27 Spenders</span><span class="tag">18 Ready to Redeem</span><span class="tag">37 Need More Coins</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="coins-mx" class="country-panel">
-        <div class="grid">
-          <div class="card"><div class="kpi-label">Eligible Players</div><div class="kpi-value">46</div><div class="kpi-note good">+206.7% vs First Week</div><div class="kpi-note good">▲ +84.0% vs Last Week <span class="info" data-tip="15/06: 15 players&#10;22/06: 25 players&#10;29/06: 46 players&#10;&#10;Growth vs First Week: +31 players (+206.7%)&#10;Growth vs Last Week: +21 players (+84.0%)">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Received</div><div class="kpi-value accent">5,745</div><div class="kpi-note good">+235.0% vs First Week</div><div class="kpi-note good">▲ +83.0% vs Last Week <span class="info" data-tip="15/06: 1,715 coins&#10;22/06: 3,140 coins&#10;29/06: 5,745 coins&#10;&#10;Growth vs First Week: +4,030 coins (+235.0%)&#10;Growth vs Last Week: +2,605 coins (+83.0%)">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coins Spent</div><div class="kpi-value">5,070</div><div class="kpi-note good">+229.2% vs First Week</div><div class="kpi-note good">▲ +77.9% vs Last Week <span class="info" data-tip="15/06: 1,540 coins spent&#10;22/06: 2,850 coins spent&#10;29/06: 5,070 coins spent&#10;&#10;Growth vs First Week: +3,530 coins (+229.2%)&#10;Growth vs Last Week: +2,220 coins (+77.9%)">i</span></div></div>
-          <div class="card"><div class="kpi-label">Coin Redemption Rate</div><div class="kpi-value good">88.25%</div><div class="kpi-note red">-1.55 pts vs First Week</div><div class="kpi-note red">▼ -2.51 pts vs Last Week <span class="info" data-tip="15/06: 89.80%&#10;22/06: 90.76%&#10;29/06: 88.25%&#10;&#10;Change vs First Week: -1.55 percentage points&#10;Change vs Last Week: -2.51 percentage points">i</span></div><div class="progress"><div class="bar" style="width:88.25%"></div></div></div>
-        </div>
-
-        <div class="card wide" style="margin-top:18px">
-          <h3>Player Spend Status</h3>
-          <div class="status-grid">
-            <div class="status-card">
-              <div class="status-title">Coin Spenders</div>
-              <div class="status-value good">9</div>
-              <div class="status-rate">19.6% of eligible players</div>
-              <div class="progress"><div class="bar green" style="width:19.6%"></div></div>
-            </div>
-            <div class="status-card">
-              <div class="status-title">Able to Spend But Haven't</div>
-              <div class="status-value warn">2</div>
-              <div class="status-rate">4.3% of eligible players</div>
-              <div class="progress"><div class="bar orange" style="width:4.3%"></div></div>
-            </div>
-            <div class="status-card">
-              <div class="status-title">Not Enough Coins to Spend</div>
-              <div class="status-value red">35</div>
-              <div class="status-rate">76.1% of eligible players</div>
-              <div class="progress"><div class="bar redbar" style="width:76.1%"></div></div>
-            </div>
-          </div>
-          <div class="small-note">Player redemption rate = 9 spenders / 46 eligible players. Coin redemption rate = 5,070 coins spent / 5,745 coins received.</div>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Coin Economy</h3>
-            <table>
-              <tr><th>Metric</th><th>Value</th></tr>
-              <tr><td>Eligible Players</td><td>46</td></tr>
-              <tr><td>Coin Spenders</td><td>9</td></tr>
-              <tr><td>Able to Spend But Haven't</td><td>2</td></tr>
-              <tr><td>Not Enough Coins to Spend</td><td>35</td></tr>
-              <tr><td>Player Redemption Rate</td><td>19.6%</td></tr>
-              <tr><td>Total Coins Received</td><td>5,745</td></tr>
-              <tr><td>Total Coins Spent</td><td>5,070</td></tr>
-              <tr><td>Balance Coins</td><td>675</td></tr>
-              <tr><td>Saved Rate</td><td>11.75%</td></tr>
-              <tr><td>Coin Redemption Rate</td><td>88.25%</td></tr>
-              <tr><td>Avg Coins Spent / Spender</td><td>563</td></tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Most Popular Shop Items</h3>
-            <table>
-              <tr><th>Item</th><th>Redeemed</th></tr>
-              <tr><td>MX$15 Bonus</td><td>33</td></tr>
-              <tr><td>MX$150 Bonus</td><td>8</td></tr>
-              <tr><td>MX$300 Bonus</td><td>4</td></tr>
-              <tr><td>18 Free Spins</td><td>4</td></tr>
-              <tr><td>10 Free Spins</td><td>2</td></tr>
-            </table>
-          </div>
-
-          <div class="card callout wide">
-            <h3>Mexico Insight</h3>
-            <p class="insight">Mexico has <b>46 eligible players</b>, but only <b>9 players</b> have spent coins so far. Although the <b>coin redemption rate is high at 88.25%</b>, the player redemption rate is only <b>19.6%</b>. This shows the players who redeem are spending a lot, while most players still do not have enough coins to redeem.</p>
-            <span class="tag">9 Spenders</span><span class="tag">2 Ready to Redeem</span><span class="tag">35 Need More Coins</span>
-          </div>
-        </div>
-
-        <div class="card callout wide" style="margin-top:18px">
-          <h3>Overall Coin Summary</h3>
-          <p class="insight">The new player spend status separates <b>player redemption</b> from <b>coin redemption</b>. Brazil has a stronger player redemption rate at <b>32.9%</b>, while Mexico has a stronger coin redemption rate at <b>88.25%</b>. This means Brazil has broader player participation, while Mexico redeemers spend their coins more aggressively.</p>
-          <p class="insight">Immediate action: target <b>18 BR players</b> and <b>2 MX players</b> who already have enough coins to redeem but have not spent yet. For the remaining <b>37 BR</b> and <b>35 MX</b> players, use missions/deposit reminders to help them earn enough coins for the first redemption.</p>
-          <span class="tag">Player Redemption Added</span><span class="tag">Ready-to-Redeem Segment</span><span class="tag">Need More Coins Segment</span>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="depositimpact" class="section">
-      <div class="topline" style="margin-bottom:18px">
-        <div>
-          <h1>Deposit Impact</h1>
-          <div class="sub">Comparison: 12 Jun - 29 Jun vs 12 May - 29 May</div>
-        </div>
-        <div class="pill">BR & MX Coin Mission Impact</div>
-      </div>
-
-      <div class="country-tabs">
-        <button class="country-tab active" data-group="impact" data-target="impact-br">🇧🇷 Brazil</button>
-        <button class="country-tab" data-group="impact" data-target="impact-mx">🇲🇽 Mexico</button>
-      </div>
-
-      <div id="impact-br" class="country-panel active">
-        <div class="grid">
-          <div class="card"><div class="kpi-label">Visible Players Checked</div><div class="kpi-value accent">27</div><div class="kpi-note">Players from current comparison sheet</div></div>
-          <div class="card"><div class="kpi-label">Current Period Deposit</div><div class="kpi-value">R$258,386</div><div class="kpi-note">12 Jun - 29 Jun</div></div>
-          <div class="card"><div class="kpi-label">Previous Period Deposit</div><div class="kpi-value">R$288,140</div><div class="kpi-note">12 May - 29 May</div></div>
-          <div class="card"><div class="kpi-label">Net Deposit Change</div><div class="kpi-value red">-10.33%</div><div class="kpi-note">R$29,754 lower vs previous period</div></div>
-        </div>
-
-        <div class="grid" style="margin-top:16px">
-          <div class="card"><div class="kpi-label">Players Increased Deposit</div><div class="kpi-value good">20</div><div class="kpi-note">74.1% of visible players</div><div class="progress"><div class="bar" style="width:74.1%"></div></div></div>
-          <div class="card"><div class="kpi-label">Players Declined Deposit</div><div class="kpi-value red">7</div><div class="kpi-note">25.9% of visible players</div><div class="progress"><div class="bar" style="width:25.9%"></div></div></div>
-          <div class="card"><div class="kpi-label">Reactivated Players</div><div class="kpi-value accent">4</div><div class="kpi-note">R$0 last period → deposited this period</div></div>
-          <div class="card"><div class="kpi-label">Reactivation Deposit Value</div><div class="kpi-value good">R$15,282</div><div class="kpi-note">New deposit value from 0-deposit players</div></div>
-        </div>
-
-        <div class="two-col">
-          <div class="card callout">
-            <h3>Positive Uplift Generated</h3>
-            <div class="kpi-value good">+R$106,039</div>
-            <div class="kpi-note">Total increase from players who deposited more than last month</div>
-            <div class="progress"><div class="bar" style="width:78%"></div></div>
-          </div>
-
-          <div class="card">
-            <h3>Decline Value to Recover</h3>
-            <div class="kpi-value red">-R$135,794</div>
-            <div class="kpi-note">Total drop from players who deposited less than last month</div>
-            <div class="progress"><div class="bar" style="width:100%"></div></div>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Top 10 Deposit Growth</h3>
-            <table>
-              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Growth</th></tr>
-              <tr><td>gabblb96</td><td>R$36,119</td><td>R$6,355</td><td class="good">▲ 468.36%</td></tr>
-              <tr><td>gona777</td><td>R$1,414</td><td>R$306</td><td class="good">▲ 362.19%</td></tr>
-              <tr><td>jaquetaka</td><td>R$950</td><td>R$218</td><td class="good">▲ 335.78%</td></tr>
-              <tr><td>luisrafael</td><td>R$2,064</td><td>R$512</td><td class="good">▲ 303.13%</td></tr>
-              <tr><td>petylove</td><td>R$18,020</td><td>R$5,820</td><td class="good">▲ 209.62%</td></tr>
-              <tr><td>lorenzon23</td><td>R$20,690</td><td>R$8,042</td><td class="good">▲ 157.27%</td></tr>
-              <tr><td>denison85</td><td>R$5,695</td><td>R$0</td><td class="good">New Active</td></tr>
-              <tr><td>rafa1921</td><td>R$6,429</td><td>R$0</td><td class="good">New Active</td></tr>
-              <tr><td>gabzinxs77</td><td>R$1,958</td><td>R$0</td><td class="good">New Active</td></tr>
-              <tr><td>lhx9797</td><td>R$1,200</td><td>R$0</td><td class="good">New Active</td></tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Top Deposit Decline / VIP Follow-up</h3>
-            <table>
-              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Change</th></tr>
-              <tr><td>doooctor7</td><td>R$3,235</td><td>R$48,805</td><td class="red">▼ 93.37%</td></tr>
-              <tr><td>ramont</td><td>R$2,340</td><td>R$21,790</td><td class="red">▼ 89.26%</td></tr>
-              <tr><td>kalab17</td><td>R$4,145</td><td>R$31,317</td><td class="red">▼ 86.76%</td></tr>
-              <tr><td>schmittjr</td><td>R$2,781</td><td>R$20,484</td><td class="red">▼ 86.42%</td></tr>
-              <tr><td>ludo888</td><td>R$3,871</td><td>R$21,191</td><td class="red">▼ 81.74%</td></tr>
-              <tr><td>renanm27</td><td>R$5,682</td><td>R$14,077</td><td class="red">▼ 59.64%</td></tr>
-              <tr><td>fabinnho1</td><td>R$10,930</td><td>R$11,113</td><td class="red">▼ 1.65%</td></tr>
-            </table>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Reactivated Players</h3>
-            <table>
-              <tr><th>Username</th><th>Previous Deposit</th><th>Current Deposit</th><th>Generated</th></tr>
-              <tr><td>rafa1921</td><td>R$0</td><td>R$6,429</td><td class="good">+R$6,429</td></tr>
-              <tr><td>denison85</td><td>R$0</td><td>R$5,695</td><td class="good">+R$5,695</td></tr>
-              <tr><td>gabzinxs77</td><td>R$0</td><td>R$1,958</td><td class="good">+R$1,958</td></tr>
-              <tr><td>lhx9797</td><td>R$0</td><td>R$1,200</td><td class="good">+R$1,200</td></tr>
-              <tr><td><b>Total</b></td><td><b>R$0</b></td><td><b>R$15,282</b></td><td class="good"><b>+R$15,282</b></td></tr>
-            </table>
-          </div>
-
-          <div class="card callout">
-            <h3>Campaign Impact Numbers</h3>
-            <table>
-              <tr><th>Metric</th><th>Result</th></tr>
-              <tr><td>Visible Sample Size</td><td>27 players</td></tr>
-              <tr><td>Increased Deposit Players</td><td class="good">20 players</td></tr>
-              <tr><td>Declined Deposit Players</td><td class="red">7 players</td></tr>
-              <tr><td>Reactivated Players</td><td class="good">4 players</td></tr>
-              <tr><td>Positive Uplift Generated</td><td class="good">+R$106,039</td></tr>
-              <tr><td>Decline Value</td><td class="red">-R$135,794</td></tr>
-              <tr><td>Net Change</td><td class="red">-R$29,754</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div id="impact-mx" class="country-panel">
-        <div class="grid">
-          <div class="card"><div class="kpi-label">Visible Players Checked</div><div class="kpi-value accent">9</div><div class="kpi-note">Players from current MX comparison sheet</div></div>
-          <div class="card"><div class="kpi-label">Current Period Deposit</div><div class="kpi-value">MX$457,862</div><div class="kpi-note">12 Jun - 29 Jun</div></div>
-          <div class="card"><div class="kpi-label">Previous Period Deposit</div><div class="kpi-value">MX$198,315</div><div class="kpi-note">12 May - 29 May</div></div>
-          <div class="card"><div class="kpi-label">Net Deposit Change</div><div class="kpi-value good">+130.88%</div><div class="kpi-note">MX$259,547 higher vs previous period</div></div>
-        </div>
-
-        <div class="grid" style="margin-top:16px">
-          <div class="card"><div class="kpi-label">Players Increased Deposit</div><div class="kpi-value good">8</div><div class="kpi-note">88.9% of visible players</div><div class="progress"><div class="bar" style="width:88.9%"></div></div></div>
-          <div class="card"><div class="kpi-label">Players Declined Deposit</div><div class="kpi-value red">1</div><div class="kpi-note">11.1% of visible players</div><div class="progress"><div class="bar" style="width:11.1%"></div></div></div>
-          <div class="card"><div class="kpi-label">Reactivated Players</div><div class="kpi-value accent">1</div><div class="kpi-note">MX$0 last period → deposited this period</div></div>
-          <div class="card"><div class="kpi-label">Reactivation Deposit Value</div><div class="kpi-value good">MX$3,773</div><div class="kpi-note">New deposit value from 0-deposit player</div></div>
-        </div>
-
-        <div class="two-col">
-          <div class="card callout">
-            <h3>Positive Uplift Generated</h3>
-            <div class="kpi-value good">+MX$261,312</div>
-            <div class="kpi-note">Total increase from players who deposited more than last month</div>
-            <div class="progress"><div class="bar" style="width:100%"></div></div>
-          </div>
-
-          <div class="card">
-            <h3>Decline Value to Recover</h3>
-            <div class="kpi-value red">-MX$1,765</div>
-            <div class="kpi-note">Total drop from player who deposited less than last month</div>
-            <div class="progress"><div class="bar" style="width:12%"></div></div>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Top Deposit Growth</h3>
-            <table>
-              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Growth</th></tr>
-              <tr><td>razzz9988</td><td>MX$3,773</td><td>MX$0</td><td class="good">New Active</td></tr>
-              <tr><td>bbliko</td><td>MX$9,200</td><td>MX$600</td><td class="good">▲ 1433.33%</td></tr>
-              <tr><td>eurbi04</td><td>MX$4,000</td><td>MX$300</td><td class="good">▲ 1233.33%</td></tr>
-              <tr><td>martha1107</td><td>MX$33,910</td><td>MX$4,020</td><td class="good">▲ 743.53%</td></tr>
-              <tr><td>pepemarin</td><td>MX$11,846</td><td>MX$1,967</td><td class="good">▲ 502.24%</td></tr>
-              <tr><td>lobit01105</td><td>MX$373,034</td><td>MX$170,771</td><td class="good">▲ 118.44%</td></tr>
-              <tr><td>h241113</td><td>MX$6,335</td><td>MX$3,928</td><td class="good">▲ 61.28%</td></tr>
-              <tr><td>machetes</td><td>MX$7,300</td><td>MX$6,500</td><td class="good">▲ 12.31%</td></tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h3>Deposit Decline / Follow-up</h3>
-            <table>
-              <tr><th>Username</th><th>12 Jun - 29 Jun</th><th>12 May - 29 May</th><th>Change</th></tr>
-              <tr><td>jozeta1907</td><td>MX$8,464</td><td>MX$10,229</td><td class="red">▼ 17.25%</td></tr>
-            </table>
-            <div class="summary-box">
-              <b>MX is showing a very strong net uplift.</b><br>
-              Only 1 visible player declined, while 8 players increased deposits compared with the same period last month.
-            </div>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Reactivated Players</h3>
-            <table>
-              <tr><th>Username</th><th>Previous Deposit</th><th>Current Deposit</th><th>Generated</th></tr>
-              <tr><td>razzz9988</td><td>MX$0</td><td>MX$3,773</td><td class="good">+MX$3,773</td></tr>
-              <tr><td><b>Total</b></td><td><b>MX$0</b></td><td><b>MX$3,773</b></td><td class="good"><b>+MX$3,773</b></td></tr>
-            </table>
-          </div>
-
-          <div class="card callout">
-            <h3>Campaign Impact Numbers</h3>
-            <table>
-              <tr><th>Metric</th><th>Result</th></tr>
-              <tr><td>Visible Sample Size</td><td>9 players</td></tr>
-              <tr><td>Increased Deposit Players</td><td class="good">8 players</td></tr>
-              <tr><td>Declined Deposit Players</td><td class="red">1 player</td></tr>
-              <tr><td>Reactivated Players</td><td class="good">1 player</td></tr>
-              <tr><td>Positive Uplift Generated</td><td class="good">+MX$261,312</td></tr>
-              <tr><td>Decline Value</td><td class="red">-MX$1,765</td></tr>
-              <tr><td>Net Change</td><td class="good">+MX$259,547</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="dailymission" class="section">
-      <div class="country-tabs">
-        <button class="country-tab active" data-group="mission" data-target="mission-br">🇧🇷 Brazil</button>
-        <button class="country-tab" data-group="mission" data-target="mission-mx">🇲🇽 Mexico</button>
-      </div>
-
-      <div id="mission-br" class="country-panel active">
-        <div class="mission-hero">
-          <div class="mission-hero-title">Daily Mission Funnel <span class="tag">12 Jun - 29 Jun</span></div>
-          <div class="mission-hero-inner">
-            <div class="funnel-wrap">
-              <div class="funnel-step s1">
-                <div class="funnel-label">Deposit Players</div>
-                <div class="funnel-value">715</div>
-                <div class="funnel-rate">Avg/day: 40</div>
-                <div class="funnel-sub">Total volume</div>
-              </div>
-              <div class="funnel-step s2">
-                <div class="funnel-label">Tier 1 Completed</div>
-                <div class="funnel-value">398</div>
-                <div class="funnel-rate">55.66%</div>
-                <div class="funnel-sub">R$100 • Avg/day: 22</div>
-              </div>
-              <div class="funnel-step s3">
-                <div class="funnel-label">Tier 2 Completed</div>
-                <div class="funnel-value">173</div>
-                <div class="funnel-rate">24.20%</div>
-                <div class="funnel-sub">R$500 • Avg/day: 10</div>
-              </div>
-              <div class="funnel-step s4">
-                <div class="funnel-label">Tier 3 Completed</div>
-                <div class="funnel-value">28</div>
-                <div class="funnel-rate">3.92%</div>
-                <div class="funnel-sub">R$3,000 • Avg/day: 2</div>
-              </div>
-            </div>
-            <div class="spin-rate-box">
-              <div class="spin-circle">
-                <div class="spin-big">77.65%</div>
-                <div class="spin-label">SPUN RATE</div>
-                <div class="spin-small">469 / 604 Tokens</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid" style="margin-bottom:18px">
-          <div class="card"><div class="kpi-label">Avg Deposit Players</div><div class="kpi-value warn">40/day</div><div class="kpi-note">43/day → 40/day <span class="red">▼ -7.0%</span></div></div>
-          <div class="card"><div class="kpi-label">Avg Tier 1 Completed</div><div class="kpi-value warn">22/day</div><div class="kpi-note">23/day → 22/day <span class="red">▼ -4.3%</span></div></div>
-          <div class="card"><div class="kpi-label">Avg Tier 2 Completed</div><div class="kpi-value good">10/day</div><div class="kpi-note">10/day → 10/day <span class="good">Stable</span></div></div>
-          <div class="card"><div class="kpi-label">Avg Tier 3 Completed</div><div class="kpi-value good">2/day</div><div class="kpi-note">1/day → 2/day <span class="good">▲ +100%</span></div></div>
-        </div>
-
-
-          <div class="card">
-            <h3>Wheel Token Status</h3>
-            <table>
-              <tr><th>Status</th><th>Count</th></tr>
-              <tr><td>Received</td><td>604</td></tr>
-              <tr><td>Spun</td><td>469</td></tr>
-              <tr><td>Expired</td><td>107</td></tr>
-              <tr><td>Pending</td><td>28</td></tr>
-              <tr><td>Spun Rate</td><td>77.65%</td></tr>
-            </table>
-          </div>
-
-          <div class="card wide">
-            <h3>Total Result Snapshot</h3>
-            <table>
-              <tr><th>Metric</th><th>Total</th><th>Conversion</th><th>Average / Day</th></tr>
-              <tr><td>Deposit Players</td><td>715</td><td>100%</td><td>40</td></tr>
-              <tr><td>Tier 1 Completed</td><td>398</td><td>55.66%</td><td>22</td></tr>
-              <tr><td>Tier 2 Completed</td><td>173</td><td>24.20%</td><td>10</td></tr>
-              <tr><td>Tier 3 Completed</td><td>28</td><td>3.92%</td><td>2</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div id="mission-mx" class="country-panel">
-        <div class="mission-hero">
-          <div class="mission-hero-title">Daily Mission Funnel <span class="tag">12 Jun - 29 Jun</span></div>
-          <div class="mission-hero-inner">
-            <div class="funnel-wrap">
-              <div class="funnel-step s1">
-                <div class="funnel-label">Deposit Players</div>
-                <div class="funnel-value">662</div>
-                <div class="funnel-rate">Avg/day: 37</div>
-                <div class="funnel-sub">Total volume</div>
-              </div>
-              <div class="funnel-step s2">
-                <div class="funnel-label">Tier 1 Completed</div>
-                <div class="funnel-value">159</div>
-                <div class="funnel-rate">24.02%</div>
-                <div class="funnel-sub">MX$300 • Avg/day: 8</div>
-              </div>
-              <div class="funnel-step s3">
-                <div class="funnel-label">Tier 2 Completed</div>
-                <div class="funnel-value">31</div>
-                <div class="funnel-rate">4.68%</div>
-                <div class="funnel-sub">MX$1,800 • Avg/day: 2</div>
-              </div>
-              <div class="funnel-step s4">
-                <div class="funnel-label">Tier 3 Completed</div>
-                <div class="funnel-value">13</div>
-                <div class="funnel-rate">1.96%</div>
-                <div class="funnel-sub">MX$10,000 • Avg/day: 1</div>
-              </div>
-            </div>
-            <div class="spin-rate-box">
-              <div class="spin-circle">
-                <div class="spin-big">89.09%</div>
-                <div class="spin-label">SPUN RATE</div>
-                <div class="spin-small">196 / 220 Tokens</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid" style="margin-bottom:18px">
-          <div class="card"><div class="kpi-label">Avg Deposit Players</div><div class="kpi-value good">37/day</div><div class="kpi-note">37/day → 37/day <span class="good">Stable</span></div></div>
-          <div class="card"><div class="kpi-label">Avg Tier 1 Completed</div><div class="kpi-value good">8/day</div><div class="kpi-note">8/day → 8/day <span class="good">Stable</span></div></div>
-          <div class="card"><div class="kpi-label">Avg Tier 2 Completed</div><div class="kpi-value good">2/day</div><div class="kpi-note">2/day → 2/day <span class="good">Stable</span></div></div>
-          <div class="card"><div class="kpi-label">Avg Tier 3 Completed</div><div class="kpi-value good">1/day</div><div class="kpi-note">1/day → 1/day <span class="good">Stable</span></div></div>
-        </div>
-
-     
-
-          <div class="card">
-            <h3>Wheel Token Status</h3>
-            <table>
-              <tr><th>Status</th><th>Count</th></tr>
-              <tr><td>Received</td><td>220</td></tr>
-              <tr><td>Spun</td><td>196</td></tr>
-              <tr><td>Expired</td><td>20</td></tr>
-              <tr><td>Pending</td><td>4</td></tr>
-              <tr><td>Spun Rate</td><td>89.09%</td></tr>
-            </table>
-          </div>
-
-          <div class="card wide">
-            <h3>Total Result Snapshot</h3>
-            <table>
-              <tr><th>Metric</th><th>Total</th><th>Conversion</th><th>Average / Day</th></tr>
-              <tr><td>Deposit Players</td><td>662</td><td>100%</td><td>37</td></tr>
-              <tr><td>Tier 1 Completed</td><td>159</td><td>24.02%</td><td>8</td></tr>
-              <tr><td>Tier 2 Completed</td><td>31</td><td>4.68%</td><td>2</td></tr>
-              <tr><td>Tier 3 Completed</td><td>13</td><td>1.96%</td><td>1</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="predictor" class="section">
-      <div class="country-tabs">
-        <button class="country-tab active" data-group="predictor" data-target="pred-br">🇧🇷 Brazil</button>
-        <button class="country-tab" data-group="predictor" data-target="pred-mx">🇲🇽 Mexico</button>
-      </div>
-
-      <div id="pred-br" class="country-panel active">
-        <div class="split">
-          <div>
-            <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-              <div class="card"><div class="kpi-label">Unlocked Players</div><div class="kpi-value">101</div><div class="kpi-note">Required accumulated deposit: R$100</div></div>
-              <div class="card"><div class="kpi-label">Predicted Players</div><div class="kpi-value accent">25</div></div>
-              <div class="card"><div class="kpi-label">Prediction Rate</div><div class="kpi-value good">24.75%</div><div class="progress"><div class="bar" style="width:24.75%"></div></div></div>
-            </div>
-          </div>
-          <div class="card callout">
-            <h3>Action Opportunity</h3>
-            <p class="insight"><b>76 unlocked BR players</b> have not submitted their prediction yet. The main opportunity is to convert unlocked players with reminder messages before match deadline.</p>
-            <span class="tag">Unlocked But Inactive</span><span class="tag">Reminder Push</span><span class="tag">Rich Inbox</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="pred-mx" class="country-panel">
-        <div class="split">
-          <div>
-            <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-              <div class="card"><div class="kpi-label">Unlocked Players</div><div class="kpi-value">91</div><div class="kpi-note">Required accumulated deposit: MX$200</div></div>
-              <div class="card"><div class="kpi-label">Predicted Players</div><div class="kpi-value accent">40</div></div>
-              <div class="card"><div class="kpi-label">Prediction Rate</div><div class="kpi-value good">43.96%</div><div class="progress"><div class="bar" style="width:43.96%"></div></div></div>
-            </div>
-          </div>
-          <div class="card callout">
-            <h3>Action Opportunity</h3>
-            <p class="insight"><b>51 unlocked MX players</b> have not submitted their prediction yet. MX has stronger conversion than BR, so increasing unlock volume could drive more prediction participation.</p>
-            <span class="tag">Higher Conversion</span><span class="tag">Scale Unlocks</span><span class="tag">Reminder Push</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
 </div>
-
-<script>
-  document.querySelectorAll('.main-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById(btn.dataset.target).classList.add('active');
-    });
-  });
-
-  document.querySelectorAll('.country-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = btn.closest('.section');
-      const targetId = btn.getAttribute('data-target');
-
-      section.querySelectorAll('.country-tab').forEach(tab => tab.classList.remove('active'));
-      btn.classList.add('active');
-
-      section.querySelectorAll('.country-panel').forEach(panel => {
-        panel.classList.remove('active');
-        panel.style.display = 'none';
-      });
-
-      const targetPanel = document.getElementById(targetId);
-      targetPanel.classList.add('active');
-      targetPanel.style.display = 'block';
-    });
-  });
-</script>
+</div>
 
 </body>
 </html>
