@@ -80,7 +80,6 @@ body{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
     margin-top:16px;
     padding:9px 14px;
     border-radius:10px;
@@ -98,7 +97,11 @@ body{
     margin-bottom:24px;
     border:1px solid rgba(255,255,255,.09);
     border-radius:18px;
-    background:linear-gradient(145deg,rgba(30,30,63,.95),rgba(16,16,39,.95));
+    background:linear-gradient(
+        145deg,
+        rgba(30,30,63,.95),
+        rgba(16,16,39,.95)
+    );
     box-shadow:0 18px 45px rgba(0,0,0,.25);
 }
 
@@ -289,15 +292,7 @@ input[type="radio"]{
     color:#68e0a0 !important;
 }
 
-.warning{
-    color:#ffc85e !important;
-}
-
-.danger{
-    color:#ff8096 !important;
-}
-
-/* CONTENT CARDS */
+/* CONTENT */
 
 .two-column{
     display:grid;
@@ -448,161 +443,7 @@ tr:last-child td{
     line-height:1.45;
 }
 
-/* RESULT SUMMARY */
-
-.result-alert{
-    display:flex;
-    gap:16px;
-    margin-bottom:20px;
-    padding:20px;
-    border-radius:16px;
-    background:linear-gradient(
-        135deg,
-        rgba(255,190,85,.12),
-        rgba(120,115,245,.07)
-    );
-    border:1px solid rgba(255,190,85,.25);
-}
-
-.alert-icon{
-    width:46px;
-    height:46px;
-    flex:0 0 46px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:13px;
-    background:rgba(255,190,85,.14);
-    color:#ffd176;
-    font-size:22px;
-    font-weight:900;
-}
-
-.result-alert h3{
-    margin:0 0 6px;
-    color:#ffd176;
-    font-size:18px;
-}
-
-.result-alert p{
-    margin:0;
-    color:#d7d2ca;
-    font-size:13px;
-    line-height:1.65;
-}
-
-/* CLAIM DETAILS */
-
-.claim-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-    margin-bottom:20px;
-}
-
-.claim-box{
-    padding:19px;
-    border-radius:15px;
-    background:#14142c;
-    border:1px solid rgba(255,255,255,.07);
-}
-
-.claim-box span{
-    display:block;
-    color:#9795ad;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.5px;
-}
-
-.claim-box strong{
-    display:block;
-    margin-top:9px;
-    font-size:27px;
-}
-
-.claim-box p{
-    margin:8px 0 0;
-    color:#aaa8be;
-    font-size:12px;
-    line-height:1.5;
-}
-
-/* EMAIL PLACEHOLDER */
-
-.email-panel{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr 1.4fr;
-    gap:13px;
-    align-items:stretch;
-}
-
-.email-metric{
-    padding:17px;
-    border-radius:13px;
-    background:#111127;
-    border:1px solid rgba(255,255,255,.07);
-}
-
-.email-metric span{
-    display:block;
-    color:#9795ad;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-}
-
-.email-metric strong{
-    display:block;
-    margin-top:9px;
-    font-size:23px;
-}
-
-.pending{
-    color:#ffc85e;
-}
-
-.email-note{
-    padding:17px;
-    border-radius:13px;
-    background:rgba(120,115,245,.08);
-    border:1px solid rgba(120,115,245,.18);
-    color:#c4c1dc;
-    font-size:12px;
-    line-height:1.55;
-}
-
-/* FINAL SUMMARY */
-
-.final-summary{
-    margin-top:20px;
-    padding:24px;
-    border-radius:18px;
-    background:linear-gradient(
-        135deg,
-        rgba(255,110,196,.12),
-        rgba(120,115,245,.12)
-    );
-    border:1px solid rgba(184,135,255,.2);
-}
-
-.final-summary h3{
-    margin:0 0 10px;
-    font-size:20px;
-}
-
-.final-summary p{
-    margin:0;
-    color:#cbc9dd;
-    font-size:14px;
-    line-height:1.7;
-}
-
-.highlight{
-    color:#ffffff;
-    font-weight:900;
-}
+/* FOOTER */
 
 .footer{
     margin-top:28px;
@@ -621,18 +462,6 @@ tr:last-child td{
 
     .two-column{
         grid-template-columns:1fr;
-    }
-
-    .claim-grid{
-        grid-template-columns:1fr;
-    }
-
-    .email-panel{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .email-note{
-        grid-column:1/-1;
     }
 
     .flow{
@@ -686,18 +515,6 @@ tr:last-child td{
         font-size:28px;
     }
 
-    .email-panel{
-        grid-template-columns:1fr;
-    }
-
-    .email-note{
-        grid-column:auto;
-    }
-
-    .result-alert{
-        flex-direction:column;
-    }
-
     .tabs{
         position:sticky;
         top:8px;
@@ -726,7 +543,9 @@ tr:last-child td{
 <div class="container">
 
     <div class="hero">
-        <div class="eyebrow">New Player Onboarding Analysis</div>
+        <div class="eyebrow">
+            New Player Onboarding Analysis
+        </div>
 
         <h1>
             Lucky Wheel &amp;
@@ -744,9 +563,12 @@ tr:last-child td{
     </div>
 
     <div class="flow-card">
-        <div class="section-label">Campaign Journey</div>
+        <div class="section-label">
+            Campaign Journey
+        </div>
 
         <div class="flow">
+
             <div class="flow-step">
                 New Player Receives 3 Wheel Tickets
             </div>
@@ -766,6 +588,7 @@ tr:last-child td{
             <div class="flow-step">
                 Player Deposits &amp; Claims Free Spins
             </div>
+
         </div>
     </div>
 
@@ -773,19 +596,23 @@ tr:last-child td{
     <input type="radio" name="country-tabs" id="tab-mx">
 
     <div class="tabs">
-        <label class="tab-label" for="tab-br">BR – Brazil</label>
-        <label class="tab-label" for="tab-mx">MX – Mexico</label>
+        <label class="tab-label" for="tab-br">
+            BR – Brazil
+        </label>
+
+        <label class="tab-label" for="tab-mx">
+            MX – Mexico
+        </label>
     </div>
 
     <div class="content-wrap">
 
-        <!-- ========================================
-             BRAZIL
-        ========================================= -->
+        <!-- BRAZIL -->
 
         <div class="tab-content br-content">
 
             <div class="country-header">
+
                 <div class="country-title">
                     <h2>Brazil Performance</h2>
                     <p>Newly registered players only</p>
@@ -794,14 +621,19 @@ tr:last-child td{
                 <div class="status">
                     Low Promotion Conversion
                 </div>
+
             </div>
 
             <div class="kpi-grid">
 
                 <div class="kpi">
-                    <div class="kpi-title">Received Wheel Tickets</div>
+                    <div class="kpi-title">
+                        Received Wheel Tickets
+                    </div>
 
-                    <div class="kpi-value">293</div>
+                    <div class="kpi-value">
+                        293
+                    </div>
 
                     <div class="kpi-sub">
                         New players granted all three wheel tickets
@@ -809,9 +641,13 @@ tr:last-child td{
                 </div>
 
                 <div class="kpi">
-                    <div class="kpi-title">Players Who Spun</div>
+                    <div class="kpi-title">
+                        Players Who Spun
+                    </div>
 
-                    <div class="kpi-value">171</div>
+                    <div class="kpi-value">
+                        171
+                    </div>
 
                     <div class="kpi-sub">
                         <strong class="positive">58.36%</strong>
@@ -820,9 +656,13 @@ tr:last-child td{
                 </div>
 
                 <div class="kpi">
-                    <div class="kpi-title">Deposited After Spinning</div>
+                    <div class="kpi-title">
+                        Deposited After Spinning
+                    </div>
 
-                    <div class="kpi-value">13</div>
+                    <div class="kpi-value">
+                        13
+                    </div>
 
                     <div class="kpi-sub">
                         <strong>4.44%</strong> of recipients or
@@ -831,9 +671,13 @@ tr:last-child td{
                 </div>
 
                 <div class="kpi">
-                    <div class="kpi-title">Deposited Before Spinning</div>
+                    <div class="kpi-title">
+                        Deposited Before Spinning
+                    </div>
 
-                    <div class="kpi-value">5</div>
+                    <div class="kpi-value">
+                        5
+                    </div>
 
                     <div class="kpi-sub">
                         <strong>1.71%</strong> of ticket recipients
@@ -845,6 +689,7 @@ tr:last-child td{
             <div class="two-column">
 
                 <div class="card">
+
                     <h3>Wheel Performance by Spin</h3>
 
                     <p class="card-description">
@@ -853,7 +698,9 @@ tr:last-child td{
                     </p>
 
                     <div class="table-wrap">
+
                         <table>
+
                             <thead>
                                 <tr>
                                     <th>Spin</th>
@@ -865,8 +712,11 @@ tr:last-child td{
                             </thead>
 
                             <tbody>
+
                                 <tr>
-                                    <td><strong>Spin 1</strong></td>
+                                    <td>
+                                        <strong>Spin 1</strong>
+                                    </td>
 
                                     <td>
                                         <span class="reward-name">
@@ -882,12 +732,16 @@ tr:last-child td{
                                     <td>125</td>
 
                                     <td>
-                                        <span class="rate-badge">43%</span>
+                                        <span class="rate-badge">
+                                            43%
+                                        </span>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Spin 2</strong></td>
+                                    <td>
+                                        <strong>Spin 2</strong>
+                                    </td>
 
                                     <td>
                                         <span class="reward-name">
@@ -903,12 +757,16 @@ tr:last-child td{
                                     <td>136</td>
 
                                     <td>
-                                        <span class="rate-badge">46%</span>
+                                        <span class="rate-badge">
+                                            46%
+                                        </span>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Spin 3</strong></td>
+                                    <td>
+                                        <strong>Spin 3</strong>
+                                    </td>
 
                                     <td>
                                         <span class="reward-name">
@@ -924,15 +782,21 @@ tr:last-child td{
                                     <td>166</td>
 
                                     <td>
-                                        <span class="rate-badge">57%</span>
+                                        <span class="rate-badge">
+                                            57%
+                                        </span>
                                     </td>
                                 </tr>
+
                             </tbody>
+
                         </table>
+
                     </div>
                 </div>
 
                 <div class="card">
+
                     <h3>Spin 3 Conversion Funnel</h3>
 
                     <p class="card-description">
@@ -942,12 +806,15 @@ tr:last-child td{
                     <div class="funnel">
 
                         <div class="funnel-item">
+
                             <div class="funnel-top">
                                 <div class="funnel-name">
                                     Spun Spin 3
                                 </div>
 
-                                <div class="funnel-number">166</div>
+                                <div class="funnel-number">
+                                    166
+                                </div>
                             </div>
 
                             <div class="progress">
@@ -957,15 +824,19 @@ tr:last-child td{
                             <div class="funnel-rate">
                                 Starting point of the Spin 3 funnel
                             </div>
+
                         </div>
 
                         <div class="funnel-item">
+
                             <div class="funnel-top">
                                 <div class="funnel-name">
                                     Unique Player Opted In
                                 </div>
 
-                                <div class="funnel-number">165</div>
+                                <div class="funnel-number">
+                                    1
+                                </div>
                             </div>
 
                             <div class="progress warning-bar">
@@ -973,17 +844,21 @@ tr:last-child td{
                             </div>
 
                             <div class="funnel-rate">
-                                99.40% of players who used Spin 3
+                                0.60% of players who used Spin 3
                             </div>
+
                         </div>
 
                         <div class="funnel-item">
+
                             <div class="funnel-top">
                                 <div class="funnel-name">
                                     Unique Player Deposited &amp; Claimed
                                 </div>
 
-                                <div class="funnel-number">12</div>
+                                <div class="funnel-number">
+                                    1
+                                </div>
                             </div>
 
                             <div class="progress success-bar">
@@ -991,7 +866,10 @@ tr:last-child td{
                             </div>
 
                             <div class="funnel-rate">
+                                0.60% of Spin 3 players completed a claim.
+                                The player claimed the reward once.
                             </div>
+
                         </div>
 
                     </div>
@@ -999,17 +877,14 @@ tr:last-child td{
 
             </div>
 
-            <div class="claim-grid">
-
         </div>
 
-        <!-- ========================================
-             MEXICO
-        ========================================= -->
+        <!-- MEXICO -->
 
         <div class="tab-content mx-content">
 
             <div class="country-header">
+
                 <div class="country-title">
                     <h2>Mexico Performance</h2>
                     <p>Newly registered players only</p>
@@ -1018,14 +893,19 @@ tr:last-child td{
                 <div class="status">
                     Low Promotion Conversion
                 </div>
+
             </div>
 
             <div class="kpi-grid">
 
                 <div class="kpi">
-                    <div class="kpi-title">Received Wheel Tickets</div>
+                    <div class="kpi-title">
+                        Received Wheel Tickets
+                    </div>
 
-                    <div class="kpi-value">1,293</div>
+                    <div class="kpi-value">
+                        1,293
+                    </div>
 
                     <div class="kpi-sub">
                         New players granted all three wheel tickets
@@ -1033,9 +913,13 @@ tr:last-child td{
                 </div>
 
                 <div class="kpi">
-                    <div class="kpi-title">Players Who Spun</div>
+                    <div class="kpi-title">
+                        Players Who Spun
+                    </div>
 
-                    <div class="kpi-value">1,048</div>
+                    <div class="kpi-value">
+                        1,048
+                    </div>
 
                     <div class="kpi-sub">
                         <strong class="positive">81.05%</strong>
@@ -1044,9 +928,13 @@ tr:last-child td{
                 </div>
 
                 <div class="kpi">
-                    <div class="kpi-title">Deposited After Spinning</div>
+                    <div class="kpi-title">
+                        Deposited After Spinning
+                    </div>
 
-                    <div class="kpi-value">91</div>
+                    <div class="kpi-value">
+                        91
+                    </div>
 
                     <div class="kpi-sub">
                         <strong>7.04%</strong> of recipients or
@@ -1055,9 +943,13 @@ tr:last-child td{
                 </div>
 
                 <div class="kpi">
-                    <div class="kpi-title">Deposited Before Spinning</div>
+                    <div class="kpi-title">
+                        Deposited Before Spinning
+                    </div>
 
-                    <div class="kpi-value">17</div>
+                    <div class="kpi-value">
+                        17
+                    </div>
 
                     <div class="kpi-sub">
                         <strong>1.31%</strong> of ticket recipients
@@ -1069,6 +961,7 @@ tr:last-child td{
             <div class="two-column">
 
                 <div class="card">
+
                     <h3>Wheel Performance by Spin</h3>
 
                     <p class="card-description">
@@ -1077,7 +970,9 @@ tr:last-child td{
                     </p>
 
                     <div class="table-wrap">
+
                         <table>
+
                             <thead>
                                 <tr>
                                     <th>Spin</th>
@@ -1090,8 +985,11 @@ tr:last-child td{
                             </thead>
 
                             <tbody>
+
                                 <tr>
-                                    <td><strong>Spin 1</strong></td>
+                                    <td>
+                                        <strong>Spin 1</strong>
+                                    </td>
 
                                     <td>
                                         <span class="reward-name">
@@ -1107,14 +1005,18 @@ tr:last-child td{
                                     <td>874</td>
 
                                     <td>
-                                        <span class="rate-badge">67.6%</span>
+                                        <span class="rate-badge">
+                                            67.6%
+                                        </span>
                                     </td>
 
                                     <td>71</td>
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Spin 2</strong></td>
+                                    <td>
+                                        <strong>Spin 2</strong>
+                                    </td>
 
                                     <td>
                                         <span class="reward-name">
@@ -1130,14 +1032,18 @@ tr:last-child td{
                                     <td>934</td>
 
                                     <td>
-                                        <span class="rate-badge">72.2%</span>
+                                        <span class="rate-badge">
+                                            72.2%
+                                        </span>
                                     </td>
 
                                     <td>76</td>
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Spin 3</strong></td>
+                                    <td>
+                                        <strong>Spin 3</strong>
+                                    </td>
 
                                     <td>
                                         <span class="reward-name">
@@ -1153,17 +1059,23 @@ tr:last-child td{
                                     <td>1,039</td>
 
                                     <td>
-                                        <span class="rate-badge">80.4%</span>
+                                        <span class="rate-badge">
+                                            80.4%
+                                        </span>
                                     </td>
 
                                     <td>84</td>
                                 </tr>
+
                             </tbody>
+
                         </table>
+
                     </div>
                 </div>
 
                 <div class="card">
+
                     <h3>Spin 3 Conversion Funnel</h3>
 
                     <p class="card-description">
@@ -1173,12 +1085,15 @@ tr:last-child td{
                     <div class="funnel">
 
                         <div class="funnel-item">
+
                             <div class="funnel-top">
                                 <div class="funnel-name">
                                     Spun Spin 3
                                 </div>
 
-                                <div class="funnel-number">1,039</div>
+                                <div class="funnel-number">
+                                    1,039
+                                </div>
                             </div>
 
                             <div class="progress">
@@ -1188,15 +1103,19 @@ tr:last-child td{
                             <div class="funnel-rate">
                                 Starting point of the Spin 3 funnel
                             </div>
+
                         </div>
 
                         <div class="funnel-item">
+
                             <div class="funnel-top">
                                 <div class="funnel-name">
                                     Unique Players Opted In
                                 </div>
 
-                                <div class="funnel-number">1034</div>
+                                <div class="funnel-number">
+                                    11
+                                </div>
                             </div>
 
                             <div class="progress warning-bar">
@@ -1204,17 +1123,21 @@ tr:last-child td{
                             </div>
 
                             <div class="funnel-rate">
-                                99.52% of players who used Spin 3
+                                1.06% of players who used Spin 3
                             </div>
+
                         </div>
 
                         <div class="funnel-item">
+
                             <div class="funnel-top">
                                 <div class="funnel-name">
                                     Unique Players Deposited &amp; Claimed
                                 </div>
 
-                                <div class="funnel-number">90</div>
+                                <div class="funnel-number">
+                                    11
+                                </div>
                             </div>
 
                             <div class="progress success-bar">
@@ -1222,7 +1145,11 @@ tr:last-child td{
                             </div>
 
                             <div class="funnel-rate">
+                                All 11 opt-in players completed at least one
+                                successful claim. One player claimed seven
+                                times within one day.
                             </div>
+
                         </div>
 
                     </div>
@@ -1230,12 +1157,6 @@ tr:last-child td{
 
             </div>
 
-     
-
-                </div>
-            </div>
-
-         
         </div>
 
     </div>
