@@ -24,6 +24,7 @@
     --yellow:#ffd83d;
     --green:#29d391;
     --red:#ff6474;
+    --orange:#ffad38;
 }
 
 body{
@@ -37,7 +38,7 @@ body{
 }
 
 .page{
-    max-width:1350px;
+    max-width:1380px;
     min-height:100vh;
     margin:auto;
     padding:32px 20px 60px;
@@ -367,9 +368,44 @@ th.number{
     font-weight:800;
 }
 
+.change-new{
+    color:var(--yellow);
+    font-weight:800;
+}
+
 .percentage{
     color:var(--yellow);
     font-weight:900;
+}
+
+.group-header{
+    color:#fff;
+    text-align:center;
+    background:#1a2440;
+    border-right:2px solid rgba(255,255,255,.08);
+}
+
+.group-header:last-child{
+    border-right:0;
+}
+
+.before-cell{
+    background:rgba(141,92,255,.035);
+}
+
+.during-cell{
+    background:rgba(24,217,232,.035);
+}
+
+.ratio-value{
+    color:#ffd86a;
+    font-weight:800;
+}
+
+.tier-table th,
+.tier-table td{
+    padding-left:8px;
+    padding-right:8px;
 }
 
 /* REWARDS */
@@ -439,7 +475,7 @@ th.number{
 
 /* RESPONSIVE */
 
-@media(max-width:1000px){
+@media(max-width:1100px){
     .kpi-grid{
         grid-template-columns:repeat(3,1fr);
     }
@@ -491,6 +527,10 @@ th.number{
 
     .insight{
         grid-template-columns:1fr;
+    }
+
+    table{
+        font-size:11px;
     }
 }
 </style>
@@ -576,8 +616,6 @@ th.number{
 
             </div>
 
-            <!-- DEPOSIT PERFORMANCE FULL WIDTH -->
-
             <div class="box full-box">
 
                 <div class="box-title">
@@ -636,8 +674,6 @@ th.number{
                 </div>
 
             </div>
-
-            <!-- DEPOSIT TIERS + REWARDS -->
 
             <div class="split">
 
@@ -807,128 +843,161 @@ th.number{
 
             </div>
 
-            <div class="split">
+            <div class="box full-box">
 
-                <div class="box">
-
-                    <div class="box-title">
-                        <h3>Deposit Performance</h3>
-                        <span>Before vs During</span>
-                    </div>
-
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>KPI</th>
-                                    <th class="number">Before</th>
-                                    <th class="number">During</th>
-                                    <th class="number">Change</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>Total Unique</td>
-                                    <td class="number">765</td>
-                                    <td class="number">292</td>
-                                    <td class="number change-down">-61.83%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Total Deposit</td>
-                                    <td class="number">R$865,016</td>
-                                    <td class="number">R$947,002</td>
-                                    <td class="number change-up">+9.48%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Total TRX</td>
-                                    <td class="number">7,142</td>
-                                    <td class="number">5,231</td>
-                                    <td class="number change-down">-26.76%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Average per TRX</td>
-                                    <td class="number">R$121</td>
-                                    <td class="number">R$181</td>
-                                    <td class="number change-up">+49.47%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Average Spending</td>
-                                    <td class="number">R$1,131</td>
-                                    <td class="number">R$3,243</td>
-                                    <td class="number change-up">+186.82%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Existing Players</td>
-                                    <td class="number">355</td>
-                                    <td class="number">191</td>
-                                    <td class="number change-down">-46.20%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>New Players</td>
-                                    <td class="number">411</td>
-                                    <td class="number">101</td>
-                                    <td class="number change-down">-75.43%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+                <div class="box-title">
+                    <h3>Deposit Performance</h3>
+                    <span>Before vs During</span>
                 </div>
 
-                <div class="box">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>KPI</th>
+                                <th class="number">Before</th>
+                                <th class="number">During</th>
+                                <th class="number">Change</th>
+                            </tr>
+                        </thead>
 
-                    <div class="box-title">
-                        <h3>Deposit Tier Movement</h3>
-                        <span>Before vs During</span>
-                    </div>
+                        <tbody>
+                            <tr>
+                                <td>Total Unique</td>
+                                <td class="number">765</td>
+                                <td class="number">292</td>
+                                <td class="number change-down">-61.83%</td>
+                            </tr>
 
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tier</th>
-                                    <th class="number">Before Players</th>
-                                    <th class="number">Before TRX</th>
-                                    <th class="number">During Players</th>
-                                    <th class="number">During TRX</th>
-                                </tr>
-                            </thead>
+                            <tr>
+                                <td>Total Deposit</td>
+                                <td class="number">R$865,016</td>
+                                <td class="number">R$947,002</td>
+                                <td class="number change-up">+9.48%</td>
+                            </tr>
 
-                            <tbody>
-                                <tr>
-                                    <td>R$100+</td>
-                                    <td class="number">176</td>
-                                    <td class="number">3,008</td>
-                                    <td class="number">126</td>
-                                    <td class="number">2,451</td>
-                                </tr>
+                            <tr>
+                                <td>Total TRX</td>
+                                <td class="number">7,142</td>
+                                <td class="number">5,231</td>
+                                <td class="number change-down">-26.76%</td>
+                            </tr>
 
-                                <tr>
-                                    <td>R$500+</td>
-                                    <td class="number">44</td>
-                                    <td class="number">530</td>
-                                    <td class="number">47</td>
-                                    <td class="number">640</td>
-                                </tr>
+                            <tr>
+                                <td>Average per TRX</td>
+                                <td class="number">R$121</td>
+                                <td class="number">R$181</td>
+                                <td class="number change-up">+49.47%</td>
+                            </tr>
 
-                                <tr>
-                                    <td>R$3,000+</td>
-                                    <td class="number">7</td>
-                                    <td class="number">32</td>
-                                    <td class="number">8</td>
-                                    <td class="number">101</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            <tr>
+                                <td>Average Spending</td>
+                                <td class="number">R$1,131</td>
+                                <td class="number">R$3,243</td>
+                                <td class="number change-up">+186.82%</td>
+                            </tr>
 
+                            <tr>
+                                <td>Existing Players</td>
+                                <td class="number">355</td>
+                                <td class="number">191</td>
+                                <td class="number change-down">-46.20%</td>
+                            </tr>
+
+                            <tr>
+                                <td>New Players</td>
+                                <td class="number">411</td>
+                                <td class="number">101</td>
+                                <td class="number change-down">-75.43%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- ENHANCED BR DEPOSIT TIER MOVEMENT -->
+
+            <div class="box full-box">
+
+                <div class="box-title">
+                    <h3>Deposit Tier Movement</h3>
+                    <span>Average TRX per Player</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="tier-table">
+
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Tier</th>
+                                <th colspan="3" class="group-header">
+                                    Before Event
+                                </th>
+                                <th colspan="3" class="group-header">
+                                    During Event
+                                </th>
+                                <th rowspan="2" class="number">
+                                    Avg Change
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th class="number">Players</th>
+                                <th class="number">TRX</th>
+                                <th class="number">Avg / Player</th>
+
+                                <th class="number">Players</th>
+                                <th class="number">TRX</th>
+                                <th class="number">Avg / Player</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>R$100+</td>
+
+                                <td class="number before-cell">176</td>
+                                <td class="number before-cell">3,008</td>
+                                <td class="number before-cell ratio-value">17.09</td>
+
+                                <td class="number during-cell">126</td>
+                                <td class="number during-cell">2,451</td>
+                                <td class="number during-cell ratio-value">19.45</td>
+
+                                <td class="number change-up">+13.81%</td>
+                            </tr>
+
+                            <tr>
+                                <td>R$500+</td>
+
+                                <td class="number before-cell">44</td>
+                                <td class="number before-cell">530</td>
+                                <td class="number before-cell ratio-value">12.05</td>
+
+                                <td class="number during-cell">47</td>
+                                <td class="number during-cell">640</td>
+                                <td class="number during-cell ratio-value">13.62</td>
+
+                                <td class="number change-up">+13.03%</td>
+                            </tr>
+
+                            <tr>
+                                <td>R$3,000+</td>
+
+                                <td class="number before-cell">7</td>
+                                <td class="number before-cell">32</td>
+                                <td class="number before-cell ratio-value">4.57</td>
+
+                                <td class="number during-cell">8</td>
+                                <td class="number during-cell">101</td>
+                                <td class="number during-cell ratio-value">12.63</td>
+
+                                <td class="number change-up">+176.37%</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
                 </div>
 
             </div>
@@ -946,8 +1015,8 @@ th.number{
                 </div>
 
                 <div class="insight-card">
-                    <small>R$3,000+ TRX</small>
-                    <strong class="positive">32 → 101</strong>
+                    <small>R$3,000+ Avg TRX Growth</small>
+                    <strong class="positive">+176.37%</strong>
                 </div>
 
             </div>
@@ -1015,8 +1084,6 @@ th.number{
 
             </div>
 
-            <!-- DEPOSIT PERFORMANCE FULL WIDTH -->
-
             <div class="box full-box">
 
                 <div class="box-title">
@@ -1075,8 +1142,6 @@ th.number{
                 </div>
 
             </div>
-
-            <!-- DEPOSIT TIERS + REWARDS -->
 
             <div class="split">
 
@@ -1241,128 +1306,161 @@ th.number{
 
             </div>
 
-            <div class="split">
+            <div class="box full-box">
 
-                <div class="box">
-
-                    <div class="box-title">
-                        <h3>Deposit Performance</h3>
-                        <span>Before vs During</span>
-                    </div>
-
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>KPI</th>
-                                    <th class="number">Before</th>
-                                    <th class="number">During</th>
-                                    <th class="number">Change</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>Total Unique</td>
-                                    <td class="number">631</td>
-                                    <td class="number">457</td>
-                                    <td class="number change-down">-27.58%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Total Deposit</td>
-                                    <td class="number">MX$501,757</td>
-                                    <td class="number">MX$967,326</td>
-                                    <td class="number change-up">+92.79%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Total TRX</td>
-                                    <td class="number">3,572</td>
-                                    <td class="number">2,700</td>
-                                    <td class="number change-down">-24.41%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Average per TRX</td>
-                                    <td class="number">MX$140</td>
-                                    <td class="number">MX$358</td>
-                                    <td class="number change-up">+155.05%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Average Spending</td>
-                                    <td class="number">MX$795</td>
-                                    <td class="number">MX$2,117</td>
-                                    <td class="number change-up">+166.19%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Existing Players</td>
-                                    <td class="number">380</td>
-                                    <td class="number">277</td>
-                                    <td class="number change-down">-27.11%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>New Players</td>
-                                    <td class="number">251</td>
-                                    <td class="number">180</td>
-                                    <td class="number change-down">-28.29%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+                <div class="box-title">
+                    <h3>Deposit Performance</h3>
+                    <span>Before vs During</span>
                 </div>
 
-                <div class="box">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>KPI</th>
+                                <th class="number">Before</th>
+                                <th class="number">During</th>
+                                <th class="number">Change</th>
+                            </tr>
+                        </thead>
 
-                    <div class="box-title">
-                        <h3>Deposit Tier Movement</h3>
-                        <span>Before vs During</span>
-                    </div>
+                        <tbody>
+                            <tr>
+                                <td>Total Unique</td>
+                                <td class="number">631</td>
+                                <td class="number">457</td>
+                                <td class="number change-down">-27.58%</td>
+                            </tr>
 
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tier</th>
-                                    <th class="number">Before Players</th>
-                                    <th class="number">Before TRX</th>
-                                    <th class="number">During Players</th>
-                                    <th class="number">During TRX</th>
-                                </tr>
-                            </thead>
+                            <tr>
+                                <td>Total Deposit</td>
+                                <td class="number">MX$501,757</td>
+                                <td class="number">MX$967,326</td>
+                                <td class="number change-up">+92.79%</td>
+                            </tr>
 
-                            <tbody>
-                                <tr>
-                                    <td>MX$300+</td>
-                                    <td class="number">43</td>
-                                    <td class="number">532</td>
-                                    <td class="number">72</td>
-                                    <td class="number">834</td>
-                                </tr>
+                            <tr>
+                                <td>Total TRX</td>
+                                <td class="number">3,572</td>
+                                <td class="number">2,700</td>
+                                <td class="number change-down">-24.41%</td>
+                            </tr>
 
-                                <tr>
-                                    <td>MX$1,800+</td>
-                                    <td class="number">3</td>
-                                    <td class="number">30</td>
-                                    <td class="number">2</td>
-                                    <td class="number">259</td>
-                                </tr>
+                            <tr>
+                                <td>Average per TRX</td>
+                                <td class="number">MX$140</td>
+                                <td class="number">MX$358</td>
+                                <td class="number change-up">+155.05%</td>
+                            </tr>
 
-                                <tr>
-                                    <td>MX$10,000+</td>
-                                    <td class="number">0</td>
-                                    <td class="number">0</td>
-                                    <td class="number">1</td>
-                                    <td class="number">13</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            <tr>
+                                <td>Average Spending</td>
+                                <td class="number">MX$795</td>
+                                <td class="number">MX$2,117</td>
+                                <td class="number change-up">+166.19%</td>
+                            </tr>
 
+                            <tr>
+                                <td>Existing Players</td>
+                                <td class="number">380</td>
+                                <td class="number">277</td>
+                                <td class="number change-down">-27.11%</td>
+                            </tr>
+
+                            <tr>
+                                <td>New Players</td>
+                                <td class="number">251</td>
+                                <td class="number">180</td>
+                                <td class="number change-down">-28.29%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- ENHANCED MX DEPOSIT TIER MOVEMENT -->
+
+            <div class="box full-box">
+
+                <div class="box-title">
+                    <h3>Deposit Tier Movement</h3>
+                    <span>Average TRX per Player</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="tier-table">
+
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Tier</th>
+                                <th colspan="3" class="group-header">
+                                    Before Event
+                                </th>
+                                <th colspan="3" class="group-header">
+                                    During Event
+                                </th>
+                                <th rowspan="2" class="number">
+                                    Avg Change
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th class="number">Players</th>
+                                <th class="number">TRX</th>
+                                <th class="number">Avg / Player</th>
+
+                                <th class="number">Players</th>
+                                <th class="number">TRX</th>
+                                <th class="number">Avg / Player</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>MX$300+</td>
+
+                                <td class="number before-cell">43</td>
+                                <td class="number before-cell">532</td>
+                                <td class="number before-cell ratio-value">12.37</td>
+
+                                <td class="number during-cell">72</td>
+                                <td class="number during-cell">834</td>
+                                <td class="number during-cell ratio-value">11.58</td>
+
+                                <td class="number change-down">-6.39%</td>
+                            </tr>
+
+                            <tr>
+                                <td>MX$1,800+</td>
+
+                                <td class="number before-cell">3</td>
+                                <td class="number before-cell">30</td>
+                                <td class="number before-cell ratio-value">10.00</td>
+
+                                <td class="number during-cell">2</td>
+                                <td class="number during-cell">259</td>
+                                <td class="number during-cell ratio-value">129.50</td>
+
+                                <td class="number change-up">+1,195.00%</td>
+                            </tr>
+
+                            <tr>
+                                <td>MX$10,000+</td>
+
+                                <td class="number before-cell">0</td>
+                                <td class="number before-cell">0</td>
+                                <td class="number before-cell">—</td>
+
+                                <td class="number during-cell">1</td>
+                                <td class="number during-cell">13</td>
+                                <td class="number during-cell ratio-value">13.00</td>
+
+                                <td class="number change-new">New Activity</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
                 </div>
 
             </div>
@@ -1380,8 +1478,8 @@ th.number{
                 </div>
 
                 <div class="insight-card">
-                    <small>MX$1,800+ TRX</small>
-                    <strong class="positive">30 → 259</strong>
+                    <small>MX$1,800+ Avg TRX Growth</small>
+                    <strong class="positive">+1,195%</strong>
                 </div>
 
             </div>
