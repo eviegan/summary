@@ -647,6 +647,75 @@ td{border-bottom-color:#e7ebf0}
 }
 .footer{color:#7a8493}
 
+
+
+/* COLLAPSIBLE GENERAL DEPOSIT DETAILS */
+.detail-toggle-row td{
+    padding:10px 9px;
+    background:#f7f9fc;
+    border-top:1px solid #dbe3ee;
+    border-bottom:1px solid #dbe3ee;
+}
+
+.detail-toggle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:11px 14px;
+    border:1px solid #d5deea;
+    border-radius:10px;
+    background:#ffffff;
+    color:#19304f;
+    font:inherit;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.detail-toggle:hover{
+    border-color:#2d7d73;
+    background:#f3fbf9;
+}
+
+.detail-toggle-left{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.detail-toggle-icon{
+    width:26px;
+    height:26px;
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+    border-radius:8px;
+    background:#e8f4f1;
+    color:#17695f;
+    font-size:14px;
+}
+
+.detail-toggle-chevron{
+    display:inline-block;
+    font-size:16px;
+    transition:transform .2s ease;
+}
+
+.detail-toggle[aria-expanded="true"] .detail-toggle-chevron{
+    transform:rotate(180deg);
+}
+
+.collapsible-data-row{
+    display:none;
+}
+
+.collapsible-data-row.is-visible{
+    display:table-row;
+}
+
 </style>
 </head>
 <body>
@@ -744,22 +813,31 @@ td{border-bottom-color:#e7ebf0}
 <td class="number">159</td>
 <td class="number">116</td>
 <td class="number change-down">-27.04%</td>
-</tr><tr>
+</tr>
+<tr class="detail-toggle-row">
+<td colspan="4">
+<button class="detail-toggle" type="button" aria-expanded="false" onclick="toggleDepositDetails('br-coin-general',this)">
+<span class="detail-toggle-left"><span class="detail-toggle-icon">▤</span><span>View General Deposit Data</span></span>
+<span class="detail-toggle-chevron">⌄</span>
+</button>
+</td>
+</tr>
+<tr class="collapsible-data-row br-coin-general">
 <td>Total Deposit Amount</td>
 <td class="number">R$811,425.48</td>
 <td class="number">R$912,034.30</td>
 <td class="number change-up">+12.40%</td>
-</tr><tr>
+</tr><tr class="collapsible-data-row br-coin-general">
 <td>Total Bonus</td>
 <td class="number">R$41,153.03</td>
 <td class="number">R$51,937.51</td>
 <td class="number change-up">+26.21%</td>
-</tr><tr>
+</tr><tr class="collapsible-data-row br-coin-general">
 <td>Total Bets</td>
 <td class="number">R$5,342,431.91</td>
 <td class="number">R$5,782,501.74</td>
 <td class="number change-up">+8.24%</td>
-</tr><tr>
+</tr><tr class="collapsible-data-row br-coin-general">
 <td>Total Deposit TRX</td>
 <td class="number">5,429</td>
 <td class="number">3,851</td>
@@ -953,22 +1031,31 @@ td{border-bottom-color:#e7ebf0}
 <td class="number">42</td>
 <td class="number">71</td>
 <td class="number change-up">+69.05%</td>
-</tr><tr>
+</tr>
+<tr class="detail-toggle-row">
+<td colspan="4">
+<button class="detail-toggle" type="button" aria-expanded="false" onclick="toggleDepositDetails('mx-coin-general',this)">
+<span class="detail-toggle-left"><span class="detail-toggle-icon">▤</span><span>View General Deposit Data</span></span>
+<span class="detail-toggle-chevron">⌄</span>
+</button>
+</td>
+</tr>
+<tr class="collapsible-data-row mx-coin-general">
 <td>Total Deposit Amount</td>
 <td class="number">MX$354,416.63</td>
 <td class="number">MX$851,896.95</td>
 <td class="number change-up">+140.37%</td>
-</tr><tr>
+</tr><tr class="collapsible-data-row mx-coin-general">
 <td>Total Bonus</td>
 <td class="number">MX$24,529.89</td>
 <td class="number">MX$73,832.60</td>
 <td class="number change-up">+201.00%</td>
-</tr><tr>
+</tr><tr class="collapsible-data-row mx-coin-general">
 <td>Total Bets</td>
 <td class="number">MX$3,149,706.98</td>
 <td class="number">MX$7,198,779.69</td>
 <td class="number change-up">+128.55%</td>
-</tr><tr>
+</tr><tr class="collapsible-data-row mx-coin-general">
 <td>Total Deposit TRX</td>
 <td class="number">1,504</td>
 <td class="number">1,298</td>
@@ -1128,7 +1215,11 @@ td{border-bottom-color:#e7ebf0}
 <div class="kpi-value">277</div>
 <div class="kpi-note">15.51% expired</div>
 </div>
-
+<div class="kpi">
+<div class="kpi-label">Unresolved Tickets</div>
+<div class="kpi-value">0</div>
+<div class="kpi-note positive">100% accounted for</div>
+</div>
 </div>
 <div class="box full-box">
 <div class="box-title">
@@ -1303,7 +1394,11 @@ td{border-bottom-color:#e7ebf0}
 <div class="kpi-value">58</div>
 <div class="kpi-note">9.83% expired</div>
 </div>
-
+<div class="kpi">
+<div class="kpi-label">Unresolved Tickets</div>
+<div class="kpi-value">0</div>
+<div class="kpi-note positive">100% accounted for</div>
+</div>
 </div>
 <div class="box full-box">
 <div class="box-title">
@@ -1439,6 +1534,22 @@ function showCountry(eventKey,country,button){
     document.getElementById(eventKey+"-"+country).classList.add("active");
     button.classList.add("active");
 }
+
+function toggleDepositDetails(groupClass,button){
+    var rows=document.querySelectorAll('.'+groupClass);
+    var expanded=button.getAttribute('aria-expanded')==='true';
+
+    rows.forEach(function(row){
+        row.classList.toggle('is-visible',!expanded);
+    });
+
+    button.setAttribute('aria-expanded',String(!expanded));
+    var label=button.querySelector('.detail-toggle-left span:last-child');
+    if(label){
+        label.textContent=expanded?'View General Deposit Data':'Hide General Deposit Data';
+    }
+}
+
 </script>
 </body>
 </html>
