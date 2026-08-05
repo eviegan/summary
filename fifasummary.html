@@ -1,11 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FIFA Rewards Campaign Summary</title>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FIFA Rewards Campaign Summary - Executive Light Theme</title>
 <style>
 *{
     box-sizing:border-box;
@@ -533,1058 +532,913 @@ th.number{
         font-size:11px;
     }
 }
+
+
+/* EVENT-FIRST NAVIGATION */
+.event-tabs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0 14px;}
+.event-btn{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;padding:17px 20px;border:1px solid var(--line);border-radius:17px;background:var(--panel);color:var(--text);cursor:pointer;text-align:left;transition:.25s ease;}
+.event-btn>span{grid-row:1/3;font-size:27px}.event-btn strong{font-size:15px}.event-btn small{margin-top:3px;color:var(--muted);font-size:11px}.event-btn:hover{border-color:var(--cyan)}
+.event-btn.active{border-color:rgba(24,217,232,.7);background:linear-gradient(135deg,rgba(24,217,232,.18),rgba(141,92,255,.12));box-shadow:0 10px 28px rgba(24,217,232,.12)}
+.event-content{display:none}.event-content.active{display:block}
+.country-tabs{display:flex;gap:10px;margin:0 0 20px;padding:6px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(17,24,44,.72);width:max-content;max-width:100%;}
+.country-btn{min-width:128px;padding:10px 18px;border:0;border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;font-weight:800}.country-btn.active{color:#061018;background:linear-gradient(135deg,var(--cyan),#6af0d6)}
+.country-content{display:none}.country-content.active{display:block}
+.segment-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.segment-card{overflow:hidden;border:1px solid rgba(255,255,255,.07);border-radius:15px;background:#0b1224}.segment-card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(145deg,#18213a,#11192e)}.segment-card-head>div{display:flex;align-items:center;gap:10px}.segment-card-head h4{margin:0;font-size:15px}.segment-card-head small{color:var(--muted);font-size:10px}.segment-badge{padding:5px 8px;border-radius:20px;background:rgba(24,217,232,.12);border:1px solid rgba(24,217,232,.24);color:var(--cyan);font-size:9px;font-weight:900;letter-spacing:.6px}.segment-card .table-wrap{padding:0 10px 10px}.segment-card th,.segment-card td{padding:10px 7px}
+@media(max-width:800px){.segment-grid{grid-template-columns:1fr}.event-tabs{grid-template-columns:1fr}.country-tabs{width:100%}.country-btn{flex:1;min-width:0}}
+
+
+/* ========================================================== */
+/* EXECUTIVE LIGHT THEME                                      */
+/* ========================================================== */
+:root{
+    --bg:#f4f1ea;
+    --panel:#ffffff;
+    --panel-2:#f8fafc;
+    --line:#d8dee8;
+    --text:#172033;
+    --muted:#687387;
+    --cyan:#0f766e;
+    --purple:#315a91;
+    --pink:#8d5d82;
+    --yellow:#b7791f;
+    --green:#16825d;
+    --red:#c44545;
+    --orange:#c56a24;
+}
+body{
+    background:
+        radial-gradient(circle at 5% 0%,rgba(15,118,110,.10),transparent 27%),
+        radial-gradient(circle at 96% 3%,rgba(183,121,31,.10),transparent 25%),
+        var(--bg);
+    color:var(--text);
+}
+.hero{
+    border:1px solid #d9e0e8;
+    background:linear-gradient(125deg,#17324d,#214d61 58%,#2f6f68);
+    box-shadow:0 20px 46px rgba(36,49,67,.15);
+}
+.hero:before{background:radial-gradient(circle,rgba(255,255,255,.20),transparent 70%)}
+.hero:after{background:radial-gradient(circle,rgba(236,196,102,.22),transparent 70%)}
+.eyebrow{color:#a8f0e7}
+.hero h1{color:#ffffff}
+.hero p{color:#dbe7ed}
+.period{color:#ffffff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.20)}
+.event-btn,.market-btn,.country-btn{
+    color:var(--muted);
+    background:#ffffff;
+    border-color:#d9e0e8;
+    box-shadow:0 6px 18px rgba(36,49,67,.06);
+}
+.event-btn:hover,.market-btn:hover,.country-btn:hover{color:var(--text);border-color:var(--cyan)}
+.event-btn.active,.market-btn.active,.country-btn.active{
+    color:#ffffff;
+    background:linear-gradient(135deg,#0f766e,#2f8e83);
+    box-shadow:0 9px 24px rgba(15,118,110,.20);
+}
+.campaign{
+    background:rgba(255,255,255,.96);
+    border-color:#dfe5ec;
+    box-shadow:0 12px 32px rgba(36,49,67,.07);
+}
+.icon.coin{background:linear-gradient(135deg,#f4cf67,#d5a52b)}
+.icon.ticket{background:linear-gradient(135deg,#315a91,#6785ad)}
+.status.ended{color:#8c3737;background:#fbe9e9;border-color:#efcaca}
+.status.progress{color:#126249;background:#e4f5ee;border-color:#bfe6d6}
+.kpi{
+    background:linear-gradient(145deg,#ffffff,#f5f7fa);
+    border-color:#e0e5ec;
+    box-shadow:0 7px 18px rgba(36,49,67,.05);
+}
+.box{
+    background:#fbfcfd;
+    border-color:#dfe5ec;
+}
+th{
+    color:#465268;
+    background:#edf1f6;
+    border-bottom-color:#d6dde7;
+}
+td{border-bottom-color:#e7ebf0}
+.group-header{color:#ffffff;background:#315a91;border-right-color:rgba(255,255,255,.25)}
+.before-cell{background:rgba(49,90,145,.045)}
+.during-cell{background:rgba(15,118,110,.05)}
+.ratio-value{color:#9a6518}
+.reward-item{
+    background:#f1f4f7;
+    border:1px solid #e3e8ee;
+}
+.insight-card{
+    background:linear-gradient(145deg,#ffffff,#f3f6f8);
+    border-color:#dfe5ec;
+    box-shadow:0 6px 16px rgba(36,49,67,.04);
+}
+.segment-card{
+    background:#ffffff !important;
+    border-color:#dfe5ec !important;
+}
+.segment-card-head{
+    border-bottom-color:#dfe5ec !important;
+    background:linear-gradient(145deg,#edf2f6,#f8fafc) !important;
+}
+.segment-badge{
+    background:rgba(15,118,110,.10) !important;
+    border-color:rgba(15,118,110,.22) !important;
+    color:#0f766e !important;
+}
+.footer{color:#7a8493}
+
 </style>
 </head>
-
 <body>
-
 <div class="page">
-
-    <section class="hero">
-        <div class="eyebrow">FastTrack Rewards Performance</div>
-        <h1>FIFA Rewards Campaign</h1>
-        <p>
+<section class="hero">
+<div class="eyebrow">FastTrack Rewards Performance</div>
+<h1>FIFA Rewards Campaign</h1>
+<p>
             Performance summary for Unlimited Coins and FIFA Lucky Spins.
         </p>
-        <div class="period">Data Period: 12 Jun – 19 Jul 2026</div>
-    </section>
+<div class="period">Data Period: 12 Jun – 31 Jul 2026</div>
+</section>
 
-    <div class="market-tabs">
-        <button class="market-btn active" onclick="showMarket('br',this)">
-            🇧🇷 Brazil
-        </button>
+<!-- ====================================================== -->
+<!-- BRAZIL -->
+<!-- ====================================================== -->
 
-        <button class="market-btn" onclick="showMarket('mx',this)">
-            🇲🇽 Mexico
-        </button>
-    </div>
+<!-- ====================================================== -->
+<!-- MEXICO -->
+<!-- ====================================================== -->
 
-    <!-- ====================================================== -->
-    <!-- BRAZIL -->
-    <!-- ====================================================== -->
-
-    <main id="br" class="market-content active">
-
-        <!-- BR UNLIMITED COINS -->
-
-        <section class="campaign">
-
-            <div class="campaign-heading">
-                <div class="heading-left">
-                    <div class="icon coin">🪙</div>
-
-                    <div>
-                        <h2>Unlimited Coins</h2>
-                        <div class="campaign-subtitle">
+<div class="event-tabs">
+<button class="event-btn active" onclick="showEvent('coin-event',this)"><span>🪙</span><strong>Coin Summary</strong><small>Unlimited Coins</small></button>
+<button class="event-btn" onclick="showEvent('spin-event',this)"><span>🎟️</span><strong>FIFA Lucky Spins</strong><small>Daily Deposit Mission</small></button>
+</div><section class="event-content active" id="coin-event">
+<div class="country-tabs">
+<button class="country-btn active" onclick="showCountry('coin','br',this)">🇧🇷 Brazil</button>
+<button class="country-btn" onclick="showCountry('coin','mx',this)">🇲🇽 Mexico</button>
+</div>
+<div class="country-content active" id="coin-br"><section class="campaign">
+<div class="campaign-heading">
+<div class="heading-left">
+<div class="icon coin">🪙</div>
+<div>
+<h2>Unlimited Coins</h2>
+<div class="campaign-subtitle">
                             Single deposit transactions earn Rico Coins
                         </div>
-                    </div>
-                </div>
+</div>
+</div>
+<div class="status ended">Final Result</div>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+<div class="kpi-label">Eligible Players</div>
+<div class="kpi-value">116</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Total Coins Earned</div>
+<div class="kpi-value">37,680</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Coins Spent</div>
+<div class="kpi-value">25,430</div>
+<div class="kpi-note positive">67.49% redemption</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Unused Coins</div>
+<div class="kpi-value">12,250</div>
+<div class="kpi-note">32.51% remaining</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Coin Spenders</div>
+<div class="kpi-value">51</div>
+<div class="kpi-note">43.97% of eligible players</div>
+</div>
+</div>
+<div class="box full-box">
+<div class="box-title">
+<h3>Deposit Performance</h3>
+<span>Before vs During</span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th class="number">Before Event</th>
+<th class="number">During Event</th>
+<th class="number">Change</th>
+</tr>
+</thead>
+<tbody>
 
-                <div class="status ended">Final Result</div>
-            </div>
 
-            <div class="kpi-grid">
 
-                <div class="kpi">
-                    <div class="kpi-label">Eligible Players</div>
-                    <div class="kpi-value">116</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Total Coins Earned</div>
-                    <div class="kpi-value">37,680</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Coins Spent</div>
-                    <div class="kpi-value">25,040</div>
-                    <div class="kpi-note">66.45% redemption</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Unused Coins</div>
-                    <div class="kpi-value">12,640</div>
-                    <div class="kpi-note">33.55% remaining</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Coin Spenders</div>
-                    <div class="kpi-value">46</div>
-                    <div class="kpi-note">39.66% of eligible players</div>
-                </div>
 
-            </div>
 
-         <div class="box full-box">
-
-    <div class="box-title">
-        <h3>Deposit Performance</h3>
-        <span>Before vs During</span>
-    </div>
-
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>KPI</th>
-                    <th class="number">Before Event</th>
-                    <th class="number">During Event</th>
-                    <th class="number">Change</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Total Unique Players</td>
-                    <td class="number">159</td>
-                    <td class="number">116</td>
-                    <td class="number change-down">-27.04%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Deposit Amount</td>
-                    <td class="number">R$811,425.48</td>
-                    <td class="number">R$912,034.30</td>
-                    <td class="number change-up">+12.40%</td>
-                </tr>
-
-                <tr class="eligible-row">
-                    <td>Eligible Deposit Amount → Coins</td>
-                    <td class="number">R$692,622.01</td>
-                    <td class="number">R$845,232.48</td>
-                    <td class="number change-up">+22.03%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Bonus</td>
-                    <td class="number">R$41,153.03</td>
-                    <td class="number">R$51,937.51</td>
-                    <td class="number change-up">+26.21%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Bets</td>
-                    <td class="number">R$5,342,431.91</td>
-                    <td class="number">R$5,782,501.74</td>
-                    <td class="number change-up">+8.24%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Deposit TRX</td>
-                    <td class="number">5,429</td>
-                    <td class="number">3,851</td>
-                    <td class="number change-down">-29.06%</td>
-                </tr>
-
-                <tr class="eligible-row">
-                    <td>Eligible TRX → Coins</td>
-                    <td class="number">2,433</td>
-                    <td class="number">2,200</td>
-                    <td class="number change-down">-9.58%</td>
-                </tr>
-
-           
-
-                <tr class="average-row">
-                    <td>
+<tr>
+<td>Total Unique Players</td>
+<td class="number">159</td>
+<td class="number">116</td>
+<td class="number change-down">-27.04%</td>
+</tr><tr>
+<td>Total Deposit Amount</td>
+<td class="number">R$811,425.48</td>
+<td class="number">R$912,034.30</td>
+<td class="number change-up">+12.40%</td>
+</tr><tr>
+<td>Total Bonus</td>
+<td class="number">R$41,153.03</td>
+<td class="number">R$51,937.51</td>
+<td class="number change-up">+26.21%</td>
+</tr><tr>
+<td>Total Bets</td>
+<td class="number">R$5,342,431.91</td>
+<td class="number">R$5,782,501.74</td>
+<td class="number change-up">+8.24%</td>
+</tr><tr>
+<td>Total Deposit TRX</td>
+<td class="number">5,429</td>
+<td class="number">3,851</td>
+<td class="number change-down">-29.06%</td>
+</tr><tr class="eligible-row">
+<td>Eligible Deposit Amount → Coins</td>
+<td class="number">R$692,622.01</td>
+<td class="number">R$845,232.48</td>
+<td class="number change-up">+22.03%</td>
+</tr><tr class="eligible-row">
+<td>Eligible TRX → Coins</td>
+<td class="number">2,433</td>
+<td class="number">2,200</td>
+<td class="number change-down">-9.58%</td>
+</tr><tr class="average-row">
+<td>
                         Average Eligible Deposit per TRX
                         <small>Eligible Deposit ÷ Eligible TRX</small>
-                    </td>
-                    <td class="number">R$284.68</td>
-                    <td class="number">R$384.20</td>
-                    <td class="number change-up">+34.96%</td>
-                </tr>
-
-                <tr class="average-row">
-                    <td>
+</td>
+<td class="number">R$284.68</td>
+<td class="number">R$384.20</td>
+<td class="number change-up">+34.96%</td>
+</tr><tr class="average-row">
+<td>
                         Average Eligible Spending per Player
                         <small>Eligible Deposit ÷ Unique Players</small>
-                    </td>
-                    <td class="number">R$4,356.11</td>
-                    <td class="number">R$7,286.49</td>
-                    <td class="number change-up">+67.27%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+</td>
+<td class="number">R$4,356.11</td>
+<td class="number">R$7,286.49</td>
+<td class="number change-up">+67.27%</td>
+</tr></tbody>
+</table>
 </div>
-
-            <div class="split">
-
-                <div class="box">
-
-                    <div class="box-title">
-                        <h3>Deposit Tier Activity</h3>
-                        <span>During campaign</span>
-                    </div>
-
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Deposit Range</th>
-                                    <th class="number">TRX</th>
-                                    <th class="number">Players</th>
-                                    <th class="number">Avg / Player</th>
-                                    <th class="number">TRX Share</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>R$100–499</td>
-                                    <td class="number">1,694</td>
-                                    <td class="number">110</td>
-                                    <td class="number">15.4</td>
-                                    <td class="number percentage">77.00%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$500–999</td>
-                                    <td class="number">294</td>
-                                    <td class="number">36</td>
-                                    <td class="number">8.2</td>
-                                    <td class="number percentage">13.36%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$1,000–2,999</td>
-                                    <td class="number">191</td>
-                                    <td class="number">21</td>
-                                    <td class="number">9.1</td>
-                                    <td class="number percentage">8.68%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$3,000–9,999</td>
-                                    <td class="number">18</td>
-                                    <td class="number">4</td>
-                                    <td class="number">4.5</td>
-                                    <td class="number percentage">0.82%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$10,000+</td>
-                                    <td class="number">3</td>
-                                    <td class="number">2</td>
-                                    <td class="number">1.5</td>
-                                    <td class="number percentage">0.14%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-
-                <div class="box">
-
-                    <div class="box-title">
-                        <h3>Top Redeemed Rewards</h3>
-                        <span>Redemptions</span>
-                    </div>
-
-                    <div class="reward-list">
-
-                        <div class="reward-item">
-                            <div class="reward-name">R$5 Bonus</div>
-                            <div class="reward-count">278</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">18 Free Spins</div>
-                            <div class="reward-count">72</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">10 Free Spins</div>
-                            <div class="reward-count">42</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">R$50 Bonus</div>
-                            <div class="reward-count">10</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">R$100 Bonus</div>
-                            <div class="reward-count">10</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">FIFA Lucky Spin Ticket</div>
-                            <div class="reward-count">4</div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- BR LUCKY SPINS -->
-
-        <section class="campaign">
-
-            <div class="campaign-heading">
-
-                <div class="heading-left">
-                    <div class="icon ticket">🎟️</div>
-
-                    <div>
-                        <h2>FIFA Lucky Spins</h2>
-                        <div class="campaign-subtitle">
-                            Daily accumulated deposits earn spin tickets
-                        </div>
-                    </div>
-                </div>
-
-                <div class="status progress">Until 31 Jul</div>
-
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi">
-                    <div class="kpi-label">Eligible Players</div>
-                    <div class="kpi-value">131</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Tickets Generated</div>
-                    <div class="kpi-value">1,396</div>
-                    <div class="kpi-note">10.7 per player</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Tickets Used</div>
-                    <div class="kpi-value">1,160</div>
-                    <div class="kpi-note positive">83.09% usage</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Expired Tickets</div>
-                    <div class="kpi-value">217</div>
-                    <div class="kpi-note">15.54%</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Pending Tickets</div>
-                    <div class="kpi-value">19</div>
-                    <div class="kpi-note">1.36%</div>
-                </div>
-
-            </div>
-
-            <div class="box full-box">
-
-                <div class="box-title">
-                    <h3>Deposit Performance</h3>
-                    <span>Before vs During</span>
-                </div>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>KPI</th>
-                                <th class="number">Before</th>
-                                <th class="number">During</th>
-                                <th class="number">Change</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Total Unique</td>
-                                <td class="number">765</td>
-                                <td class="number">292</td>
-                                <td class="number change-down">-61.83%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Total Deposit</td>
-                                <td class="number">R$865,016</td>
-                                <td class="number">R$947,002</td>
-                                <td class="number change-up">+9.48%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Total TRX</td>
-                                <td class="number">7,142</td>
-                                <td class="number">5,231</td>
-                                <td class="number change-down">-26.76%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Average per TRX</td>
-                                <td class="number">R$121</td>
-                                <td class="number">R$181</td>
-                                <td class="number change-up">+49.47%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Average Spending</td>
-                                <td class="number">R$1,131</td>
-                                <td class="number">R$3,243</td>
-                                <td class="number change-up">+186.82%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Existing Players</td>
-                                <td class="number">355</td>
-                                <td class="number">191</td>
-                                <td class="number change-down">-46.20%</td>
-                            </tr>
-
-                            <tr>
-                                <td>New Players</td>
-                                <td class="number">411</td>
-                                <td class="number">101</td>
-                                <td class="number change-down">-75.43%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-
-            <!-- ENHANCED BR DEPOSIT TIER MOVEMENT -->
-
-            <div class="box full-box">
-
-                <div class="box-title">
-                    <h3>Deposit Tier Movement</h3>
-                    <span>Average TRX per Player</span>
-                </div>
-
-                <div class="table-wrap">
-                    <table class="tier-table">
-
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Tier</th>
-                                <th colspan="3" class="group-header">
-                                    Before Event
-                                </th>
-                                <th colspan="3" class="group-header">
-                                    During Event
-                                </th>
-                                <th rowspan="2" class="number">
-                                    Avg Change
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <th class="number">Players</th>
-                                <th class="number">TRX</th>
-                                <th class="number">Avg / Player</th>
-
-                                <th class="number">Players</th>
-                                <th class="number">TRX</th>
-                                <th class="number">Avg / Player</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>R$100+</td>
-
-                                <td class="number before-cell">176</td>
-                                <td class="number before-cell">3,008</td>
-                                <td class="number before-cell ratio-value">17.09</td>
-
-                                <td class="number during-cell">126</td>
-                                <td class="number during-cell">2,451</td>
-                                <td class="number during-cell ratio-value">19.45</td>
-
-                                <td class="number change-up">+13.81%</td>
-                            </tr>
-
-                            <tr>
-                                <td>R$500+</td>
-
-                                <td class="number before-cell">44</td>
-                                <td class="number before-cell">530</td>
-                                <td class="number before-cell ratio-value">12.05</td>
-
-                                <td class="number during-cell">47</td>
-                                <td class="number during-cell">640</td>
-                                <td class="number during-cell ratio-value">13.62</td>
-
-                                <td class="number change-up">+13.03%</td>
-                            </tr>
-
-                            <tr>
-                                <td>R$3,000+</td>
-
-                                <td class="number before-cell">7</td>
-                                <td class="number before-cell">32</td>
-                                <td class="number before-cell ratio-value">4.57</td>
-
-                                <td class="number during-cell">8</td>
-                                <td class="number during-cell">101</td>
-                                <td class="number during-cell ratio-value">12.63</td>
-
-                                <td class="number change-up">+176.37%</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                </div>
-
-            </div>
-
-            <div class="insight">
-
-                <div class="insight-card">
-                    <small>Ticket Usage</small>
-                    <strong>83.09%</strong>
-                </div>
-
-                <div class="insight-card">
-                    <small>Average Deposit Growth</small>
-                    <strong class="positive">+49.47%</strong>
-                </div>
-
-                <div class="insight-card">
-                    <small>R$3,000+ Avg TRX Growth</small>
-                    <strong class="positive">+176.37%</strong>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- ====================================================== -->
-    <!-- MEXICO -->
-    <!-- ====================================================== -->
-
-    <main id="mx" class="market-content">
-
-        <!-- MX UNLIMITED COINS -->
-
-        <section class="campaign">
-
-            <div class="campaign-heading">
-
-                <div class="heading-left">
-                    <div class="icon coin">🪙</div>
-
-                    <div>
-                        <h2>Unlimited Coins</h2>
-                        <div class="campaign-subtitle">
+</div>
+<div class="split">
+<div class="box">
+<div class="box-title">
+<h3>Deposit Tier Activity</h3>
+<span>During campaign</span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Deposit Range</th>
+<th class="number">TRX</th>
+<th class="number">Players</th>
+<th class="number">Avg / Player</th>
+<th class="number">TRX Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R$100–499</td>
+<td class="number">1,694</td>
+<td class="number">110</td>
+<td class="number">15.4</td>
+<td class="number percentage">77.00%</td>
+</tr>
+<tr>
+<td>R$500–999</td>
+<td class="number">294</td>
+<td class="number">36</td>
+<td class="number">8.2</td>
+<td class="number percentage">13.36%</td>
+</tr>
+<tr>
+<td>R$1,000–2,999</td>
+<td class="number">191</td>
+<td class="number">21</td>
+<td class="number">9.1</td>
+<td class="number percentage">8.68%</td>
+</tr>
+<tr>
+<td>R$3,000–9,999</td>
+<td class="number">18</td>
+<td class="number">4</td>
+<td class="number">4.5</td>
+<td class="number percentage">0.82%</td>
+</tr>
+<tr>
+<td>R$10,000+</td>
+<td class="number">3</td>
+<td class="number">2</td>
+<td class="number">1.5</td>
+<td class="number percentage">0.14%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="box">
+<div class="box-title">
+<h3>Top Redeemed Rewards</h3>
+<span>Redemptions</span>
+</div>
+<div class="reward-list">
+<div class="reward-item">
+<div class="reward-name">R$5 Bonus</div>
+<div class="reward-count">286</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">18 Free Spins</div>
+<div class="reward-count">73</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">10 Free Spins</div>
+<div class="reward-count">43</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">R$50 Bonus</div>
+<div class="reward-count">10</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">R$100 Bonus</div>
+<div class="reward-count">10</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">FIFA Lucky Spin Ticket</div>
+<div class="reward-count">4</div>
+</div>
+</div>
+</div>
+</div>
+</section></div>
+<div class="country-content" id="coin-mx"><section class="campaign">
+<div class="campaign-heading">
+<div class="heading-left">
+<div class="icon coin">🪙</div>
+<div>
+<h2>Unlimited Coins</h2>
+<div class="campaign-subtitle">
                             Single deposit transactions earn Rico Coins
                         </div>
-                    </div>
-                </div>
+</div>
+</div>
+<div class="status ended">Final Result</div>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+<div class="kpi-label">Eligible Players</div>
+<div class="kpi-value">71</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Total Coins Earned</div>
+<div class="kpi-value">8,830</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Coins Spent</div>
+<div class="kpi-value">8,180</div>
+<div class="kpi-note positive">92.64% redemption</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Unused Coins</div>
+<div class="kpi-value">650</div>
+<div class="kpi-note">7.36% remaining</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Coin Spenders</div>
+<div class="kpi-value">19</div>
+<div class="kpi-note">26.76% of eligible players</div>
+</div>
+</div>
+<div class="box full-box">
+<div class="box-title">
+<h3>Deposit Performance</h3>
+<span>Before vs During</span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th class="number">Before Event</th>
+<th class="number">During Event</th>
+<th class="number">Change</th>
+</tr>
+</thead>
+<tbody>
 
-                <div class="status ended">Final Result</div>
 
-            </div>
 
-            <div class="kpi-grid">
 
-                <div class="kpi">
-                    <div class="kpi-label">Eligible Players</div>
-                    <div class="kpi-value">71</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Total Coins Earned</div>
-                    <div class="kpi-value">8,830</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Coins Spent</div>
-                    <div class="kpi-value">8,030</div>
-                    <div class="kpi-note positive">90.94% redemption</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Unused Coins</div>
-                    <div class="kpi-value">800</div>
-                    <div class="kpi-note">9.06% remaining</div>
-                </div>
 
-                <div class="kpi">
-                    <div class="kpi-label">Coin Spenders</div>
-                    <div class="kpi-value">18</div>
-                    <div class="kpi-note">25.35% of eligible players</div>
-                </div>
 
-            </div>
-
-        <div class="box full-box">
-
-    <div class="box-title">
-        <h3>Deposit Performance</h3>
-        <span>Before vs During</span>
-    </div>
-
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>KPI</th>
-                    <th class="number">Before Event</th>
-                    <th class="number">During Event</th>
-                    <th class="number">Change</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Total Unique Players</td>
-                    <td class="number">42</td>
-                    <td class="number">71</td>
-                    <td class="number change-up">+69.05%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Deposit Amount</td>
-                    <td class="number">MX$354,416.63</td>
-                    <td class="number">MX$851,896.95</td>
-                    <td class="number change-up">+140.37%</td>
-                </tr>
-
-                <tr class="eligible-row">
-                    <td>Eligible Deposit Amount → Coins</td>
-                    <td class="number">MX$242,265.90</td>
-                    <td class="number">MX$790,341.44</td>
-                    <td class="number change-up">+226.23%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Bonus</td>
-                    <td class="number">MX$24,529.89</td>
-                    <td class="number">MX$73,832.60</td>
-                    <td class="number change-up">+201.00%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Bets</td>
-                    <td class="number">MX$3,149,706.98</td>
-                    <td class="number">MX$7,198,779.69</td>
-                    <td class="number change-up">+128.55%</td>
-                </tr>
-
-                <tr>
-                    <td>Total Deposit TRX</td>
-                    <td class="number">1,504</td>
-                    <td class="number">1,298</td>
-                    <td class="number change-down">-13.70%</td>
-                </tr>
-
-                <tr class="eligible-row">
-                    <td>Eligible TRX → Coins</td>
-                    <td class="number">457</td>
-                    <td class="number">815</td>
-                    <td class="number change-up">+78.34%</td>
-                </tr>
-
-            
-                <tr class="average-row">
-                    <td>
+<tr>
+<td>Total Unique Players</td>
+<td class="number">42</td>
+<td class="number">71</td>
+<td class="number change-up">+69.05%</td>
+</tr><tr>
+<td>Total Deposit Amount</td>
+<td class="number">MX$354,416.63</td>
+<td class="number">MX$851,896.95</td>
+<td class="number change-up">+140.37%</td>
+</tr><tr>
+<td>Total Bonus</td>
+<td class="number">MX$24,529.89</td>
+<td class="number">MX$73,832.60</td>
+<td class="number change-up">+201.00%</td>
+</tr><tr>
+<td>Total Bets</td>
+<td class="number">MX$3,149,706.98</td>
+<td class="number">MX$7,198,779.69</td>
+<td class="number change-up">+128.55%</td>
+</tr><tr>
+<td>Total Deposit TRX</td>
+<td class="number">1,504</td>
+<td class="number">1,298</td>
+<td class="number change-down">-13.70%</td>
+</tr><tr class="eligible-row">
+<td>Eligible Deposit Amount → Coins</td>
+<td class="number">MX$242,265.90</td>
+<td class="number">MX$790,341.44</td>
+<td class="number change-up">+226.23%</td>
+</tr><tr class="eligible-row">
+<td>Eligible TRX → Coins</td>
+<td class="number">457</td>
+<td class="number">815</td>
+<td class="number change-up">+78.34%</td>
+</tr><tr class="average-row">
+<td>
                         Average Eligible Deposit per TRX
                         <small>Eligible Deposit ÷ Eligible TRX</small>
-                    </td>
-                    <td class="number">MX$530.12</td>
-                    <td class="number">MX$969.74</td>
-                    <td class="number change-up">+82.93%</td>
-                </tr>
-
-                <tr class="average-row">
-                    <td>
+</td>
+<td class="number">MX$530.12</td>
+<td class="number">MX$969.74</td>
+<td class="number change-up">+82.93%</td>
+</tr><tr class="average-row">
+<td>
                         Average Eligible Spending per Player
                         <small>Eligible Deposit ÷ Unique Players</small>
-                    </td>
-                    <td class="number">MX$5,768.24</td>
-                    <td class="number">MX$11,131.57</td>
-                    <td class="number change-up">+92.98%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+</td>
+<td class="number">MX$5,768.24</td>
+<td class="number">MX$11,131.57</td>
+<td class="number change-up">+92.98%</td>
+</tr></tbody>
+</table>
 </div>
-
-            <div class="split">
-
-                <div class="box">
-
-                    <div class="box-title">
-                        <h3>Deposit Tier Activity</h3>
-                        <span>During campaign</span>
-                    </div>
-
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Deposit Range</th>
-                                    <th class="number">TRX</th>
-                                    <th class="number">Players</th>
-                                    <th class="number">Avg / Player</th>
-                                    <th class="number">TRX Share</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>MX$300–1,799</td>
-                                    <td class="number">662</td>
-                                    <td class="number">70</td>
-                                    <td class="number">9.5</td>
-                                    <td class="number percentage">81.23%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>MX$1,800–3,499</td>
-                                    <td class="number">134</td>
-                                    <td class="number">2</td>
-                                    <td class="number">67.0</td>
-                                    <td class="number percentage">16.44%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>MX$3,500–9,999</td>
-                                    <td class="number">18</td>
-                                    <td class="number">1</td>
-                                    <td class="number">18.0</td>
-                                    <td class="number percentage">2.21%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>MX$10,000–19,999</td>
-                                    <td class="number">1</td>
-                                    <td class="number">1</td>
-                                    <td class="number">1.0</td>
-                                    <td class="number percentage">0.12%</td>
-                                </tr>
-
-                                <tr>
-                                    <td>MX$20,000+</td>
-                                    <td class="number">0</td>
-                                    <td class="number">0</td>
-                                    <td class="number">0.0</td>
-                                    <td class="number percentage">0.00%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-
-                <div class="box">
-
-                    <div class="box-title">
-                        <h3>Top Redeemed Rewards</h3>
-                        <span>Redemptions</span>
-                    </div>
-
-                    <div class="reward-list">
-
-                        <div class="reward-item">
-                            <div class="reward-name">MX$15 Bonus</div>
-                            <div class="reward-count">75</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">MX$150 Bonus</div>
-                            <div class="reward-count">12</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">18 Free Spins</div>
-                            <div class="reward-count">6</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">MX$300 Bonus</div>
-                            <div class="reward-count">5</div>
-                        </div>
-
-                        <div class="reward-item">
-                            <div class="reward-name">10 Free Spins</div>
-                            <div class="reward-count">4</div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- MX LUCKY SPINS -->
-
-        <section class="campaign">
-
-            <div class="campaign-heading">
-
-                <div class="heading-left">
-                    <div class="icon ticket">🎟️</div>
-
-                    <div>
-                        <h2>FIFA Lucky Spins</h2>
-                        <div class="campaign-subtitle">
+</div>
+<div class="split">
+<div class="box">
+<div class="box-title">
+<h3>Deposit Tier Activity</h3>
+<span>During campaign</span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Deposit Range</th>
+<th class="number">TRX</th>
+<th class="number">Players</th>
+<th class="number">Avg / Player</th>
+<th class="number">TRX Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MX$300–1,799</td>
+<td class="number">662</td>
+<td class="number">70</td>
+<td class="number">9.5</td>
+<td class="number percentage">81.23%</td>
+</tr>
+<tr>
+<td>MX$1,800–3,499</td>
+<td class="number">134</td>
+<td class="number">2</td>
+<td class="number">67.0</td>
+<td class="number percentage">16.44%</td>
+</tr>
+<tr>
+<td>MX$3,500–9,999</td>
+<td class="number">18</td>
+<td class="number">1</td>
+<td class="number">18.0</td>
+<td class="number percentage">2.21%</td>
+</tr>
+<tr>
+<td>MX$10,000–19,999</td>
+<td class="number">1</td>
+<td class="number">1</td>
+<td class="number">1.0</td>
+<td class="number percentage">0.12%</td>
+</tr>
+<tr>
+<td>MX$20,000+</td>
+<td class="number">0</td>
+<td class="number">0</td>
+<td class="number">0.0</td>
+<td class="number percentage">0.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="box">
+<div class="box-title">
+<h3>Top Redeemed Rewards</h3>
+<span>Redemptions</span>
+</div>
+<div class="reward-list">
+<div class="reward-item">
+<div class="reward-name">MX$15 Bonus</div>
+<div class="reward-count">78</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">MX$150 Bonus</div>
+<div class="reward-count">12</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">18 Free Spins</div>
+<div class="reward-count">6</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">MX$300 Bonus</div>
+<div class="reward-count">5</div>
+</div>
+<div class="reward-item">
+<div class="reward-name">10 Free Spins</div>
+<div class="reward-count">5</div>
+</div>
+</div>
+</div>
+</div>
+</section></div>
+</section><section class="event-content" id="spin-event">
+<div class="country-tabs">
+<button class="country-btn active" onclick="showCountry('spin','br',this)">🇧🇷 Brazil</button>
+<button class="country-btn" onclick="showCountry('spin','mx',this)">🇲🇽 Mexico</button>
+</div>
+<div class="country-content active" id="spin-br"><section class="campaign">
+<div class="campaign-heading">
+<div class="heading-left">
+<div class="icon ticket">🎟️</div>
+<div>
+<h2>FIFA Lucky Spins</h2>
+<div class="campaign-subtitle">
                             Daily accumulated deposits earn spin tickets
                         </div>
-                    </div>
-                </div>
-
-                <div class="status progress">Until 31 Jul</div>
-
-            </div>
-
-            <div class="kpi-grid">
-
-                <div class="kpi">
-                    <div class="kpi-label">Eligible Players</div>
-                    <div class="kpi-value">95</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Tickets Generated</div>
-                    <div class="kpi-value">469</div>
-                    <div class="kpi-note">4.9 per player</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Tickets Used</div>
-                    <div class="kpi-value">419</div>
-                    <div class="kpi-note positive">89.34% usage</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Expired Tickets</div>
-                    <div class="kpi-value">43</div>
-                    <div class="kpi-note">9.17%</div>
-                </div>
-
-                <div class="kpi">
-                    <div class="kpi-label">Pending Tickets</div>
-                    <div class="kpi-value">7</div>
-                    <div class="kpi-note">1.49%</div>
-                </div>
-
-            </div>
-
-            <div class="box full-box">
-
-                <div class="box-title">
-                    <h3>Deposit Performance</h3>
-                    <span>Before vs During</span>
-                </div>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>KPI</th>
-                                <th class="number">Before</th>
-                                <th class="number">During</th>
-                                <th class="number">Change</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Total Unique</td>
-                                <td class="number">631</td>
-                                <td class="number">457</td>
-                                <td class="number change-down">-27.58%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Total Deposit</td>
-                                <td class="number">MX$501,757</td>
-                                <td class="number">MX$967,326</td>
-                                <td class="number change-up">+92.79%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Total TRX</td>
-                                <td class="number">3,572</td>
-                                <td class="number">2,700</td>
-                                <td class="number change-down">-24.41%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Average per TRX</td>
-                                <td class="number">MX$140</td>
-                                <td class="number">MX$358</td>
-                                <td class="number change-up">+155.05%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Average Spending</td>
-                                <td class="number">MX$795</td>
-                                <td class="number">MX$2,117</td>
-                                <td class="number change-up">+166.19%</td>
-                            </tr>
-
-                            <tr>
-                                <td>Existing Players</td>
-                                <td class="number">380</td>
-                                <td class="number">277</td>
-                                <td class="number change-down">-27.11%</td>
-                            </tr>
-
-                            <tr>
-                                <td>New Players</td>
-                                <td class="number">251</td>
-                                <td class="number">180</td>
-                                <td class="number change-down">-28.29%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-
-            <!-- ENHANCED MX DEPOSIT TIER MOVEMENT -->
-
-            <div class="box full-box">
-
-                <div class="box-title">
-                    <h3>Deposit Tier Movement</h3>
-                    <span>Average TRX per Player</span>
-                </div>
-
-                <div class="table-wrap">
-                    <table class="tier-table">
-
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Tier</th>
-                                <th colspan="3" class="group-header">
-                                    Before Event
-                                </th>
-                                <th colspan="3" class="group-header">
-                                    During Event
-                                </th>
-                                <th rowspan="2" class="number">
-                                    Avg Change
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <th class="number">Players</th>
-                                <th class="number">TRX</th>
-                                <th class="number">Avg / Player</th>
-
-                                <th class="number">Players</th>
-                                <th class="number">TRX</th>
-                                <th class="number">Avg / Player</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>MX$300+</td>
-
-                                <td class="number before-cell">43</td>
-                                <td class="number before-cell">532</td>
-                                <td class="number before-cell ratio-value">12.37</td>
-
-                                <td class="number during-cell">72</td>
-                                <td class="number during-cell">834</td>
-                                <td class="number during-cell ratio-value">11.58</td>
-
-                                <td class="number change-down">-6.39%</td>
-                            </tr>
-
-                            <tr>
-                                <td>MX$1,800+</td>
-
-                                <td class="number before-cell">3</td>
-                                <td class="number before-cell">30</td>
-                                <td class="number before-cell ratio-value">10.00</td>
-
-                                <td class="number during-cell">2</td>
-                                <td class="number during-cell">259</td>
-                                <td class="number during-cell ratio-value">129.50</td>
-
-                                <td class="number change-up">+1,195.00%</td>
-                            </tr>
-
-                            <tr>
-                                <td>MX$10,000+</td>
-
-                                <td class="number before-cell">0</td>
-                                <td class="number before-cell">0</td>
-                                <td class="number before-cell">—</td>
-
-                                <td class="number during-cell">1</td>
-                                <td class="number during-cell">13</td>
-                                <td class="number during-cell ratio-value">13.00</td>
-
-                                <td class="number change-new">New Activity</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                </div>
-
-            </div>
-
-            <div class="insight">
-
-                <div class="insight-card">
-                    <small>Ticket Usage</small>
-                    <strong>89.34%</strong>
-                </div>
-
-                <div class="insight-card">
-                    <small>Average Deposit Growth</small>
-                    <strong class="positive">+155.05%</strong>
-                </div>
-
-                <div class="insight-card">
-                    <small>MX$1,800+ Avg TRX Growth</small>
-                    <strong class="positive">+1,195%</strong>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <div class="footer">
-        FIFA Rewards Campaign Performance Dashboard · Data updated through 19 July 2026
-    </div>
-
+</div>
+</div>
+<div class="status ended">Final Result</div>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+<div class="kpi-label">Eligible Players</div>
+<div class="kpi-value">145</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Tickets Generated</div>
+<div class="kpi-value">1,786</div>
+<div class="kpi-note">12.3 per eligible player</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Tickets Used</div>
+<div class="kpi-value">1,509</div>
+<div class="kpi-note positive">84.49% usage</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Expired Tickets</div>
+<div class="kpi-value">277</div>
+<div class="kpi-note">15.51% expired</div>
 </div>
 
+</div>
+<div class="box full-box">
+<div class="box-title">
+<h3>Deposit Performance</h3>
+<span>Before vs During</span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th class="number">Before</th>
+<th class="number">During</th>
+<th class="number">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Unique</td>
+<td class="number">949</td>
+<td class="number">330</td>
+<td class="number change-down">-65.23%</td>
+</tr>
+<tr>
+<td>Total Deposit</td>
+<td class="number">R$1,157,699.33</td>
+<td class="number">R$1,286,795.24</td>
+<td class="number change-up">+11.15%</td>
+</tr>
+<tr>
+<td>Total TRX</td>
+<td class="number">9,270</td>
+<td class="number">6,755</td>
+<td class="number change-down">-27.13%</td>
+</tr>
+<tr>
+<td>Average Deposit per TRX</td>
+<td class="number">R$125</td>
+<td class="number">R$190</td>
+<td class="number change-up">+52.53%</td>
+</tr>
+<tr>
+<td>Average Spending per Player</td>
+<td class="number">R$1,219.91</td>
+<td class="number">R$3,899.38</td>
+<td class="number change-up">+219.64%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="box full-box segment-performance-box">
+<div class="box-title"><h3>Player Segment Performance</h3><span>Existing on left · New on right</span></div>
+<div class="segment-grid"><div class="segment-card">
+<div class="segment-card-head"><div><span class="segment-badge">EXISTING</span><h4>Existing Players</h4></div><small>Before vs During</small></div>
+<div class="table-wrap"><table><thead><tr><th>KPI</th><th class="number">Before</th><th class="number">During</th><th class="number">Change</th></tr></thead><tbody><tr><td>Unique</td><td class="number">374</td><td class="number">297</td><td class="number change-down">-20.59%</td></tr><tr><td>Deposit Amount</td><td class="number">R$1,026,913.38</td><td class="number">R$1,086,460.81</td><td class="number change-up">+5.80%</td></tr><tr><td>Deposit TRX</td><td class="number">7,442</td><td class="number">6,355</td><td class="number change-down">-14.61%</td></tr><tr><td>Avg TRX per Player</td><td class="number">19.90</td><td class="number">21.40</td><td class="number change-up">+7.53%</td></tr><tr><td>Avg Spending</td><td class="number">R$2,745.76</td><td class="number">R$3,658.12</td><td class="number change-up">+33.23%</td></tr></tbody></table></div>
+</div><div class="segment-card">
+<div class="segment-card-head"><div><span class="segment-badge">NEW</span><h4>New Players</h4></div><small>Before vs During</small></div>
+<div class="table-wrap"><table><thead><tr><th>KPI</th><th class="number">Before</th><th class="number">During</th><th class="number">Change</th></tr></thead><tbody><tr><td>Unique</td><td class="number">575</td><td class="number">255</td><td class="number change-down">-55.65%</td></tr><tr><td>Deposit Amount</td><td class="number">R$130,785.95</td><td class="number">R$200,334.43</td><td class="number change-up">+53.18%</td></tr><tr><td>Deposit TRX</td><td class="number">1,828</td><td class="number">400</td><td class="number change-down">-78.12%</td></tr><tr><td>Avg TRX per Player</td><td class="number">3.18</td><td class="number">1.57</td><td class="number change-down">-50.66%</td></tr><tr><td>Avg Spending</td><td class="number">R$227.45</td><td class="number">R$785.63</td><td class="number change-up">+245.40%</td></tr></tbody></table></div>
+</div></div>
+</div>
+<!-- ENHANCED BR DEPOSIT TIER MOVEMENT -->
+<div class="box full-box">
+<div class="box-title">
+<h3>Deposit Tier Movement</h3>
+<span>Average TRX per Player</span>
+</div>
+<div class="table-wrap">
+<table class="tier-table">
+<thead>
+<tr>
+<th rowspan="2">Tier</th>
+<th class="group-header" colspan="3">
+                                    Before Event
+                                </th>
+<th class="group-header" colspan="3">
+                                    During Event
+                                </th>
+<th class="number" rowspan="2">
+                                    Avg Change
+                                </th>
+</tr>
+<tr>
+<th class="number">Players</th>
+<th class="number">TRX</th>
+<th class="number">Avg / Player</th>
+<th class="number">Players</th>
+<th class="number">TRX</th>
+<th class="number">Avg / Player</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R$100+</td>
+<td class="number before-cell">203</td>
+<td class="number before-cell">3,913</td>
+<td class="number before-cell ratio-value">19.28</td>
+<td class="number during-cell">140</td>
+<td class="number during-cell">3,169</td>
+<td class="number during-cell ratio-value">22.64</td>
+<td class="number change-up">+17.43%</td>
+</tr>
+<tr>
+<td>R$500+</td>
+<td class="number before-cell">50</td>
+<td class="number before-cell">725</td>
+<td class="number before-cell ratio-value">14.50</td>
+<td class="number during-cell">49</td>
+<td class="number during-cell">850</td>
+<td class="number during-cell ratio-value">17.35</td>
+<td class="number change-up">+19.63%</td>
+</tr>
+<tr>
+<td>R$3,000+</td>
+<td class="number before-cell">8</td>
+<td class="number before-cell">44</td>
+<td class="number before-cell ratio-value">5.50</td>
+<td class="number during-cell">9</td>
+<td class="number during-cell">120</td>
+<td class="number during-cell ratio-value">13.33</td>
+<td class="number change-up">+142.42%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="insight">
+<div class="insight-card">
+<small>Ticket Usage</small>
+<strong>84.49%</strong>
+</div>
+<div class="insight-card">
+<small>Average Deposit / TRX Growth</small>
+<strong class="positive">+52.53%</strong>
+</div>
+<div class="insight-card">
+<small>R$3,000+ Avg TRX Growth</small>
+<strong class="positive">+142.42%</strong>
+</div>
+</div>
+</section></div>
+<div class="country-content" id="spin-mx"><section class="campaign">
+<div class="campaign-heading">
+<div class="heading-left">
+<div class="icon ticket">🎟️</div>
+<div>
+<h2>FIFA Lucky Spins</h2>
+<div class="campaign-subtitle">
+                            Daily accumulated deposits earn spin tickets
+                        </div>
+</div>
+</div>
+<div class="status ended">Final Result</div>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+<div class="kpi-label">Eligible Players</div>
+<div class="kpi-value">108</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Tickets Generated</div>
+<div class="kpi-value">590</div>
+<div class="kpi-note">5.5 per eligible player</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Tickets Used</div>
+<div class="kpi-value">532</div>
+<div class="kpi-note positive">90.17% usage</div>
+</div>
+<div class="kpi">
+<div class="kpi-label">Expired Tickets</div>
+<div class="kpi-value">58</div>
+<div class="kpi-note">9.83% expired</div>
+</div>
+
+</div>
+<div class="box full-box">
+<div class="box-title">
+<h3>Deposit Performance</h3>
+<span>Before vs During</span>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th class="number">Before</th>
+<th class="number">During</th>
+<th class="number">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Total Unique</td><td class="number">784</td><td class="number">552</td><td class="number change-down">-29.59%</td></tr>
+<tr><td>Total Deposit</td><td class="number">MX$770,060.00</td><td class="number">MX$1,161,247.77</td><td class="number change-up">+50.80%</td></tr>
+<tr><td>Total TRX</td><td class="number">4,682</td><td class="number">3,493</td><td class="number change-down">-25.40%</td></tr>
+<tr><td>Average Deposit per TRX</td><td class="number">MX$164</td><td class="number">MX$332</td><td class="number change-up">+102.13%</td></tr>
+<tr><td>Average Spending per Player</td><td class="number">MX$982.22</td><td class="number">MX$2,103.71</td><td class="number change-up">+114.18%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="box full-box segment-performance-box">
+<div class="box-title"><h3>Player Segment Performance</h3><span>Existing on left · New on right</span></div>
+<div class="segment-grid"><div class="segment-card">
+<div class="segment-card-head"><div><span class="segment-badge">EXISTING</span><h4>Existing Players</h4></div><small>Before vs During</small></div>
+<div class="table-wrap"><table><thead><tr><th>KPI</th><th class="number">Before</th><th class="number">During</th><th class="number">Change</th></tr></thead><tbody><tr><td>Unique</td><td class="number">379</td><td class="number">297</td><td class="number change-down">-21.64%</td></tr><tr><td>Deposit Amount</td><td class="number">MX$708,448.45</td><td class="number">MX$1,088,183.77</td><td class="number change-up">+53.60%</td></tr><tr><td>Deposit TRX</td><td class="number">3,915</td><td class="number">2,897</td><td class="number change-down">-26.00%</td></tr><tr><td>Avg TRX per Player</td><td class="number">10.33</td><td class="number">9.75</td><td class="number change-down">-5.57%</td></tr><tr><td>Avg Spending</td><td class="number">MX$1,869.26</td><td class="number">MX$3,663.92</td><td class="number change-up">+96.01%</td></tr></tbody></table></div>
+</div><div class="segment-card">
+<div class="segment-card-head"><div><span class="segment-badge">NEW</span><h4>New Players</h4></div><small>Before vs During</small></div>
+<div class="table-wrap"><table><thead><tr><th>KPI</th><th class="number">Before</th><th class="number">During</th><th class="number">Change</th></tr></thead><tbody><tr><td>Unique</td><td class="number">405</td><td class="number">255</td><td class="number change-down">-37.04%</td></tr><tr><td>Deposit Amount</td><td class="number">MX$61,612.00</td><td class="number">MX$73,064.00</td><td class="number change-up">+18.59%</td></tr><tr><td>Deposit TRX</td><td class="number">767</td><td class="number">596</td><td class="number change-down">-22.29%</td></tr><tr><td>Avg TRX per Player</td><td class="number">1.89</td><td class="number">2.34</td><td class="number change-up">+23.41%</td></tr><tr><td>Avg Spending</td><td class="number">MX$152.13</td><td class="number">MX$286.53</td><td class="number change-up">+88.34%</td></tr></tbody></table></div>
+</div></div>
+</div>
+<!-- ENHANCED MX DEPOSIT TIER MOVEMENT -->
+<div class="box full-box">
+<div class="box-title">
+<h3>Deposit Tier Movement</h3>
+<span>Average TRX per Player</span>
+</div>
+<div class="table-wrap">
+<table class="tier-table">
+<thead>
+<tr>
+<th rowspan="2">Tier</th>
+<th class="group-header" colspan="3">
+                                    Before Event
+                                </th>
+<th class="group-header" colspan="3">
+                                    During Event
+                                </th>
+<th class="number" rowspan="2">
+                                    Avg Change
+                                </th>
+</tr>
+<tr>
+<th class="number">Players</th>
+<th class="number">TRX</th>
+<th class="number">Avg / Player</th>
+<th class="number">Players</th>
+<th class="number">TRX</th>
+<th class="number">Avg / Player</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MX$300+</td>
+<td class="number before-cell">51</td>
+<td class="number before-cell">797</td>
+<td class="number before-cell ratio-value">15.63</td>
+<td class="number during-cell">83</td>
+<td class="number during-cell">1,037</td>
+<td class="number during-cell ratio-value">12.49</td>
+<td class="number change-down">-20.05%</td>
+</tr>
+<tr>
+<td>MX$1,800+</td>
+<td class="number before-cell">3</td>
+<td class="number before-cell">108</td>
+<td class="number before-cell ratio-value">36.00</td>
+<td class="number during-cell">4</td>
+<td class="number during-cell">303</td>
+<td class="number during-cell ratio-value">75.75</td>
+<td class="number change-up">+110.42%</td>
+</tr>
+<tr>
+<td>MX$10,000+</td>
+<td class="number before-cell">0</td>
+<td class="number before-cell">0</td>
+<td class="number before-cell">—</td>
+<td class="number during-cell">1</td>
+<td class="number during-cell">13</td>
+<td class="number during-cell ratio-value">13.00</td>
+<td class="number change-new">New Activity</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="insight">
+<div class="insight-card">
+<small>Ticket Usage</small>
+<strong>90.17%</strong>
+</div>
+<div class="insight-card">
+<small>Average Deposit / TRX Growth</small>
+<strong class="positive">+102.13%</strong>
+</div>
+<div class="insight-card">
+<small>MX$1,800+ Avg TRX Growth</small>
+<strong class="positive">+110.42%</strong>
+</div>
+</div>
+</section></div>
+</section><div class="footer">
+        FIFA Rewards Campaign Performance Dashboard · Final data through 31 July 2026
+    </div>
+</div>
 <script>
-function showMarket(marketId,button){
-
-    document.querySelectorAll(".market-content").forEach(function(content){
-        content.classList.remove("active");
-    });
-
-    document.querySelectorAll(".market-btn").forEach(function(btn){
-        btn.classList.remove("active");
-    });
-
-    document.getElementById(marketId).classList.add("active");
+function showEvent(eventId,button){
+    document.querySelectorAll(".event-content").forEach(function(content){content.classList.remove("active");});
+    document.querySelectorAll(".event-btn").forEach(function(btn){btn.classList.remove("active");});
+    document.getElementById(eventId).classList.add("active");
     button.classList.add("active");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+function showCountry(eventKey,country,button){
+    var eventSection=document.getElementById(eventKey+"-event");
+    eventSection.querySelectorAll(".country-content").forEach(function(content){content.classList.remove("active");});
+    eventSection.querySelectorAll(".country-btn").forEach(function(btn){btn.classList.remove("active");});
+    document.getElementById(eventKey+"-"+country).classList.add("active");
+    button.classList.add("active");
 }
 </script>
-
 </body>
 </html>
