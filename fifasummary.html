@@ -729,63 +729,64 @@ td{border-bottom-color:#e7ebf0}
 
 
 
-/* COLLAPSIBLE GENERAL DEPOSIT DETAILS */
+/* SIMPLE COLLAPSIBLE GENERAL DEPOSIT DETAILS */
 .detail-toggle-row td{
-    padding:10px 9px;
-    background:#f7f9fc;
-    border-top:1px solid #dbe3ee;
-    border-bottom:1px solid #dbe3ee;
+    padding:8px 9px 10px;
+    background:transparent;
+    border-top:1px solid #e2e8f0;
+    border-bottom:1px solid #e2e8f0;
 }
 
 .detail-toggle{
-    width:100%;
-    display:flex;
+    display:inline-flex;
     align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:11px 14px;
-    border:1px solid #d5deea;
-    border-radius:10px;
-    background:#ffffff;
-    color:#19304f;
+    gap:7px;
+    padding:5px 2px;
+    border:0;
+    background:transparent;
+    color:#0f766e;
     font:inherit;
     font-size:12px;
     font-weight:800;
     cursor:pointer;
-    transition:.2s ease;
+    transition:color .2s ease;
 }
 
 .detail-toggle:hover{
-    border-color:#2d7d73;
-    background:#f3fbf9;
+    color:#0b5f58;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.detail-toggle:focus-visible{
+    outline:2px solid rgba(15,118,110,.28);
+    outline-offset:3px;
+    border-radius:4px;
 }
 
 .detail-toggle-left{
-    display:flex;
+    display:inline-flex;
     align-items:center;
-    gap:9px;
 }
 
 .detail-toggle-icon{
-    width:26px;
-    height:26px;
-    display:grid;
-    place-items:center;
-    flex:0 0 auto;
-    border-radius:8px;
-    background:#e8f4f1;
-    color:#17695f;
-    font-size:14px;
+    display:none;
 }
 
 .detail-toggle-chevron{
     display:inline-block;
-    font-size:16px;
-    transition:transform .2s ease;
+    color:#64748b;
+    font-size:13px;
+    line-height:1;
+    transition:transform .2s ease,color .2s ease;
+}
+
+.detail-toggle:hover .detail-toggle-chevron{
+    color:#0f766e;
 }
 
 .detail-toggle[aria-expanded="true"] .detail-toggle-chevron{
-    transform:rotate(180deg);
+    transform:rotate(90deg);
 }
 
 .collapsible-data-row{
@@ -896,9 +897,9 @@ td{border-bottom-color:#e7ebf0}
 </tr>
 <tr class="detail-toggle-row">
 <td colspan="4">
-<button class="detail-toggle" type="button" aria-expanded="false" onclick="toggleDepositDetails('br-coin-general',this)">
-<span class="detail-toggle-left"><span class="detail-toggle-icon">▤</span><span>View General Deposit Data</span></span>
-<span class="detail-toggle-chevron">⌄</span>
+<button class="detail-toggle" type="button" aria-expanded="false" aria-label="Show General Deposit Data" onclick="toggleDepositDetails('br-coin-general',this)">
+<span class="detail-toggle-chevron">›</span>
+<span class="detail-toggle-left">General Deposit Data</span>
 </button>
 </td>
 </tr>
@@ -1124,9 +1125,9 @@ td{border-bottom-color:#e7ebf0}
 </tr>
 <tr class="detail-toggle-row">
 <td colspan="4">
-<button class="detail-toggle" type="button" aria-expanded="false" onclick="toggleDepositDetails('mx-coin-general',this)">
-<span class="detail-toggle-left"><span class="detail-toggle-icon">▤</span><span>View General Deposit Data</span></span>
-<span class="detail-toggle-chevron">⌄</span>
+<button class="detail-toggle" type="button" aria-expanded="false" aria-label="Show General Deposit Data" onclick="toggleDepositDetails('mx-coin-general',this)">
+<span class="detail-toggle-chevron">›</span>
+<span class="detail-toggle-left">General Deposit Data</span>
 </button>
 </td>
 </tr>
@@ -1653,10 +1654,7 @@ function toggleDepositDetails(groupClass,button){
     });
 
     button.setAttribute('aria-expanded',String(!expanded));
-    var label=button.querySelector('.detail-toggle-left span:last-child');
-    if(label){
-        label.textContent=expanded?'View General Deposit Data':'Hide General Deposit Data';
-    }
+    button.setAttribute('aria-label',expanded?'Show General Deposit Data':'Hide General Deposit Data');
 }
 
 </script>
