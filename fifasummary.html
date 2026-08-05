@@ -462,6 +462,86 @@ th.number{
     font-size:16px;
 }
 
+
+
+/* ELIGIBLE SHARE QUICK VIEW */
+.eligible-label-wrap{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+.eligibility-info-btn{
+    width:22px;
+    height:22px;
+    display:inline-grid;
+    place-items:center;
+    padding:0;
+    border:1px solid #bfd8d3;
+    border-radius:50%;
+    background:#eaf6f3;
+    color:#147d72;
+    font-size:12px;
+    font-weight:900;
+    cursor:pointer;
+    vertical-align:middle;
+    transition:.2s ease;
+}
+.eligibility-info-btn:hover,
+.eligibility-info-btn[aria-expanded="true"]{
+    background:#147d72;
+    color:#fff;
+    border-color:#147d72;
+}
+.eligibility-rate-row{
+    display:none;
+}
+.eligibility-rate-row.is-visible{
+    display:table-row;
+}
+.eligibility-rate-row td{
+    padding:0 10px 12px;
+    border-bottom:1px solid rgba(28,45,74,.10);
+}
+.eligibility-rate-panel{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    padding:12px;
+    border:1px solid #cfe2de;
+    border-radius:12px;
+    background:#f1f8f6;
+}
+.eligibility-rate-item{
+    padding:10px 12px;
+    border-radius:10px;
+    background:#fff;
+    border:1px solid #dde9e6;
+}
+.eligibility-rate-item small{
+    display:block;
+    margin-bottom:4px;
+    color:#64748b;
+    font-size:10px;
+    font-weight:700;
+}
+.eligibility-rate-item strong{
+    color:#10223d;
+    font-size:16px;
+}
+.eligibility-rate-item .rate-up{
+    color:#00866f;
+}
+.eligibility-formula{
+    grid-column:1/-1;
+    color:#64748b;
+    font-size:10px;
+    line-height:1.45;
+}
+@media(max-width:650px){
+    .eligibility-rate-panel{grid-template-columns:1fr;}
+    .eligibility-formula{grid-column:auto;}
+}
+
 /* FOOTER */
 
 .footer{
@@ -843,10 +923,20 @@ td{border-bottom-color:#e7ebf0}
 <td class="number">3,851</td>
 <td class="number change-down">-29.06%</td>
 </tr><tr class="eligible-row">
-<td>Eligible Deposit Amount → Coins</td>
+<td><span class="eligible-label-wrap">Eligible Deposit Amount → Coins <button class="eligibility-info-btn" type="button" aria-expanded="false" aria-label="Show eligible deposit share" onclick="toggleEligibilityRate('br-eligibility-rate',this)">%</button></span></td>
 <td class="number">R$692,622.01</td>
 <td class="number">R$845,232.48</td>
 <td class="number change-up">+22.03%</td>
+</tr>
+<tr id="br-eligibility-rate" class="eligibility-rate-row">
+<td colspan="4">
+<div class="eligibility-rate-panel">
+<div class="eligibility-rate-item"><small>Before eligible share</small><strong>85.36%</strong></div>
+<div class="eligibility-rate-item"><small>During eligible share</small><strong>92.68%</strong></div>
+<div class="eligibility-rate-item"><small>Share improvement</small><strong class="rate-up">+7.32 pts</strong></div>
+<div class="eligibility-formula">Eligible share = Eligible Deposit Amount ÷ Total Deposit Amount. Brazil increased from 85.36% to 92.68%.</div>
+</div>
+</td>
 </tr><tr class="eligible-row">
 <td>Eligible TRX → Coins</td>
 <td class="number">2,433</td>
@@ -1061,10 +1151,20 @@ td{border-bottom-color:#e7ebf0}
 <td class="number">1,298</td>
 <td class="number change-down">-13.70%</td>
 </tr><tr class="eligible-row">
-<td>Eligible Deposit Amount → Coins</td>
+<td><span class="eligible-label-wrap">Eligible Deposit Amount → Coins <button class="eligibility-info-btn" type="button" aria-expanded="false" aria-label="Show eligible deposit share" onclick="toggleEligibilityRate('mx-eligibility-rate',this)">%</button></span></td>
 <td class="number">MX$242,265.90</td>
 <td class="number">MX$790,341.44</td>
 <td class="number change-up">+226.23%</td>
+</tr>
+<tr id="mx-eligibility-rate" class="eligibility-rate-row">
+<td colspan="4">
+<div class="eligibility-rate-panel">
+<div class="eligibility-rate-item"><small>Before eligible share</small><strong>68.36%</strong></div>
+<div class="eligibility-rate-item"><small>During eligible share</small><strong>92.77%</strong></div>
+<div class="eligibility-rate-item"><small>Share improvement</small><strong class="rate-up">+24.42 pts</strong></div>
+<div class="eligibility-formula">Eligible share = Eligible Deposit Amount ÷ Total Deposit Amount. Mexico increased from 68.36% to 92.77%.</div>
+</div>
+</td>
 </tr><tr class="eligible-row">
 <td>Eligible TRX → Coins</td>
 <td class="number">457</td>
@@ -1533,6 +1633,15 @@ function showCountry(eventKey,country,button){
     eventSection.querySelectorAll(".country-btn").forEach(function(btn){btn.classList.remove("active");});
     document.getElementById(eventKey+"-"+country).classList.add("active");
     button.classList.add("active");
+}
+
+
+function toggleEligibilityRate(rowId,button){
+    var row=document.getElementById(rowId);
+    var expanded=button.getAttribute('aria-expanded')==='true';
+    row.classList.toggle('is-visible',!expanded);
+    button.setAttribute('aria-expanded',String(!expanded));
+    button.textContent=expanded?'%':'×';
 }
 
 function toggleDepositDetails(groupClass,button){
